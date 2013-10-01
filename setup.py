@@ -20,7 +20,7 @@ setup(
     # if you would be using a package instead use packages instead
     # of py_modules:
     packages=['flask_autodoc'],
-    package_data={'flask_autodoc': ['templates/*.html', 'templates/*.css']},
+    package_data={'flask_autodoc': ['templates/autodoc_default.html']},
     zip_safe=False,
     include_package_data=True,
     platforms='any',

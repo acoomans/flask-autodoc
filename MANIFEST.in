@@ -1,0 +1,2 @@
+include README
+include flask_autodoc/templates/autodoc_default.html
