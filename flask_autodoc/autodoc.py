@@ -24,21 +24,21 @@ class Autodoc(object):
             app.teardown_appcontext(self.teardown)
         else:
             app.teardown_request(self.teardown)
-        self.add_custom_template_filters()
+        self.add_custom_template_filters(app)
 
     def teardown(self, exception):
         ctx = stack.top
 
-    def add_custom_template_filters(self):
+    def add_custom_template_filters(self, app):
         """Add custom filters to jinja2 templating engine"""
-        self.add_custom_nl2br_filters()
+        self.add_custom_nl2br_filters(app)
 
-    def add_custom_nl2br_filters(self):
+    def add_custom_nl2br_filters(self, app):
         """Add a custom filter nl2br to jinja2
          Replaces all newline to <BR>
         """
         _paragraph_re = re.compile(r'(?:\r\n|\r|\n){3,}')
-        @self.app.template_filter()
+        @app.template_filter()
         @evalcontextfilter
         def nl2br(eval_ctx, value):
             result = u'\n\n'.join(u'%s' % p.replace('\n', '<br>\n') for p in _paragraph_re.split(value))
@@ -83,12 +83,12 @@ class Autodoc(object):
         Routes are sorted alphabetically based on the rule.
         """
         links = []
-        for rule in self.app.url_map.iter_rules():
+        for rule in current_app.url_map.iter_rules():
 
             if rule.endpoint == 'static':
                 continue
 
-            func = self.app.view_functions[rule.endpoint]
+            func = current_app.view_functions[rule.endpoint]
 
             if (groups and [True for g in groups if func in self.groups[g]]) or \
                     (not groups and func in self.groups[group]):
@@ -122,5 +122,5 @@ class Autodoc(object):
             filename = os.path.dirname(__file__)+"/templates/autodoc_default.html"
             with open(filename) as file:
                 content = file.read()
-                with self.app.app_context():
+                with current_app.app_context():
                     return render_template_string(content, autodoc=self.generate(group=group, groups=groups), **context)
