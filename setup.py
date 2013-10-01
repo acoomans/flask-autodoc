@@ -6,6 +6,10 @@ Flask autodoc automatically creates an online documentation for your flask appli
 """
 from setuptools import setup
 
+def readme():
+    with open('README') as f:
+        return f.read()
+
 
 setup(
     name='Flask-Autodoc',
@@ -15,7 +19,7 @@ setup(
     author='Arnaud Coomans',
     author_email='arnaud.coomans@gmail.com',
     description='Documentation generator for flask',
-    long_description=__doc__,
+    long_description=readme(),
     #py_modules=['flask_autodoc'],
     # if you would be using a package instead use packages instead
     # of py_modules:
