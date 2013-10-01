@@ -14,6 +14,8 @@ class User(object):
         self.username = username
         users.append(self)
         self.id = users.index(self)
+    def __repr__(self):
+        return dumps(self.__dict__)
 
 class Post(object):
     def __init__(self, title, content, author):
@@ -21,6 +23,8 @@ class Post(object):
         self.content = content
         posts.append(self)
         self.id = posts.index(self)
+    def __repr__(self):
+        return dumps(self.__dict__)
 
 u = User("acoomans")
 Post("First post", "This is the first awesome post", u)
@@ -31,25 +35,25 @@ Post("Second post", "This is another even more awesome post", u)
 @auto.doc(groups=["posts", 'public', "private"])
 def get_posts():
     """Returns all posts."""
-    return dumps(posts)
+    return "%s" % posts
 
 @app.route('/post/<int:id>')
 @auto.doc(groups=["posts", 'public', "private"])
 def get_post(id):
     """This returns a post with an id."""
-    return dumps(posts[id])
+    return "%s" % posts[id]
 
 @app.route('/users')
 @auto.doc(groups=["users", 'public', "private"])
 def get_users():
     """This returns all users."""
-    return dumps(users)
+    return "%s" % users
 
 @app.route('/user/<int:id>')
 @auto.doc(groups=["users", 'public', "private"])
 def get_user(id):
     """This returns a user with a given id."""
-    return dumps(users[id])
+    return "%s" %  users[id]
 
 
 @app.route('/users', methods=["POST"])
@@ -61,7 +65,7 @@ def post_user(id):
 
 @app.route('/admin', methods=["GET"])
 @auto.doc(groups=['private'])
-def admin(id):
+def admin():
     """Admin interface."""
     return "Admin interface"
 
