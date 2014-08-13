@@ -16,15 +16,15 @@ Start using Flask-Autodoc by importing it and initializing it:
 
     from flask import Flask
     from flask.ext.autodoc import Autodoc
-    
+
     app = Flask(__name__)
     auto = Autodoc(app)
 
 by default, Flask-Autodoc will only document the routes you explicitly tell him to with the _doc_ decorator,
 like this:
-  
+
     @app.route('/user/<int:id>')
-    @auto.doc
+    @auto.doc()
     def show_user(id):
         """This returns a user with a given id."""
         return user_from_database(id)
