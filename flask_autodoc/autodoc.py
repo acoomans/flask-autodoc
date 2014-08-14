@@ -49,6 +49,7 @@ class Autodoc(object):
          Replaces all newline to <BR>
         """
         _paragraph_re = re.compile(r'(?:\r\n|\r|\n){3,}')
+
         @app.template_filter()
         @evalcontextfilter
         def nl2br(eval_ctx, value):
@@ -72,13 +73,13 @@ class Autodoc(object):
                 groupset = set()
                 if group:
                     groupset.add(group)
-            groupset.add("all")
+            groupset.add('all')
             for g in groupset:
                 self.groups[g].add(f)
             return f
         return decorator
 
-    def generate(self, group="all", groups=[], sort=None):
+    def generate(self, group='all', groups=[], sort=None):
         """Returns a list of dict describing the routes specified by the doc() method
 
         Each dict contains:
@@ -106,12 +107,12 @@ class Autodoc(object):
                     (not groups and func in self.groups[group]):
                 links.append(
                     dict(
-                        methods = rule.methods,
-                        rule = "%s" % rule,
-                        endpoint = rule.endpoint,
-                        docstring = func.__doc__,
-                        args = arguments,
-                        defaults = rule.defaults
+                        methods=rule.methods,
+                        rule="%s" % rule,
+                        endpoint=rule.endpoint,
+                        docstring=func.__doc__,
+                        args=arguments,
+                        defaults=rule.defaults
                     )
                 )
         if sort:
@@ -119,7 +120,7 @@ class Autodoc(object):
         else:
             return sorted(links, key=itemgetter('rule'))
 
-    def html(self, template=None, group="all", groups=None, **context):
+    def html(self, template=None, group='all', groups=None, **context):
         """Returns an html string of the routes specified by the doc() method
 
         A template can be specified. A list of routes is available under the 'autodoc' value (refer to the documentation
@@ -131,7 +132,7 @@ class Autodoc(object):
         if template:
             return render_template(template, autodoc=self.generate(group), **context)
         else:
-            filename = os.path.dirname(__file__) + "/templates/autodoc_default.html"
+            filename = os.path.dirname(__file__) + '/templates/autodoc_default.html'
             with open(filename) as file:
                 content = file.read()
                 with current_app.app_context():
