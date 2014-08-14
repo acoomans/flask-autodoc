@@ -6,8 +6,9 @@ Flask autodoc automatically creates an online documentation for your flask appli
 """
 from setuptools import setup
 
+
 def readme():
-    with open('README') as f:
+    with open('README.md') as f:
         return f.read()
 
 
@@ -40,5 +41,5 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         'Topic :: Software Development :: Libraries :: Python Modules'
     ],
-    test_suite =  'tests.test_autodoc',
+    test_suite='tests.test_autodoc',
 )

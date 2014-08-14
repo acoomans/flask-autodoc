@@ -1,6 +1,9 @@
+from operator import attrgetter, itemgetter
 import os
 import re
 from collections import defaultdict
+import sys
+
 from flask import current_app, render_template, render_template_string
 from jinja2 import evalcontextfilter
 
@@ -9,6 +12,14 @@ try:
     from flask import _app_ctx_stack as stack
 except ImportError:
     from flask import _request_ctx_stack as stack
+
+
+PY2 = sys.version_info[0] == 2
+
+if PY2:
+    get_function_code = attrgetter('func_code')
+else:
+    get_function_code = attrgetter('__code__')
 
 
 class Autodoc(object):
@@ -38,10 +49,11 @@ class Autodoc(object):
          Replaces all newline to <BR>
         """
         _paragraph_re = re.compile(r'(?:\r\n|\r|\n){3,}')
+
         @app.template_filter()
         @evalcontextfilter
         def nl2br(eval_ctx, value):
-            result = u'\n\n'.join(u'%s' % p.replace('\n', '<br>\n') for p in _paragraph_re.split(value))
+            result = '\n\n'.join('%s' % p.replace('\n', '<br>\n') for p in _paragraph_re.split(value))
             return result
 
     def doc(self, group=None, aa=None, groups=None):
@@ -61,13 +73,13 @@ class Autodoc(object):
                 groupset = set()
                 if group:
                     groupset.add(group)
-            groupset.add("all")
+            groupset.add('all')
             for g in groupset:
                 self.groups[g].add(f)
             return f
         return decorator
 
-    def generate(self, group="all", groups=[], sort=None):
+    def generate(self, group='all', groups=[], sort=None):
         """Returns a list of dict describing the routes specified by the doc() method
 
         Each dict contains:
@@ -94,20 +106,20 @@ class Autodoc(object):
                     (not groups and func in self.groups[group]):
                 links.append(
                     dict(
-                        methods = rule.methods,
-                        rule = "%s" % rule,
-                        endpoint = rule.endpoint,
-                        docstring = func.__doc__,
-                        args = list(func.func_code.co_varnames),
-                        defaults = rule.defaults
+                        methods=rule.methods,
+                        rule='%s' % rule,
+                        endpoint=rule.endpoint,
+                        docstring=func.__doc__,
+                        args=list(get_function_code(func).co_varnames),
+                        defaults=rule.defaults
                     )
                 )
         if sort:
             return sort(links)
         else:
-            return sorted(links, cmp=lambda x,y: cmp(x['rule'], y['rule']))
+            return sorted(links, key=itemgetter('rule'))
 
-    def html(self, template=None, group="all", groups=None, **context):
+    def html(self, template=None, group='all', groups=None, **context):
         """Returns an html string of the routes specified by the doc() method
 
         A template can be specified. A list of routes is available under the 'autodoc' value (refer to the documentation
@@ -119,7 +131,7 @@ class Autodoc(object):
         if template:
             return render_template(template, autodoc=self.generate(group), **context)
         else:
-            filename = os.path.dirname(__file__)+"/templates/autodoc_default.html"
+            filename = os.path.dirname(__file__) + '/templates/autodoc_default.html'
             with open(filename) as file:
                 content = file.read()
                 with current_app.app_context():
