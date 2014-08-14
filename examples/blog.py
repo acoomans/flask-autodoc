@@ -1,6 +1,8 @@
+from json import dumps
+
 from flask import Flask, redirect
-from json import dumps, JSONEncoder
 from flask.ext.autodoc import Autodoc
+
 
 app = Flask(__name__)
 app.debug = True
@@ -53,7 +55,7 @@ def get_users():
 @auto.doc(groups=["users", 'public', "private"])
 def get_user(id):
     """This returns a user with a given id."""
-    return "%s" %  users[id]
+    return "%s" % users[id]
 
 
 @app.route('/users', methods=["POST"])
