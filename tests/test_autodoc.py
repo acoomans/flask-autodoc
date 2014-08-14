@@ -52,7 +52,7 @@ class TestAutodoc(unittest.TestCase):
         @self.app.route('/p1/<string:param1>/p2/<int:param2>')
         @self.autodoc.doc()
         def ab(param1, param2):
-            return 'param1=%s param2=%2' % (param1, param2)
+            return 'param1=%s param2=%s' % (param1, param2)
 
         with self.app.app_context():
             doc = self.autodoc.generate()
@@ -160,7 +160,7 @@ class TestAutodoc(unittest.TestCase):
             - param1
             - param2
             """
-            return 'param1=%s param2=%2' % (param1, param2)
+            return 'param1=%s param2=%s' % (param1, param2)
 
         with self.app.app_context():
             doc = self.autodoc.html(title='hello')
