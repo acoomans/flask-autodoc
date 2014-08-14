@@ -1,9 +1,11 @@
-from flask import current_app, Blueprint, render_template, redirect
-from flask.ext.autodoc import Autodoc
 from json import dumps
 
+from flask import Blueprint, redirect
+
+from .doc import auto
+
+
 frontend = Blueprint('frontend', __name__, url_prefix='/blog')
-from doc import auto
 
 users = []
 posts = []
@@ -52,7 +54,7 @@ def get_users():
 @auto.doc(groups=["users", 'public', "private"])
 def get_user(id):
     """This returns a user with a given id."""
-    return "%s" %  users[id]
+    return "%s" % users[id]
 
 
 @frontend.route('/users', methods=["POST"])

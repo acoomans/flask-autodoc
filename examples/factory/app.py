@@ -1,5 +1,5 @@
 from flask import Flask
-from flask.ext.autodoc import Autodoc
+
 
 def create_app(config_filename=None):
     app = Flask(__name__)

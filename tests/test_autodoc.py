@@ -1,6 +1,8 @@
 import unittest
+
 from flask import Flask
 from flask.ext.autodoc import Autodoc
+
 
 class TestAutodoc(unittest.TestCase):
 
