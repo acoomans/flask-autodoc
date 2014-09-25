@@ -29,6 +29,20 @@ like this:
         """This returns a user with a given id."""
         return user_from_database(id)
 
+you can tell autodoc to explicitly document query string parameters by adding them to the annotation:
+
+    @app.route('/user/<int:id>')
+    @auto.doc(query_params=["debug"])
+    def show_user(id):
+        """This returns a user with a given id."""
+        try:
+            return user_from_database(id)
+        except:
+            if request.args.get("debug") == "true":
+                return traceback.format_exc()
+            else:
+                return "oops"
+
 to generate the documentation from an endpoint, use the _html()_ method:
 
     @app.route('/documentation')
