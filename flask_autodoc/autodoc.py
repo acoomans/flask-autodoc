@@ -13,9 +13,12 @@ except ImportError:
 
 class Autodoc(object):
 
+    
+
     def __init__(self, app=None):
         self.app = app
         self.groups = defaultdict(set)
+        self.query_params = {}
         if app is not None:
             self.init_app(app)
 
@@ -44,7 +47,7 @@ class Autodoc(object):
             result = u'\n\n'.join(u'%s' % p.replace('\n', '<br>\n') for p in _paragraph_re.split(value))
             return result
 
-    def doc(self, group=None, aa=None, groups=None):
+    def doc(self, group=None, aa=None, groups=None, query_params=None):
         """Decorator to add flask route to autodoc for automatic documentation\
 
         Any route decorated with this method will be added to the list of routes to be documented by the generate() or
@@ -64,6 +67,10 @@ class Autodoc(object):
             groupset.add("all")
             for g in groupset:
                 self.groups[g].add(f)
+                
+            if query_params:
+                self.query_params[f] = query_params
+                
             return f
         return decorator
 
@@ -92,20 +99,22 @@ class Autodoc(object):
 
             if (groups and [True for g in groups if func in self.groups[g]]) or \
                     (not groups and func in self.groups[group]):
+                
                 links.append(
                     dict(
                         methods = rule.methods,
                         rule = "%s" % rule,
                         endpoint = rule.endpoint,
                         docstring = func.__doc__,
-                        args = list(func.func_code.co_varnames),
+                        args = list(func.__code__.co_varnames),
+                        query_params = self.query_params.get(func, []),
                         defaults = rule.defaults
                     )
                 )
         if sort:
             return sort(links)
         else:
-            return sorted(links, cmp=lambda x,y: cmp(x['rule'], y['rule']))
+            return sorted(links, key=lambda x: x['rule'])
 
     def html(self, template=None, group="all", groups=None, **context):
         """Returns an html string of the routes specified by the doc() method
