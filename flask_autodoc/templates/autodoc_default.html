@@ -58,7 +58,7 @@
                 width: 50em;
             }
             
-            .call-output {
+            .call-output, .call-status-code {
                 border: 1px solid #000;
                 display: none;
                 width: 60em;
@@ -129,6 +129,9 @@
                     var url = $(this).parents(".mapping").find(".url-input").val();
                     var method = $(this).val();
                     var outputLocation = $(this).parents(".mapping").find(".call-output");
+                    $(outputLocation).empty()
+                    var statusLocation = $(this).parents(".mapping").find(".call-status-code");
+                    $(statusLocation).empty()
                     if (method == "POST" || method == "PUT"){
                         $.ajax({
                             contentType:"application/json; charset=UTF-8;",
@@ -138,6 +141,20 @@
                             success:function(data, status, jqXHR){
                                 $(outputLocation).JSONView(data);
                                 $(outputLocation).show();
+                                $(statusLocation).text("Status: "+jqXHR.status);
+                                $(statusLocation).show();
+                            }
+                        });
+                    } else {
+                        $.ajax({
+                            contentType:"application/json; charset=UTF-8;",
+                            method:method,
+                            url:url,
+                            success:function(data, status, jqXHR){
+                                $(outputLocation).JSONView(data);
+                                $(outputLocation).show();
+                                $(statusLocation).text("Status: "+jqXHR.status);
+                                $(statusLocation).show();
                             }
                         });
                     }
@@ -190,6 +207,7 @@
                 {% endif %}
             {% endfor %}
             </p>
+            <p class="call-status-code"></p>
             <p class="call-output"></p>
         </div>
     {% endfor %}
