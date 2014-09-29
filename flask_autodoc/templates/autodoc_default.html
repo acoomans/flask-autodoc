@@ -67,7 +67,7 @@
         <style>
             .jsonview {
               font-family: monospace;
-              font-size: 1.1em;
+              font-size: .8em;
               white-space: pre-wrap; }
             .jsonview .prop {
               font-weight: bold; }
@@ -135,11 +135,21 @@
                     if (method == "POST" || method == "PUT"){
                         $.ajax({
                             contentType:"application/json; charset=UTF-8;",
-                            data:$(this).parents(".mapping").find("post-data").val(),
+                            data:$(this).parents(".mapping").find(".post-data").val(),
                             method:method,
                             url:url,
                             success:function(data, status, jqXHR){
                                 $(outputLocation).JSONView(data);
+                                $(outputLocation).show();
+                                $(statusLocation).text("Status: "+jqXHR.status);
+                                $(statusLocation).show();
+                            },
+                            error:function(jqXHR, status, reason){
+                                if(~jqXHR.getResponseHeader("Content-Type").indexOf("application/json")){
+                                    $(outputLocation).JSONView(jqXHR.responseText);
+                                } else {
+                                    $(outputLocation).text(jqXHR.responseText);
+                                }
                                 $(outputLocation).show();
                                 $(statusLocation).text("Status: "+jqXHR.status);
                                 $(statusLocation).show();
@@ -152,6 +162,16 @@
                             url:url,
                             success:function(data, status, jqXHR){
                                 $(outputLocation).JSONView(data);
+                                $(outputLocation).show();
+                                $(statusLocation).text("Status: "+jqXHR.status);
+                                $(statusLocation).show();
+                            },
+                            error:function(jqXHR, status, reason){
+                                if(~jqXHR.getResponseHeader("Content-Type").indexOf("application/json")){
+                                    $(outputLocation).JSONView(jqXHR.responseText);
+                                } else {
+                                    $(outputLocation).text(jqXHR.responseText);
+                                }
                                 $(outputLocation).show();
                                 $(statusLocation).text("Status: "+jqXHR.status);
                                 $(statusLocation).show();
