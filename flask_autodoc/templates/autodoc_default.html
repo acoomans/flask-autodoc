@@ -22,7 +22,7 @@
                 margin: 20px 20px;
             }
 
-            ul.methods:before { content: "Methods: "; }
+            ul.methods:before { font-weight: bold;content: "Methods: "; }
             ul.methods li {
                 display: inline;
                 list-style: none;
@@ -30,7 +30,7 @@
             ul.methods li:after { content: ","; }
             ul.methods li:last-child:after { content: ""; }
 
-            ul.arguments:before { content: "Path Arguments: "; }
+            ul.arguments:before { font-weight: bold;content: "Path Arguments: "; }
             ul.arguments li {
                 display: inline;
                 list-style: none;
@@ -41,7 +41,7 @@
             ul.arguments li:after { content: ","; }
             ul.arguments li:last-child:after { content: ""; }
             
-            ul.queryparams:before { content: "Query String Arguments: "; }
+            ul.queryparams:before {font-weight: bold; content: "Query String Arguments: "; }
             ul.queryparams li {
                 display: inline;
                 list-style: none;
@@ -52,7 +52,7 @@
             ul.queryparams li:after { content: ","; }
             ul.queryparams li:last-child:after { content: ""; }
 
-            .docstring:before { content: "Description: "; }
+            .docstring:before { font-weight: bold; content: "Description: "; }
             
             .url-input {
                 width: 50em;
@@ -215,9 +215,9 @@
                 {% endfor %}
             </ul>
             <p class="docstring">{{doc.docstring|urlize|nl2br}}</p>
-            <p> URL: <input type="text" class="url-input"/></p>
+            <p> <strong>URL:</strong> <input type="text" class="url-input"/></p>
             {% if "POST" in doc.methods or "PUT" in doc.methods %}
-                <p>Request Body: </p>
+                <p><strong>Request Body:</strong> </p>
                 <p><textarea class="post-data" rows=10 cols=80 ></textarea></p>
             {% endif %}
             <p>
