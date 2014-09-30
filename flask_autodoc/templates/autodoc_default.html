@@ -235,10 +235,13 @@
                     {% endfor %}
                 </ul>
                 <p class="docstring">{{doc.docstring|urlize|nl2br}}</p>
+                <br/>
                 <p> <strong>URL:</strong> <input type="text" class="url-input"/></p>
+                <br/>
                 {% if "POST" in doc.methods or "PUT" in doc.methods %}
                     <p><strong>Request Body:</strong> </p>
                     <p><textarea class="post-data" rows=10 ></textarea></p>
+                    </br>
                 {% endif %}
                 <p>
                 {% for method in doc.methods %}
@@ -246,7 +249,7 @@
                         <input type="button" class="send-request" value="{{method}}"/>
                     {% endif %}
                 {% endfor %}
-                </p>
+                </p><br/>
                 <p class="call-status-code"></p>
                 <p class="call-output"></p>
             </div>
