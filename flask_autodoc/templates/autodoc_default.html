@@ -20,6 +20,8 @@
 
             div.mapping {
                 margin: 20px 20px;
+                padding: 20px 20px;
+                border: 1px solid #000;
             }
 
             ul.methods:before { font-weight: bold;content: "Methods: "; }
@@ -55,13 +57,26 @@
             .docstring:before { font-weight: bold; content: "Description: "; }
             
             .url-input {
-                width: 50em;
+                width: 100%;
             }
             
             .call-output, .call-status-code {
-                border: 1px solid #000;
+                border: 1px solid #00B4FF;
                 display: none;
-                width: 60em;
+                width: 100%;
+            }
+            
+            .post-data {
+                width: 100%;
+            }
+            
+            .mapping-description {
+                display: none;
+            }
+            
+            .rule h2 {
+                background-color: #B8F7FF;
+                cursor: pointer; cursor: hand;
             }
         </style>
         <style>
@@ -121,6 +136,10 @@
         </script>
         <script type="text/javascript" >
             $(document).ready(function(){
+                $(".rule h2").on("click", function(){
+                    $(this).parents(".mapping").find(".mapping-description").slideToggle();
+                });
+                
                 $(".url-input").each(function(){
                     $(this).val(location.protocol+"//"+location.host+$(this).parents(".mapping").find("a.rule h2").text())
                 });
@@ -194,41 +213,43 @@
         {% for doc in autodoc %}
         <div class="mapping">
             <a id="rule-{{doc.rule|urlencode}}" class="rule"><h2>{{doc.rule|escape}}</h2></a>
-            <ul class="methods">
-                    {% for method in doc.methods -%}
-                    <li class="method">{{method}}</li>
+            <div class="mapping-description">
+                <ul class="methods">
+                        {% for method in doc.methods -%}
+                        <li class="method">{{method}}</li>
+                        {% endfor %}
+                </ul>
+                <ul class="arguments">
+                    {% for arg in doc.args %}
+                    <li>
+                        <span class="argument">{{arg}}</span>
+                        <span class="default">{{doc.defaults[arg]}}</span>
+                    </li>
                     {% endfor %}
-            </ul>
-            <ul class="arguments">
-                {% for arg in doc.args %}
-                <li>
-                    <span class="argument">{{arg}}</span>
-                    <span class="default">{{doc.defaults[arg]}}</span>
-                </li>
-                {% endfor %}
-            </ul>
-            <ul class="queryparams">
-                {% for arg in doc.query_params %}
-                <li>
-                    <span class="argument">{{arg}}</span>
-                </li>
-                {% endfor %}
-            </ul>
-            <p class="docstring">{{doc.docstring|urlize|nl2br}}</p>
-            <p> <strong>URL:</strong> <input type="text" class="url-input"/></p>
-            {% if "POST" in doc.methods or "PUT" in doc.methods %}
-                <p><strong>Request Body:</strong> </p>
-                <p><textarea class="post-data" rows=10 cols=80 ></textarea></p>
-            {% endif %}
-            <p>
-            {% for method in doc.methods %}
-                {% if method != "OPTIONS" %}
-                    <input type="button" class="send-request" value="{{method}}"/>
+                </ul>
+                <ul class="queryparams">
+                    {% for arg in doc.query_params %}
+                    <li>
+                        <span class="argument">{{arg}}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <p class="docstring">{{doc.docstring|urlize|nl2br}}</p>
+                <p> <strong>URL:</strong> <input type="text" class="url-input"/></p>
+                {% if "POST" in doc.methods or "PUT" in doc.methods %}
+                    <p><strong>Request Body:</strong> </p>
+                    <p><textarea class="post-data" rows=10 ></textarea></p>
                 {% endif %}
-            {% endfor %}
-            </p>
-            <p class="call-status-code"></p>
-            <p class="call-output"></p>
+                <p>
+                {% for method in doc.methods %}
+                    {% if method != "OPTIONS" %}
+                        <input type="button" class="send-request" value="{{method}}"/>
+                    {% endif %}
+                {% endfor %}
+                </p>
+                <p class="call-status-code"></p>
+                <p class="call-output"></p>
+            </div>
         </div>
     {% endfor %}
     
