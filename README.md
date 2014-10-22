@@ -4,7 +4,7 @@ Flask-Autodoc
 Flask Autodoc is a Flask extension that automatically creates documentation for your endpoints based on the routes,
 function arguments and docstring.
 
-This fork of Flask Autodoc brings a few new features:
+[![Build Status](https://api.travis-ci.org/acoomans/flask-autodoc.png)](https://travis-ci.org/acoomans/flask-autodoc)
 
 - Python 3 compatibility.
 - A prettier UI.

@@ -96,6 +96,7 @@ class Autodoc(object):
                 continue
 
             func = current_app.view_functions[rule.endpoint]
+            arguments = rule.arguments if rule.arguments else ['None']
 
             if (groups and [True for g in groups if func in self.groups[g]]) or \
                     (not groups and func in self.groups[group]):
@@ -106,7 +107,7 @@ class Autodoc(object):
                         rule = "%s" % rule,
                         endpoint = rule.endpoint,
                         docstring = func.__doc__,
-                        args = list(func.__code__.co_varnames),
+                        args = arguments,
                         query_params = self.query_params.get(func, []),
                         defaults = rule.defaults
                     )
