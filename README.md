@@ -4,11 +4,24 @@ Flask-Autodoc
 Flask Autodoc is a Flask extension that automatically creates documentation for your endpoints based on the routes,
 function arguments and docstring.
 
-[![Build Status](https://api.travis-ci.org/acoomans/flask-autodoc.png)](https://travis-ci.org/acoomans/flask-autodoc)
+[![Build](https://api.travis-ci.org/acoomans/flask-autodoc.png)](https://travis-ci.org/acoomans/flask-autodoc)
+[![Pypi version](http://img.shields.io/pypi/v/flask-autodoc.svg)](https://pypi.python.org/pypi/Flask-Autodoc)
+[![Pypi license](http://img.shields.io/pypi/l/flask-autodoc.svg)](https://pypi.python.org/pypi/Flask-Autodoc)
+![Python 2](http://img.shields.io/badge/python-2-blue.svg)
+![Python 3](http://img.shields.io/badge/python-3-blue.svg)
+
+
+## Requirements
+
+Flask Autodoc is compatible with Python versions 2 and 3; and depends only on Flask.
 
 ## Install
 
-To install Flask-Autodoc:
+To install Flask-Autodoc, run pip:
+
+	pip install flask-autodoc
+	
+or clone this directory and run setup:
 
     python setup.py install
 
@@ -76,3 +89,9 @@ to generate the documentation for a specific group, pass the name of the group t
 or
 
     auto.html("public")
+
+## Examples
+
+Examples from the _examples_ directory, documents a mock blog.
+
+Run `python blog.py` or `python factory/app.py` to run a basic Flask app or a blueprint Flask app respectively.
