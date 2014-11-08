@@ -14,9 +14,7 @@ except ImportError:
     from flask import _request_ctx_stack as stack
 
 
-PY2 = sys.version_info[0] == 2
-
-if PY2:
+if sys.version < '3':
     get_function_code = attrgetter('func_code')
 else:
     get_function_code = attrgetter('__code__')

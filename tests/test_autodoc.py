@@ -1,4 +1,5 @@
 import unittest
+import sys
 
 from flask import Flask
 from flask.ext.autodoc import Autodoc
@@ -165,5 +166,8 @@ class TestAutodoc(unittest.TestCase):
         with self.app.app_context():
             doc = self.autodoc.html(title='hello')
             self.assertIn('/p1/p2', doc)
-            self.assertRegexpMatches(doc, '\/p1\/.*string:param1.*\/p2\/.*int:param2.*')
+            if sys.version < '3':
+                self.assertRegexpMatches(doc, '\/p1\/.*string:param1.*\/p2\/.*int:param2.*')
+            else:
+                self.assertRegex(doc, '\/p1\/.*string:param1.*\/p2\/.*int:param2.*')
             self.assertIn('Returns arguments', doc)
