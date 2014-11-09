@@ -1,14 +1,26 @@
 Flask-Autodoc
 =============
 
-Flask Autodoc is a Flask extension that automatically creates documentation for your endpoints based on the routes,
-function arguments and docstring.
+Flask-Autodoc is a Flask extension that automatically creates documentation for your endpoints based on the routes, function arguments and docstrings.
 
-[![Build Status](https://api.travis-ci.org/acoomans/flask-autodoc.png)](https://travis-ci.org/acoomans/flask-autodoc)
+[![Build](https://api.travis-ci.org/acoomans/flask-autodoc.png)](https://travis-ci.org/acoomans/flask-autodoc)
+[![Pypi version](http://img.shields.io/pypi/v/flask-autodoc.svg)](https://pypi.python.org/pypi/Flask-Autodoc)
+[![Pypi license](http://img.shields.io/pypi/l/flask-autodoc.svg)](https://pypi.python.org/pypi/Flask-Autodoc)
+![Python 2](http://img.shields.io/badge/python-2-blue.svg)
+![Python 3](http://img.shields.io/badge/python-3-blue.svg)
+
+
+## Requirements
+
+Flask-Autodoc is compatible with Python versions 2 and 3; and it depends only on Flask.
 
 ## Install
 
-To install Flask-Autodoc:
+To install Flask-Autodoc, run pip:
+
+	pip install flask-autodoc
+	
+or clone this directory and run setup:
 
     python setup.py install
 
@@ -22,28 +34,28 @@ Start using Flask-Autodoc by importing it and initializing it:
     app = Flask(__name__)
     auto = Autodoc(app)
 
-by default, Flask-Autodoc will only document the routes you explicitly tell him to with the _doc_ decorator,
-like this:
+by default, Flask-Autodoc will only document the routes explicitly decorated with _doc_:
 
     @app.route('/user/<int:id>')
     @auto.doc()
     def show_user(id):
-        """This returns a user with a given id."""
         return user_from_database(id)
 
-to generate the documentation from an endpoint, use the _html()_ method:
+to generate the documentation, use the _html()_ method:
 
     @app.route('/documentation')
     def documentation():
         return auto.html()
 
-if you to access the documentation without it being rendered in html:
+## Custom documentation
+
+To access the documentation without rendering html:
 
     @app.route('/documentation')
     def documentation():
         return auto.generate()
 
-the documentation will then be returned as a list of rules, where each rule is a dictionary containing:
+the documentation will be returned as a list of rules, where each rule is a dictionary containing:
 
 - methods: the set of allowed methods (ie ['GET', 'POST'])
 - rule: relative url (ie '/user/<int:id>')
@@ -52,27 +64,67 @@ the documentation will then be returned as a list of rules, where each rule is a
 - args: function arguments
 - defaults: defaults values for the arguments
 
-## Groups
+## Custom template
 
-You may want to group endpoints together, to have different documentation sets. With this you can for example, only
-show some endpoints to third party developer and have full documentation for your own.
+To use a custom template for your documentation, give a _template_ argument to the _html_ method. This will use a template from the flask _templates_ directory. 
 
-to assign an endpoint to a group, pass the name of the group as argument of the _doc_ decorator:
+Additionnal arguments (other than _group_, _groups_, and _template_) will be passed down to the template:
+
+	auto.html(
+		
+		template='custom_documentation.html'
+		
+		title='My Documentation',
+		author='John Doe',
+	)
+	
+
+_title_ and _author_ will be available in the template:
+
+	<!-- templates/custom_documentation.html -->
+	...
+	{% if title is defined %}
+		{{title}}
+	{% endif %}
+	...
+
+## Documentation sets
+
+Endpoints can be grouped together in different documentation sets. It is possible for instance to show some endpoints to third party developers and have full documentation for primary developers.
+
+To assign an endpoint to a group, pass the name of the group as argument of the _doc_ decorator:
 
     @app.route('/user/<int:id>')
-    @auto.doc("public")
+    @auto.doc('public')
     def show_user(id):
 
 to assign an endpoint to multiple groups, pass a list of group names as the _groups_ argument to _doc_:
 
     @app.route('/user/<int:id>')
-    @auto.doc(groups=["public","private"])
+    @auto.doc(groups=['public','private'])
     def show_user(id):
 
-to generate the documentation for a specific group, pass the name of the group to the _generate_ or _html_ methods:
+to generate the documentation for a specific group, pass the name of the group to the _html_ or _generate_ methods:
 
-    auto.generate("public")
+    auto.html('public')
+    auto.html(groups=['public','private'])
+    auto.generate('public')
+    
+## Examples
 
-or
+Apps in the _examples_ directory are an api for a blog:
 
-    auto.html("public")
+- _simple_ is a simple app
+- _factory_ uses blueprints
+
+Run with
+
+	python simple/blog.py
+	
+and connect to [/doc/public](http://127.0.0.1:5000/doc/public) and [/doc/private](http://127.0.0.1:5000/doc/private) to see public and private documentations.
+
+## Screenshots
+
+![screenshots](Screenshots/screenshot00.png)
+
+![screenshots](Screenshots/screenshot01.png)

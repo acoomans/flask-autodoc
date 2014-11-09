@@ -1,11 +1,12 @@
 from json import dumps
 
-from flask import Blueprint, redirect, request
+from flask import Flask, redirect, request
+from flask.ext.autodoc import Autodoc
 
-from .doc import auto
 
-
-frontend = Blueprint('frontend', __name__, url_prefix='/blog')
+app = Flask(__name__)
+app.debug = True
+auto = Autodoc(app)
 
 users = []
 posts = []
@@ -39,22 +40,22 @@ Post('First post', 'This is the first awesome post', u)
 Post('Second post', 'This is another even more awesome post', u)
 
 
-@frontend.route('/')
-@frontend.route('/posts')
+@app.route('/')
+@app.route('/posts')
 @auto.doc(groups=['posts', 'public', 'private'])
 def get_posts():
     """Return all posts."""
     return '%s' % posts
 
 
-@frontend.route('/post/<int:id>')
+@app.route('/post/<int:id>')
 @auto.doc(groups=['posts', 'public', 'private'])
 def get_post(id):
     """Return the post for the given id."""
     return '%s' % posts[id]
 
 
-@frontend.route('/post', methods=["POST"])
+@app.route('/post', methods=["POST"])
 @auto.doc(groups=['posts', 'private'])
 def post_post():
     """Create a new post.
@@ -67,25 +68,47 @@ def post_post():
     return redirect("/posts")
 
 
-@frontend.route('/users')
+@app.route('/users')
 @auto.doc(groups=['users', 'public', 'private'])
 def get_users():
     """Return all users."""
     return '%s' % users
 
 
-@frontend.route('/user/<int:id>')
+@app.route('/user/<int:id>')
 @auto.doc(groups=['users', 'public', 'private'])
 def get_user(id):
     """Return the user for the given id."""
     return '%s' % users[id]
 
 
-@frontend.route('/users', methods=['POST'])
+@app.route('/users', methods=['POST'])
 @auto.doc(groups=['users', 'private'])
 def post_user(id):
-    """Create a new user.
+    """Creates a new user.
     Form Data: username.
     """
     User(request.form['username'])
     redirect('/users')
+
+
+@app.route('/admin', methods=['GET'])
+@auto.doc(groups=['private'])
+def admin():
+    """Admin interface."""
+    return 'Admin interface'
+
+
+@app.route('/doc')
+@app.route('/doc/public')
+def public_doc():
+    return auto.html(groups=['public'], title='Blog Documentation')
+
+
+@app.route('/doc/private')
+def private_doc():
+    return auto.html(groups=['private'], title='Private Documentation')
+
+
+if __name__ == '__main__':
+    app.run()
