@@ -96,3 +96,15 @@ Apps in the _examples_ directory mock a blog.
 
 - _simple_ is a simple app
 - _factory_ uses blueprints
+
+Run with
+
+	python simple/blog.py
+	
+and connect to [/doc/public](http://127.0.0.1:5000/doc/public) and [/doc/private](http://127.0.0.1:5000/doc/private) to see public and private documentations.
+
+## Screenshots
+
+![screenshots](Screenshots/screenshot00.png)
+
+![screenshots](Screenshots/screenshot01.png)
