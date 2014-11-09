@@ -125,6 +125,6 @@ and connect to [/doc/public](http://127.0.0.1:5000/doc/public) and [/doc/private
 
 ## Screenshots
 
-![screenshots](Screenshots/screenshot00.png)
+![screenshots](screenshots/screenshot00.png)
 
-![screenshots](Screenshots/screenshot01.png)
+![screenshots](screenshots/screenshot01.png)
