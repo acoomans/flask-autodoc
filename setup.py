@@ -2,7 +2,7 @@
 Flask-Autodoc
 -------------
 
-Flask autodoc automatically creates an online documentation for your flask application.
+Flask autodoc automatically creates an online documentation for your flask app.
 """
 from setuptools import setup
 
@@ -21,7 +21,7 @@ setup(
     author_email='arnaud.coomans@gmail.com',
     description='Documentation generator for flask',
     long_description=readme(),
-    #py_modules=['flask_autodoc'],
+    # py_modules=['flask_autodoc'],
     # if you would be using a package instead use packages instead
     # of py_modules:
     packages=['flask_autodoc'],

@@ -51,18 +51,19 @@ class Autodoc(object):
         @app.template_filter()
         @evalcontextfilter
         def nl2br(eval_ctx, value):
-            result = '\n\n'.join('%s' % p.replace('\n', '<br>\n') for p in _paragraph_re.split(value))
+            result = '\n\n'.join('%s' % p.replace('\n', '<br>\n')
+                                 for p in _paragraph_re.split(value))
             return result
 
     def doc(self, group=None, aa=None, groups=None):
-        """Decorator to add flask route to autodoc for automatic documentation\
+        """Add flask route to autodoc for automatic documentation
 
-        Any route decorated with this method will be added to the list of routes to be documented by the generate() or
-        html() methods.
+        Any route decorated with this method will be added to the list of
+        routes to be documented by the generate() or html() methods.
 
         By default, the route is added to the 'all' group.
-        By specifying group or groups argument, the route can be added to one or multiple other groups as well, besides
-        the 'all' group.
+        By specifying group or groups argument, the route can be added to one
+        or multiple other groups as well, besides the 'all' group.
         """
         def decorator(f):
             if groups:
@@ -78,7 +79,8 @@ class Autodoc(object):
         return decorator
 
     def generate(self, group='all', groups=[], sort=None):
-        """Returns a list of dict describing the routes specified by the doc() method
+        """Return a list of dict describing the routes specified by the
+        doc() method
 
         Each dict contains:
          - methods: the set of allowed methods (ie ['GET', 'POST'])
@@ -88,7 +90,8 @@ class Autodoc(object):
          - args: function arguments
          - defaults: defaults values for the arguments
 
-        By specifying the group or groups arguments, only routes belonging to those groups will be returned.
+        By specifying the group or groups arguments, only routes belonging to
+        those groups will be returned.
 
         Routes are sorted alphabetically based on the rule.
         """
@@ -101,8 +104,8 @@ class Autodoc(object):
             func = current_app.view_functions[rule.endpoint]
             arguments = rule.arguments if rule.arguments else ['None']
 
-            if (groups and [True for g in groups if func in self.groups[g]]) or \
-                    (not groups and func in self.groups[group]):
+            if (groups and [True for g in groups if func in self.groups[g]]) \
+                    or (not groups and func in self.groups[group]):
                 links.append(
                     dict(
                         methods=rule.methods,
@@ -119,16 +122,20 @@ class Autodoc(object):
             return sorted(links, key=itemgetter('rule'))
 
     def html(self, template=None, group='all', groups=None, **context):
-        """Returns an html string of the routes specified by the doc() method
+        """Return an html string of the routes specified by the doc() method
 
-        A template can be specified. A list of routes is available under the 'autodoc' value (refer to the documentation
-        for the generate() for a description of available values). If no template is specified, a default template is
-        used.
+        A template can be specified. A list of routes is available under the
+        'autodoc' value (refer to the documentation for the generate() for a
+        description of available values). If no template is specified, a
+        default template is used.
 
-        By specifying the group or groups arguments, only routes belonging to those groups will be returned.
+        By specifying the group or groups arguments, only routes belonging to
+        those groups will be returned.
         """
         if template:
-            return render_template(template, autodoc=self.generate(group), **context)
+            return render_template(template,
+                                   autodoc=self.generate(group),
+                                   **context)
         else:
             filename = os.path.join(
                 os.path.dirname(__file__),
@@ -138,4 +145,7 @@ class Autodoc(object):
             with open(filename) as file:
                 content = file.read()
                 with current_app.app_context():
-                    return render_template_string(content, autodoc=self.generate(group=group, groups=groups), **context)
+                    return render_template_string(
+                        content,
+                        autodoc=self.generate(group=group, groups=groups),
+                        **context)

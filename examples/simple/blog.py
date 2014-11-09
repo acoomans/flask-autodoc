@@ -13,6 +13,7 @@ posts = []
 
 
 class User(object):
+
     def __init__(self, username):
         self.username = username
         users.append(self)
@@ -23,6 +24,7 @@ class User(object):
 
 
 class Post(object):
+
     def __init__(self, title, content, author):
         self.title = title
         self.content = content

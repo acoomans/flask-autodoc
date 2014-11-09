@@ -68,7 +68,8 @@ class TestAutodoc(unittest.TestCase):
                 self.assertIsNone(d['docstring'])
 
                 if '/p1/p2' in d['rule']:
-                    self.assertDictEqual(d['defaults'], {'param2': 'b', 'param1': 'a'})
+                    self.assertDictEqual(d['defaults'],
+                                         {'param2': 'b', 'param1': 'a'})
                 elif '/p1/<string:param1>/p2/<int:param2>' in d['rule']:
                     self.assertFalse(d['defaults'])
 
@@ -167,7 +168,13 @@ class TestAutodoc(unittest.TestCase):
             doc = self.autodoc.html(title='hello')
             self.assertIn('/p1/p2', doc)
             if sys.version < '3':
-                self.assertRegexpMatches(doc, '\/p1\/.*string:param1.*\/p2\/.*int:param2.*')
+                self.assertRegexpMatches(
+                    doc,
+                    '\/p1\/.*string:param1.*\/p2\/.*int:param2.*'
+                )
             else:
-                self.assertRegex(doc, '\/p1\/.*string:param1.*\/p2\/.*int:param2.*')
+                self.assertRegex(
+                    doc,
+                    '\/p1\/.*string:param1.*\/p2\/.*int:param2.*'
+                )
             self.assertIn('Returns arguments', doc)
