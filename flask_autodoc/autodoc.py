@@ -24,7 +24,7 @@ class Autodoc(object):
 
     def __init__(self, app=None):
         self.app = app
-        self.groups = defaultdict(set)
+        self.func_groups = defaultdict(set)
         if app is not None:
             self.init_app(app)
 
@@ -55,7 +55,7 @@ class Autodoc(object):
                                  for p in _paragraph_re.split(value))
             return result
 
-    def doc(self, group=None, aa=None, groups=None):
+    def doc(self, groups=None):
         """Add flask route to autodoc for automatic documentation
 
         Any route decorated with this method will be added to the list of
@@ -66,19 +66,19 @@ class Autodoc(object):
         or multiple other groups as well, besides the 'all' group.
         """
         def decorator(f):
-            if groups:
+            if type(groups) is list:
                 groupset = set(groups)
             else:
                 groupset = set()
-                if group:
-                    groupset.add(group)
+                if type(groups) is str:
+                    groupset.add(groups)
             groupset.add('all')
-            for g in groupset:
-                self.groups[g].add(f)
+
+            self.func_groups[f] = groupset
             return f
         return decorator
 
-    def generate(self, group='all', groups=[], sort=None):
+    def generate(self, groups='all', sort=None):
         """Return a list of dict describing the routes specified by the
         doc() method
 
@@ -95,6 +95,12 @@ class Autodoc(object):
 
         Routes are sorted alphabetically based on the rule.
         """
+        groups_to_generate = list()
+        if type(groups) is list:
+            groups_to_generate = groups
+        elif type(groups) is str:
+            groups_to_generate.append(groups)
+
         links = []
         for rule in current_app.url_map.iter_rules():
 
@@ -103,9 +109,9 @@ class Autodoc(object):
 
             func = current_app.view_functions[rule.endpoint]
             arguments = rule.arguments if rule.arguments else ['None']
+            func_groups = self.func_groups[func]
 
-            if (groups and [True for g in groups if func in self.groups[g]]) \
-                    or (not groups and func in self.groups[group]):
+            if func_groups.intersection(groups_to_generate):
                 links.append(
                     dict(
                         methods=rule.methods,
@@ -121,7 +127,7 @@ class Autodoc(object):
         else:
             return sorted(links, key=itemgetter('rule'))
 
-    def html(self, template=None, group='all', groups=None, **context):
+    def html(self, groups='all', template=None, **context):
         """Return an html string of the routes specified by the doc() method
 
         A template can be specified. A list of routes is available under the
@@ -134,7 +140,7 @@ class Autodoc(object):
         """
         if template:
             return render_template(template,
-                                   autodoc=self.generate(group),
+                                   autodoc=self.generate(groups=groups),
                                    **context)
         else:
             filename = os.path.join(
@@ -147,5 +153,5 @@ class Autodoc(object):
                 with current_app.app_context():
                     return render_template_string(
                         content,
-                        autodoc=self.generate(group=group, groups=groups),
+                        autodoc=self.generate(groups=groups),
                         **context)
