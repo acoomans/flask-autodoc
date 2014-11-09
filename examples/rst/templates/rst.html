@@ -41,7 +41,15 @@
             ul.arguments li:after { content: ","; }
             ul.arguments li:last-child:after { content: ""; }
 
-            .docstring:before { content: "Description: "; }
+            div.docstring:before { content: "Description: "; }
+            div.docstring p { margin: 0.5em 0; }
+            div.docstring th.field-name {
+                text-align: left;
+                font-weight: normal;
+                font-style: italic;
+                padding-right: 10px;
+            }
+
         </style>
     </head>
     <body>
@@ -69,7 +77,7 @@
                 </li>
                 {% endfor %}
             </ul>
-            <div class="docstring">{{doc.docstring|urlize|nl2br}}</div>
+            <div class="docstring">{{doc.docstring|docstring|safe}}</div>
         </div>
         {% endfor %}
     </body>

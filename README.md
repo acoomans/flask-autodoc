@@ -12,7 +12,12 @@ Flask-Autodoc is a Flask extension that automatically creates documentation for 
 
 ## Requirements
 
-Flask-Autodoc is compatible with Python versions 2 and 3; and it depends only on Flask.
+Flask-Autodoc is compatible with Python versions 2 and 3.
+
+It depends only on Flask.
+
+An optional dependency is _docutils_, which allow to render reStructuredText docstrings.
+
 
 ## Install
 
@@ -87,6 +92,18 @@ _title_ and _author_ will be available in the template:
 		{{title}}
 	{% endif %}
 	...
+	
+## Docstrings
+
+Docstrings are displayed under the endpoint path and parameters.
+
+In a custom template, it is recommended to use filters for rendering URLs and EOL:
+
+	{{doc.docstring | urlize | nl2br}}
+	
+If _docutils_ is installed (not required but recommended), reStructuredText docstrings can be rendered with the _docstring_ filter (safe disables jinja autoescaping):
+
+	{{doc.docstring | docstring | safe}}
 
 ## Documentation sets
 
@@ -116,6 +133,7 @@ Apps in the _examples_ directory are an api for a blog:
 
 - _simple_ is a simple app
 - _factory_ uses blueprints
+- _rst_ an example using resTructuredText docstrings (requires doctutils installed)
 
 Run with
 
