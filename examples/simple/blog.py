@@ -1,6 +1,6 @@
 from json import dumps
 
-from flask import Flask, redirect
+from flask import Flask, redirect, request
 from flask.ext.autodoc import Autodoc
 
 
@@ -42,36 +42,51 @@ Post('Second post', 'This is another even more awesome post', u)
 @app.route('/posts')
 @auto.doc(groups=['posts', 'public', 'private'])
 def get_posts():
-    """Returns all posts."""
+    """Return all posts."""
     return '%s' % posts
 
 
 @app.route('/post/<int:id>')
 @auto.doc(groups=['posts', 'public', 'private'])
 def get_post(id):
-    """This returns a post with an id."""
+    """Return the post for the given id."""
     return '%s' % posts[id]
+
+
+@app.route('/post', methods=["POST"])
+@auto.doc(groups=['posts', 'private'])
+def post_post():
+    """Create a new post.
+    Form Data: title, content, authorid.
+    """
+    authorid = request.form.get('authorid', None)
+    Post(request.form['title'],
+         request.form['content'],
+         users[authorid])
+    return redirect("/posts")
 
 
 @app.route('/users')
 @auto.doc(groups=['users', 'public', 'private'])
 def get_users():
-    """This returns all users."""
+    """Return all users."""
     return '%s' % users
 
 
 @app.route('/user/<int:id>')
 @auto.doc(groups=['users', 'public', 'private'])
 def get_user(id):
-    """This returns a user with a given id."""
+    """Return the user for the given id."""
     return '%s' % users[id]
 
 
 @app.route('/users', methods=['POST'])
 @auto.doc(groups=['users', 'private'])
 def post_user(id):
-    """This creates a new user."""
-    User('frank')
+    """Creates a new user.
+    Form Data: username.
+    """
+    User(request.form['username'])
     redirect('/users')
 
 

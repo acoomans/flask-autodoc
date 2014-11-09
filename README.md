@@ -92,6 +92,7 @@ or
 
 ## Examples
 
-Examples from the _examples_ directory, documents a mock blog.
+Apps in the _examples_ directory mock a blog.
 
-Run `python blog.py` or `python factory/app.py` to run a basic Flask app or a blueprint Flask app respectively.
+- _simple_ is a simple app
+- _factory_ uses blueprints
