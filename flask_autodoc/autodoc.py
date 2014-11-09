@@ -130,7 +130,11 @@ class Autodoc(object):
         if template:
             return render_template(template, autodoc=self.generate(group), **context)
         else:
-            filename = os.path.dirname(__file__) + '/templates/autodoc_default.html'
+            filename = os.path.join(
+                os.path.dirname(__file__),
+                'templates',
+                'autodoc_default.html'
+            )
             with open(filename) as file:
                 content = file.read()
                 with current_app.app_context():
