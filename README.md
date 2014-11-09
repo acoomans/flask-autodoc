@@ -116,6 +116,7 @@ Apps in the _examples_ directory are an api for a blog:
 
 - _simple_ is a simple app
 - _factory_ uses blueprints
+- _custom_ uses a custom template
 
 Run with
 
