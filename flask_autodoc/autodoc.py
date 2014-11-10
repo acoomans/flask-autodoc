@@ -8,6 +8,8 @@ from flask import current_app, render_template, render_template_string
 from jinja2 import evalcontextfilter
 
 
+
+
 try:
     from flask import _app_ctx_stack as stack
 except ImportError:
@@ -54,6 +56,7 @@ class Autodoc(object):
             result = '\n\n'.join('%s' % p.replace('\n', '<br>\n')
                                  for p in _paragraph_re.split(value))
             return result
+        
 
     def doc(self, groups=None):
         """Add flask route to autodoc for automatic documentation
@@ -127,7 +130,7 @@ class Autodoc(object):
         else:
             return sorted(links, key=itemgetter('rule'))
 
-    def html(self, groups='all', template=None, **context):
+    def html(self, groups='all', template="autodoc_default.html", **context):
         """Return an html string of the routes specified by the doc() method
 
         A template can be specified. A list of routes is available under the
@@ -138,7 +141,7 @@ class Autodoc(object):
         By specifying the group or groups arguments, only routes belonging to
         those groups will be returned.
         """
-        if template:
+        if template and not os.path.exists(os.path.join(os.path.dirname(__file__), 'templates', str(template))):
             return render_template(template,
                                    autodoc=self.generate(groups=groups),
                                    **context)
@@ -146,7 +149,7 @@ class Autodoc(object):
             filename = os.path.join(
                 os.path.dirname(__file__),
                 'templates',
-                'autodoc_default.html'
+                template
             )
             with open(filename) as file:
                 content = file.read()

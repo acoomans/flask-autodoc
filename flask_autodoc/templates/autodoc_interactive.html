@@ -1,0 +1,254 @@
+<html>
+    <head>
+        <title>
+            {% if title is defined -%}
+                {{title}}
+            {% else -%}
+                Documentation
+            {% endif -%}
+        </title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                font-family: Verdana, "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+            }
+
+            body {
+                margin: 10px;
+            }
+
+            div.mapping {
+                margin: 20px 20px;
+                padding: 20px 20px;
+                border: 1px solid #000;
+            }
+
+            ul.methods:before { font-weight: bold;content: "Methods: "; }
+            ul.methods li {
+                display: inline;
+                list-style: none;
+            }
+            ul.methods li:after { content: ","; }
+            ul.methods li:last-child:after { content: ""; }
+
+            ul.arguments:before { font-weight: bold;content: "Path Arguments: "; }
+            ul.arguments li {
+                display: inline;
+                list-style: none;
+            }
+            ul.arguments .argument { font-style:italic }
+            ul.arguments .default:not(:empty):before { content: "("; }
+            ul.arguments .default:not(:empty):after { content: ")"; }
+            ul.arguments li:after { content: ","; }
+            ul.arguments li:last-child:after { content: ""; }
+            
+            ul.queryparams:before {font-weight: bold; content: "Query String Arguments: "; }
+            ul.queryparams li {
+                display: inline;
+                list-style: none;
+            }
+            ul.queryparams .argument { font-style:italic }
+            ul.queryparams .default:not(:empty):before { content: "("; }
+            ul.queryparams .default:not(:empty):after { content: ")"; }
+            ul.queryparams li:after { content: ","; }
+            ul.queryparams li:last-child:after { content: ""; }
+
+            .docstring:before { font-weight: bold; content: "Description: "; }
+            
+            .url-input {
+                width: 100%;
+            }
+            
+            .call-output, .call-status-code {
+                border: 1px solid #00B4FF;
+                display: none;
+                width: 100%;
+            }
+            
+            .post-data {
+                width: 100%;
+            }
+            
+            .mapping-description {
+                display: none;
+            }
+            
+            .rule h2 {
+                background-color: #B8F7FF;
+                cursor: pointer; cursor: hand;
+            }
+        </style>
+        <style>
+            .jsonview {
+              font-family: monospace;
+              font-size: .8em;
+              white-space: pre-wrap; }
+            .jsonview .prop {
+              font-weight: bold; }
+            .jsonview .null {
+              color: red; }
+            .jsonview .bool {
+              color: blue; }
+            .jsonview .num {
+              color: blue; }
+            .jsonview .string {
+              color: green;
+              white-space: pre-wrap; }
+            .jsonview .string.multiline {
+              display: inline-block;
+              vertical-align: text-top; }
+            .jsonview .collapser {
+              position: absolute;
+              left: -1em;
+              cursor: pointer; }
+            .jsonview .collapsible {
+              transition: height 1.2s;
+              transition: width 1.2s; }
+            .jsonview .collapsible.collapsed {
+              height: .8em;
+              width: 1em;
+              display: inline-block;
+              overflow: hidden;
+              margin: 0; }
+            .jsonview .collapsible.collapsed:before {
+              content: "...";
+              width: 1em;
+              margin-left: .2em; }
+            .jsonview .collapser.collapsed {
+              transform: rotate(0deg); }
+            .jsonview .q {
+              display: inline-block;
+              width: 0px;
+              color: transparent; }
+            .jsonview li {
+              position: relative; }
+            .jsonview ul {
+              list-style: none;
+              margin: 0 0 0 2em;
+              padding: 0; }
+            .jsonview h1 {
+              font-size: 1.2em; }
+        </style>
+        <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" >
+            !function(e){var n,t,l,r;return l=function(){function e(e){null==e&&(e={}),this.options=e}return e.prototype.htmlEncode=function(e){return null!==e?e.toString().replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;"):""},e.prototype.jsString=function(e){return e=JSON.stringify(e).slice(1,-1),this.htmlEncode(e)},e.prototype.decorateWithSpan=function(e,n){return'<span class="'+n+'">'+this.htmlEncode(e)+"</span>"},e.prototype.valueToHTML=function(e,n){var t;return null==n&&(n=0),t=Object.prototype.toString.call(e).match(/\s(.+)]/)[1].toLowerCase(),this[""+t+"ToHTML"].call(this,e,n)},e.prototype.nullToHTML=function(){return this.decorateWithSpan("null","null")},e.prototype.numberToHTML=function(e){return this.decorateWithSpan(e,"num")},e.prototype.stringToHTML=function(e){var n,t;return/^(http|https|file):\/\/[^\s]+$/i.test(e)?'<a href="'+this.htmlEncode(e)+'"><span class="q">"</span>'+this.jsString(e)+'<span class="q">"</span></a>':(n="",e=this.jsString(e),this.options.nl2br&&(t=/([^>\\r\\n]?)(\\r\\n|\\n\\r|\\r|\\n)/g,t.test(e)&&(n=" multiline",e=(e+"").replace(t,"$1<br />"))),'<span class="string'+n+'">"'+e+'"</span>')},e.prototype.booleanToHTML=function(e){return this.decorateWithSpan(e,"bool")},e.prototype.arrayToHTML=function(e,n){var t,l,r,o,s,i,a,p;for(null==n&&(n=0),l=!1,s="",o=e.length,r=a=0,p=e.length;p>a;r=++a)i=e[r],l=!0,s+="<li>"+this.valueToHTML(i,n+1),o>1&&(s+=","),s+="</li>",o--;return l?(t=0===n?"":" collapsible",'[<ul class="array level'+n+t+'">'+s+"</ul>]"):"[ ]"},e.prototype.objectToHTML=function(e,n){var t,l,r,o,s,i;null==n&&(n=0),l=!1,o="",r=0;for(s in e)r++;for(s in e)i=e[s],l=!0,o+='<li><span class="prop"><span class="q">"</span>'+this.jsString(s)+'<span class="q">"</span></span>: '+this.valueToHTML(i,n+1),r>1&&(o+=","),o+="</li>",r--;return l?(t=0===n?"":" collapsible",'{<ul class="obj level'+n+t+'">'+o+"</ul>}"):"{ }"},e.prototype.jsonToHTML=function(e){return'<div class="jsonview">'+this.valueToHTML(e)+"</div>"},e}(),"undefined"!=typeof module&&null!==module&&(module.exports=l),t={bindEvent:function(e,n){var t;return t=document.createElement("div"),t.className="collapser",t.innerHTML=n?"+":"-",t.addEventListener("click",function(e){return function(n){return e.toggle(n.target)}}(this)),e.insertBefore(t,e.firstChild),n?this.collapse(t):void 0},expand:function(e){var n,t;return t=this.collapseTarget(e),n=t.parentNode.getElementsByClassName("ellipsis")[0],t.parentNode.removeChild(n),t.style.display="",e.innerHTML="-"},collapse:function(e){var n,t;return t=this.collapseTarget(e),t.style.display="none",n=document.createElement("span"),n.className="ellipsis",n.innerHTML=" &hellip; ",t.parentNode.insertBefore(n,t),e.innerHTML="+"},toggle:function(e){var n;return n=this.collapseTarget(e),"none"===n.style.display?this.expand(e):this.collapse(e)},collapseTarget:function(e){var n,t;return t=e.parentNode.getElementsByClassName("collapsible"),t.length?n=t[0]:void 0}},n=e,r={collapse:function(e){return"-"===e.innerHTML?t.collapse(e):void 0},expand:function(e){return"+"===e.innerHTML?t.expand(e):void 0},toggle:function(e){return t.toggle(e)}},n.fn.JSONView=function(){var e,o,s,i,a,p,c;return e=arguments,null!=r[e[0]]?(a=e[0],this.each(function(){var t,l;return t=n(this),null!=e[1]?(l=e[1],t.find(".jsonview .collapsible.level"+l).siblings(".collapser").each(function(){return r[a](this)})):t.find(".jsonview > ul > li > .collapsible").siblings(".collapser").each(function(){return r[a](this)})})):(i=e[0],p=e[1]||{},o={collapsed:!1,nl2br:!1},p=n.extend(o,p),s=new l({nl2br:p.nl2br}),"[object String]"===Object.prototype.toString.call(i)&&(i=JSON.parse(i)),c=s.jsonToHTML(i),this.each(function(){var e,l,r,o,s,i;for(e=n(this),e.html(c),r=e[0].getElementsByClassName("collapsible"),i=[],o=0,s=r.length;s>o;o++)l=r[o],i.push("LI"===l.parentNode.nodeName?t.bindEvent(l.parentNode,p.collapsed):void 0);return i}))}}(jQuery);
+        </script>
+        <script type="text/javascript" >
+            $(document).ready(function(){
+                $(".rule h2").on("click", function(){
+                    $(this).parents(".mapping").find(".mapping-description").slideToggle();
+                });
+                
+                $(".url-input").each(function(){
+                    $(this).val(location.protocol+"//"+location.host+$(this).parents(".mapping").find("a.rule h2").text())
+                });
+                
+                $(".send-request").on("click", function(){
+                    var url = $(this).parents(".mapping").find(".url-input").val();
+                    var method = $(this).val();
+                    var outputLocation = $(this).parents(".mapping").find(".call-output");
+                    $(outputLocation).empty()
+                    var statusLocation = $(this).parents(".mapping").find(".call-status-code");
+                    $(statusLocation).empty()
+                    if (method == "POST" || method == "PUT"){
+                        $.ajax({
+                            contentType:"application/json; charset=UTF-8;",
+                            data:$(this).parents(".mapping").find(".post-data").val(),
+                            method:method,
+                            url:url,
+                            success:function(data, status, jqXHR){
+                                $(outputLocation).JSONView(data);
+                                $(outputLocation).show();
+                                $(statusLocation).text("Status: "+jqXHR.status);
+                                $(statusLocation).show();
+                            },
+                            error:function(jqXHR, status, reason){
+                                if(~jqXHR.getResponseHeader("Content-Type").indexOf("application/json")){
+                                    $(outputLocation).JSONView(jqXHR.responseText);
+                                } else {
+                                    $(outputLocation).text(jqXHR.responseText);
+                                }
+                                $(outputLocation).show();
+                                $(statusLocation).text("Status: "+jqXHR.status);
+                                $(statusLocation).show();
+                            }
+                        });
+                    } else {
+                        $.ajax({
+                            contentType:"application/json; charset=UTF-8;",
+                            method:method,
+                            url:url,
+                            success:function(data, status, jqXHR){
+                                $(outputLocation).JSONView(data);
+                                $(outputLocation).show();
+                                $(statusLocation).text("Status: "+jqXHR.status);
+                                $(statusLocation).show();
+                            },
+                            error:function(jqXHR, status, reason){
+                                if(~jqXHR.getResponseHeader("Content-Type").indexOf("application/json")){
+                                    $(outputLocation).JSONView(jqXHR.responseText);
+                                } else {
+                                    $(outputLocation).text(jqXHR.responseText);
+                                }
+                                $(outputLocation).show();
+                                $(statusLocation).text("Status: "+jqXHR.status);
+                                $(statusLocation).show();
+                            }
+                        });
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <h1>
+            {% if title is defined -%}
+                {{title}}
+            {% else -%}
+                Documentation
+            {% endif -%}
+        </h1>
+
+        {% for doc in autodoc %}
+        <div class="mapping">
+            <a id="rule-{{doc.rule|urlencode}}" class="rule"><h2>{{doc.rule|escape}}</h2></a>
+            <div class="mapping-description">
+                <ul class="methods">
+                        {% for method in doc.methods -%}
+                        <li class="method">{{method}}</li>
+                        {% endfor %}
+                </ul>
+                <ul class="arguments">
+                    {% for arg in doc.args %}
+                    <li>
+                        <span class="argument">{{arg}}</span>
+                        <span class="default">{{doc.defaults[arg]}}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <p class="docstring">{{doc.docstring|urlize|nl2br}}</p>
+                <br/>
+                <p> <strong>URL:</strong> <input type="text" class="url-input"/></p>
+                <br/>
+                {% if "POST" in doc.methods or "PUT" in doc.methods %}
+                    <p><strong>Request Body:</strong> </p>
+                    <p><textarea class="post-data" rows=10 ></textarea></p>
+                    </br>
+                {% endif %}
+                <p>
+                {% for method in doc.methods %}
+                    {% if method != "OPTIONS" %}
+                        <input type="button" class="send-request" value="{{method}}"/>
+                    {% endif %}
+                {% endfor %}
+                </p><br/>
+                <p class="call-status-code"></p>
+                <p class="call-output"></p>
+            </div>
+        </div>
+    {% endfor %}
+    
+    
+    </body>
+</html>

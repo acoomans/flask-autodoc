@@ -87,6 +87,18 @@ _title_ and _author_ will be available in the template:
 		{{title}}
 	{% endif %}
 	...
+### Interactive documentation
+
+Interactive documentation (allowing a user to preview REST calls on the documentation page) is available in a separate template included with flask-autodoc.
+To use this, call _html_ with the name of the interactive documentation template.
+        
+        auto.html(
+		
+		template='autodoc_interactive.html'
+		
+		title='Interactive Docs',
+		author='John Doe',
+	)
 
 ## Documentation sets
 
