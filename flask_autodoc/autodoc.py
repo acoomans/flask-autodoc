@@ -7,7 +7,10 @@ import sys
 from flask import current_app, render_template, render_template_string
 from jinja2 import evalcontextfilter
 
-
+try:
+    from docutils.core import publish_parts
+except ImportError:
+    pass
 
 
 try:
@@ -57,6 +60,21 @@ class Autodoc(object):
                                  for p in _paragraph_re.split(value))
             return result
         
+        @app.template_filter()
+        @evalcontextfilter
+        def rst(eval_ctx, text):
+            """Renders reStructuredText text in HTML."""
+            parts = publish_parts(source=text, writer_name='html')
+            html = parts['body']
+            return html
+
+        @app.template_filter()
+        @evalcontextfilter
+        def docstring(eval_ctx, text):
+            try:
+                return rst(eval_ctx, text)
+            except:
+                return nl2br(eval_ctx, text)
 
     def doc(self, groups=None):
         """Add flask route to autodoc for automatic documentation

@@ -78,6 +78,17 @@
                 background-color: #B8F7FF;
                 cursor: pointer; cursor: hand;
             }
+            
+            pre {
+                font-family: monospace;
+                overflow-x: scroll;
+                border: 1px solid #000;
+                background: #eef;
+            }
+            
+            blockquote p, blockquote pre {
+                margin-bottom: 1em;
+            }
         </style>
         <style>
             .jsonview {
@@ -227,7 +238,7 @@
                     </li>
                     {% endfor %}
                 </ul>
-                <p class="docstring">{{doc.docstring|urlize|nl2br}}</p>
+                <p class="docstring">{{doc.docstring|docstring|safe}}</p>
                 <br/>
                 <p> <strong>URL:</strong> <input type="text" class="url-input"/></p>
                 <br/>
