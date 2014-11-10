@@ -94,9 +94,9 @@ To use this, call _html_ with the name of the interactive documentation template
 
 	auto.html(
 		
-		template='custom_documentation.html'
+		template='autodoc_interactive.html'
 		
-		title='My Documentation',
+		title='Interactive Documentation',
 		author='John Doe',
 	)
 	
