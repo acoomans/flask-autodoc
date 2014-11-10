@@ -93,9 +93,7 @@ Interactive documentation (allowing a user to preview REST calls on the document
 To use this, call _html_ with the name of the interactive documentation template.
 
 	auto.html(
-		
-		template='autodoc_interactive.html'
-		
+		template='autodoc_interactive.html',
 		title='Interactive Documentation',
 		author='John Doe',
 	)
