@@ -3,6 +3,7 @@ import os
 import re
 from collections import defaultdict
 import sys
+import inspect
 
 from flask import current_app, render_template, render_template_string
 from jinja2 import evalcontextfilter
@@ -25,6 +26,7 @@ class Autodoc(object):
     def __init__(self, app=None):
         self.app = app
         self.func_groups = defaultdict(set)
+        self.func_locations = defaultdict(dict)
         if app is not None:
             self.init_app(app)
 
@@ -66,6 +68,7 @@ class Autodoc(object):
         or multiple other groups as well, besides the 'all' group.
         """
         def decorator(f):
+            # Set group[s]
             if type(groups) is list:
                 groupset = set(groups)
             else:
@@ -73,8 +76,15 @@ class Autodoc(object):
                 if type(groups) is str:
                     groupset.add(groups)
             groupset.add('all')
-
             self.func_groups[f] = groupset
+
+            # Set location
+            caller_frame = inspect.stack()[1]
+            self.func_locations[f] = {
+                    'filename': caller_frame[1],
+                    'line':     caller_frame[2],
+                    }
+
             return f
         return decorator
 
@@ -110,6 +120,7 @@ class Autodoc(object):
             func = current_app.view_functions[rule.endpoint]
             arguments = rule.arguments if rule.arguments else ['None']
             func_groups = self.func_groups[func]
+            location = self.func_locations.get(func, None)
 
             if func_groups.intersection(groups_to_generate):
                 links.append(
@@ -119,7 +130,8 @@ class Autodoc(object):
                         endpoint=rule.endpoint,
                         docstring=func.__doc__,
                         args=arguments,
-                        defaults=rule.defaults
+                        defaults=rule.defaults,
+                        location=location,
                     )
                 )
         if sort:
