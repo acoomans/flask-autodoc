@@ -1,2 +1,2 @@
-include README
+include README.md
 include flask_autodoc/templates/autodoc_default.html
