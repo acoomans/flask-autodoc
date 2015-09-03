@@ -28,6 +28,8 @@ class TestAutodoc(unittest.TestCase):
         self.assertEqual(d['rule'], '/')
         self.assertEqual(d['endpoint'], 'index')
         self.assertEqual(d['docstring'], 'Returns a hello world message')
+        self.assertIsInstance(d['location']['line'], int)
+        self.assertIn(__file__, d['location']['filename'])
         self.assertFalse(d['defaults'])
 
     def testPost(self):
@@ -46,6 +48,8 @@ class TestAutodoc(unittest.TestCase):
             self.assertEqual(d['rule'], '/')
             self.assertEqual(d['endpoint'], 'index')
             self.assertEqual(d['docstring'], 'Returns a hello world message')
+            self.assertIsInstance(d['location']['line'], int)
+            self.assertIn(__file__, d['location']['filename'])
             self.assertFalse(d['defaults'])
 
     def testParams(self):
