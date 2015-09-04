@@ -1,3 +1,5 @@
+import inspect
+import os.path
 import unittest
 import sys
 import os
@@ -12,6 +14,14 @@ class TestAutodoc(unittest.TestCase):
         self.app = Flask(__name__)
         self.app.debug = True
         self.autodoc = Autodoc(self.app)
+
+    @staticmethod
+    def thisFile():
+        """Returns the basename of __file__ without a trailing 'c'"""
+        filename = os.path.basename(__file__)
+        if filename.endswith('.pyc'):
+            filename = filename[:-1]
+        return filename
 
     def testGet(self):
         @self.app.route('/')
@@ -30,7 +40,7 @@ class TestAutodoc(unittest.TestCase):
         self.assertEqual(d['endpoint'], 'index')
         self.assertEqual(d['docstring'], 'Returns a hello world message')
         self.assertIsInstance(d['location']['line'], int)
-        self.assertIn(__file__, d['location']['filename'])
+        self.assertIn(self.thisFile(), d['location']['filename'])
         self.assertFalse(d['defaults'])
 
     def testPost(self):
@@ -50,7 +60,7 @@ class TestAutodoc(unittest.TestCase):
             self.assertEqual(d['endpoint'], 'index')
             self.assertEqual(d['docstring'], 'Returns a hello world message')
             self.assertIsInstance(d['location']['line'], int)
-            self.assertIn(__file__, d['location']['filename'])
+            self.assertIn(self.thisFile(), d['location']['filename'])
             self.assertFalse(d['defaults'])
 
     def testParams(self):
@@ -247,4 +257,45 @@ class TestAutodoc(unittest.TestCase):
                     '\/p1\/.*string:param1.*\/p2\/.*int:param2.*'
                 )
             self.assertIn('Returns arguments', doc)
+
+    def testLocation(self):
+        line_no = inspect.stack()[0][2] + 2 # the doc() line
+        @self.app.route('/location')
+        @self.autodoc.doc()
+        def location():
+            return 'location'
+
+        with self.app.app_context():
+            doc = self.autodoc.generate()
+            d = doc[0]
+            self.assertIsInstance(d['location']['line'], int)
+            self.assertEqual(d['location']['line'], line_no)
+            self.assertIn(self.thisFile(), d['location']['filename'])
+
+    def testNoLocation(self):
+        @self.app.route('/location')
+        @self.autodoc.doc(set_location=False)
+        def location():
+            return 'location'
+
+        with self.app.app_context():
+            doc = self.autodoc.generate()
+            d = doc[0]
+            self.assertIsNone(d['location'])
+
+    def testRedecorate(self):
+        @self.app.route('/redecorate')
+        # add to "all" and "group1"
+        @self.autodoc.doc('group1')
+        def redecorate():
+            return 'redecorate'
+
+        # add to "group2"
+        self.app.view_functions['redecorate'] = self.autodoc.doc('group2')(redecorate)
+
+        with self.app.app_context():
+            self.assertTrue(1 == len(self.autodoc.generate('all')))
+            self.assertTrue(1 == len(self.autodoc.generate('group1')))
+            self.assertTrue(1 == len(self.autodoc.generate('group2')))
+            self.assertFalse(1 == len(self.autodoc.generate('group3')))
 
