@@ -72,7 +72,7 @@
                 </li>
                 {% endfor %}
             </ul>
-            <p class="docstring">{{doc.docstring|urlize|nl2br}}</p>
+            <p class="docstring">{% autoescape false %}{{doc.docstring|urlize|nl2br}}{% endautoescape %}</p>
         </div>
         {% endfor %}
     </body>
