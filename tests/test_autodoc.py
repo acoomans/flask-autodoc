@@ -1,5 +1,6 @@
 import unittest
 import sys
+import os
 
 from flask import Flask
 from flask.ext.autodoc import Autodoc
@@ -104,7 +105,6 @@ class TestAutodoc(unittest.TestCase):
             self.assertIn('/pub', doc[0]['rule'])
 
     def testGroups(self):
-
         @self.app.route('/a')
         @self.autodoc.doc()
         def a():
@@ -142,6 +142,71 @@ class TestAutodoc(unittest.TestCase):
             rules = [doc[i]['rule'] for i in range(len(doc))]
             self.assertIn('/b', rules)
             self.assertIn('/c', rules)
+
+    def testCustomParams(self):
+        @self.app.route('/needsargs', methods=['GET'])
+        @self.autodoc.doc('needs_getargs', getargs={
+            'a': 'A Value',
+            'b': 'B Value'  
+            })
+        def getit():
+            return 'I need specific GET parameters.'
+
+        @self.app.route('/noargs')
+        @self.autodoc.doc(groups=['needs_json', 'noargs'],
+            expected_type='application/json')
+        def needjson():
+            return 'I do not need any parameters, but am picky about types.'
+
+        with self.app.app_context():
+            doc = self.autodoc.generate('needs_getargs')
+            self.assertTrue(len(doc) == 1)
+            self.assertIn('getargs', doc[0])
+            self.assertEqual('B Value', doc[0]['getargs']['b'])
+
+            doc = self.autodoc.generate('noargs')
+            self.assertTrue(len(doc) == 1)
+            self.assertNotIn('getargs', doc[0])
+
+            doc = self.autodoc.generate('needs_json')
+            self.assertTrue(len(doc) == 1)
+            self.assertIn('expected_type', doc[0])
+            self.assertEqual('application/json', doc[0]['expected_type'])
+
+    def testOverrideParams(self):
+        @self.app.route('/added')
+        @self.autodoc.doc('add', args=['option'])
+        def original():
+            return 'I make my own options.'
+
+        @self.app.route('/modified', defaults={'option1': 1})
+        @self.app.route('/modified/<int:option1>')
+        @self.autodoc.doc('modify', args=['option2'], defaults=[2])
+        def override_allowed(option1):
+            return 'I modify my own options.'
+
+        @self.app.route('/prohibited')
+        @self.autodoc.doc('fail', rule='/not/supposed/to/be/here')
+        def override_prohibited():
+            return 'I make my own rules.'
+
+        with self.app.app_context():
+            doc = self.autodoc.generate('add')
+            self.assertTrue(len(doc) == 1)
+            self.assertIn('option', doc[0]['args'])
+
+            doc = self.autodoc.generate('modify')
+            args = [doc[i]['args'] for i in range(len(doc))]
+            defaults = [doc[i]['defaults'] for i in range(len(doc))]
+            self.assertNotIn(['option1'], args)
+            self.assertNotIn([1], defaults)
+            self.assertIn(['option2'], args)
+            self.assertIn([2], defaults)
+
+            doc = self.autodoc.generate('fail')
+            self.assertTrue(len(doc) == 1)
+            self.assertNotEqual('/not/supposed/to/be/here', doc[0]['rule'])
+            self.assertEqual('/prohibited', doc[0]['rule'])
 
     def testHTML(self):
         @self.app.route('/')
@@ -182,3 +247,4 @@ class TestAutodoc(unittest.TestCase):
                     '\/p1\/.*string:param1.*\/p2\/.*int:param2.*'
                 )
             self.assertIn('Returns arguments', doc)
+
