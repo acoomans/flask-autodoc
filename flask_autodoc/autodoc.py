@@ -26,6 +26,10 @@ class Autodoc(object):
     def __init__(self, app=None):
         self.app = app
         self.func_groups = defaultdict(set)
+        self.func_props = defaultdict()
+        self.immutable_props = ['rule', 'endpoint']
+        self.default_props = ['methods', 'docstring', 
+            'args', 'defaults', 'location'] + self.immutable_props
         self.func_locations = defaultdict(dict)
         if app is not None:
             self.init_app(app)
@@ -57,7 +61,7 @@ class Autodoc(object):
                                  for p in _paragraph_re.split(value))
             return result
 
-    def doc(self, groups=None):
+    def doc(self, groups=None, **properties):
         """Add flask route to autodoc for automatic documentation
 
         Any route decorated with this method will be added to the list of
@@ -66,6 +70,14 @@ class Autodoc(object):
         By default, the route is added to the 'all' group.
         By specifying group or groups argument, the route can be added to one
         or multiple other groups as well, besides the 'all' group.
+
+        Custom parameters may also be passed in beyond groups, if they are
+        named something not already in the dict descibed in the docstring for 
+        the generare() function, they will be added to the route's properties,
+        which can be accessed from the template.
+
+        If a parameter is passed in with a name that is already in the dict, but
+        not of a reserved name, the passed parameter overrides that dict value.
         """
         def decorator(f):
             # Set group[s]
@@ -77,6 +89,7 @@ class Autodoc(object):
                     groupset.add(groups)
             groupset.add('all')
             self.func_groups[f] = groupset
+            self.func_props[f] = properties
 
             # Set location
             caller_frame = inspect.stack()[1]
@@ -120,20 +133,24 @@ class Autodoc(object):
             func = current_app.view_functions[rule.endpoint]
             arguments = rule.arguments if rule.arguments else ['None']
             func_groups = self.func_groups[func]
+            func_props = self.func_props[func] if func in self.func_props \
+                else {}
             location = self.func_locations.get(func, None)
 
             if func_groups.intersection(groups_to_generate):
-                links.append(
-                    dict(
-                        methods=rule.methods,
-                        rule="%s" % rule,
-                        endpoint=rule.endpoint,
-                        docstring=func.__doc__,
-                        args=arguments,
-                        defaults=rule.defaults,
-                        location=location,
-                    )
+                props = dict(
+                    methods=rule.methods,
+                    rule="%s" % rule,
+                    endpoint=rule.endpoint,
+                    docstring=func.__doc__,
+                    args=arguments,
+                    defaults=rule.defaults,
+                    location=location,
                 )
+                for p in func_props:
+                    if p not in self.immutable_props:
+                        props[p] = func_props[p]
+                links.append(props)
         if sort:
             return sort(links)
         else:
@@ -150,10 +167,12 @@ class Autodoc(object):
         By specifying the group or groups arguments, only routes belonging to
         those groups will be returned.
         """
+        context['autodoc'] = context['autodoc'] if 'autodoc' in context \
+            else self.generate(groups=groups)
+        context['defaults'] = context['defaults'] if 'defaults' in context \
+            else self.default_props
         if template:
-            return render_template(template,
-                                   autodoc=self.generate(groups=groups),
-                                   **context)
+            return render_template(template, **context)
         else:
             filename = os.path.join(
                 os.path.dirname(__file__),
@@ -163,7 +182,4 @@ class Autodoc(object):
             with open(filename) as file:
                 content = file.read()
                 with current_app.app_context():
-                    return render_template_string(
-                        content,
-                        autodoc=self.generate(groups=groups),
-                        **context)
+                    return render_template_string(content, **context)

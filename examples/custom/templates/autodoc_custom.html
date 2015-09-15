@@ -22,7 +22,7 @@
                 margin: 20px 20px;
             }
 
-            .location { font-style: italic;}
+            .location { font-style: italic; }
 
             ul.methods:before { content: "Methods: "; }
             ul.methods li {
@@ -43,6 +43,11 @@
             ul.arguments li:after { content: ","; }
             ul.arguments li:last-child:after { content: ""; }
 
+            ul.property li {
+                display: inline;
+                list-style: none;
+            }
+
             .docstring:before { content: "Description: "; }
         </style>
     </head>
@@ -60,9 +65,9 @@
             <a id="rule-{{doc.rule|urlencode}}" class="rule"><h2>{{doc.rule|escape}}</h2></a>
             <p class="location">{{doc.location.filename}}:{{doc.location.line}}</p>
             <ul class="methods">
-                    {% for method in doc.methods -%}
-                    <li class="method">{{method}}</li>
-                    {% endfor %}
+                {% for method in doc.methods -%}
+                <li class="method">{{method}}</li>
+                {% endfor %}
             </ul>
             <ul class="arguments">
                 {% for arg in doc.args %}
@@ -70,6 +75,11 @@
                     <span class="argument">{{arg}}</span>
                     <span class="default">{{doc.defaults[arg]}}</span>
                 </li>
+                {% endfor %}
+            </ul>
+            <ul class="property">
+                {% for prop in doc if prop not in defaults %}
+                <li class="property">{{prop}}:{{doc[prop]}}</br></li>
                 {% endfor %}
             </ul>
             <p class="docstring">{% autoescape false %}{{doc.docstring|urlize|nl2br}}{% endautoescape %}</p>

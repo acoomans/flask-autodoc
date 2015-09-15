@@ -57,11 +57,10 @@ def get_post(id):
 
 
 @app.route('/post', methods=["POST"])
-@auto.doc(groups=['posts', 'private'])
+@auto.doc(groups=['posts', 'private'],
+    form_data=['title', 'content', 'authorid'])
 def post_post():
-    """Create a new post.
-    Form Data: title, content, authorid.
-    """
+    """Create a new post."""
     authorid = request.form.get('authorid', None)
     Post(request.form['title'],
          request.form['content'],
@@ -84,11 +83,10 @@ def get_user(id):
 
 
 @app.route('/users', methods=['POST'])
-@auto.doc(groups=['users', 'private'])
+@auto.doc(groups=['users', 'private'],
+    form_data=['username'])
 def post_user(id):
-    """Creates a new user.
-    Form Data: username.
-    """
+    """Creates a new user."""
     User(request.form['username'])
     redirect('/users')
 
