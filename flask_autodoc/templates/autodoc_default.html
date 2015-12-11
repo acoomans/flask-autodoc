@@ -60,10 +60,10 @@
                 {% for method in doc.methods -%}
                     {% if method == 'GET' and doc.args == ['None'] %}
                         <a href="{{doc.rule}}" class="getmethod">
-                    {% endif %}
-                        <li class="method">{{method}}</li>
-                    {% if method == 'GET' %}
+                            <li class="method">{{method}}</li>
                         </a>
+                    {% else %}
+                        <li class="method">{{method}}</li>
                     {% endif %}
                 {% endfor %}
             </ul>
