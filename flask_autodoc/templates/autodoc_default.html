@@ -57,9 +57,15 @@
         <div class="mapping">
             <a id="rule-{{doc.rule|urlencode}}" class="rule"><h2>{{doc.rule|escape}}</h2></a>
             <ul class="methods">
-                    {% for method in doc.methods -%}
-                    <li class="method">{{method}}</li>
-                    {% endfor %}
+                {% for method in doc.methods -%}
+                    {% if method == 'GET' and doc.args == ['None'] %}
+                        <a href="{{doc.rule}}" class="getmethod">
+                            <li class="method">{{method}}</li>
+                        </a>
+                    {% else %}
+                        <li class="method">{{method}}</li>
+                    {% endif %}
+                {% endfor %}
             </ul>
             <ul class="arguments">
                 {% for arg in doc.args %}
