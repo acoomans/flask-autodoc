@@ -5,7 +5,7 @@ from collections import defaultdict
 import sys
 import inspect
 
-from flask import current_app, render_template, render_template_string
+from flask import current_app, render_template, render_template_string, jsonify
 from jinja2 import evalcontextfilter
 
 
@@ -195,3 +195,13 @@ class Autodoc(object):
                 content = file.read()
                 with current_app.app_context():
                     return render_template_string(content, **context)
+
+    def json(self, groups='all', **context):
+        """Return a json object with documentation for all the routes specified
+        by the doc() method.
+        
+        By specifiying the groups argument, only routes belonging to those groups
+        will be returned.
+        """
+        data = {}
+        return jsonify(data)
