@@ -24,3 +24,11 @@ class TestAutodocWithFlask(unittest.TestCase):
 
         response = self.client.get('/docs')
         self.assertEqual(response.status_code, 200)
+
+    def test_json(self):
+        @self.app.route('/docs')
+        def json_docs():
+            return self.autodoc.json()
+
+        response = self.client.get('/docs')
+        self.assertEqual(response.status_code, 200)
