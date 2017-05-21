@@ -1,3 +1,4 @@
+import json
 import unittest
 
 from flask import Flask
@@ -32,3 +33,6 @@ class TestAutodocWithFlask(unittest.TestCase):
 
         response = self.client.get('/docs')
         self.assertEqual(response.status_code, 200)
+
+        data = json.loads(response.data)
+        self.assertIn('endpoints', data)
