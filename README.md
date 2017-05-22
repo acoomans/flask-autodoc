@@ -68,7 +68,7 @@ the documentation will be returned as a list of rules, where each rule is a dict
 
 To use a custom template for your documentation, give a _template_ argument to the _html_ method. This will use a template from the flask _templates_ directory. 
 
-Additionnal arguments (other than _group_, _groups_, and _template_) will be passed down to the template:
+Additional arguments (other than _group_, _groups_, and _template_) will be passed down to the template:
 
 	auto.html(
 		
