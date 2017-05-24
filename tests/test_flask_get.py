@@ -36,3 +36,13 @@ class TestAutodocWithFlask(unittest.TestCase):
 
         data = json.loads(response.data)
         self.assertIn('endpoints', data)
+        self.assertEqual(len(data['endpoints']), 1)
+
+        endpoint = data['endpoints'][0]
+        expected = {
+            "args": [],
+            "docstring": "Returns a hello world message",
+            "methods": ["GET", "HEAD", "OPTIONS"],
+            "rule": "/"
+        }
+        self.assertEqual(endpoint, expected)
