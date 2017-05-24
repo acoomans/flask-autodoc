@@ -40,5 +40,5 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         'Topic :: Software Development :: Libraries :: Python Modules'
     ],
-    test_suite='tests.test_autodoc',
+    test_suite='tests',
 )
