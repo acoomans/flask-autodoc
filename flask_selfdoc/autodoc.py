@@ -196,12 +196,16 @@ class Autodoc(object):
                 with current_app.app_context():
                     return render_template_string(content, **context)
 
-    def json(self, groups='all', **context):
+    def json(self, groups='all'):
         """Return a json object with documentation for all the routes specified
         by the doc() method.
         
         By specifiying the groups argument, only routes belonging to those groups
         will be returned.
         """
-        data = {}
+        autodoc = self.generate(groups=groups)
+        data = {
+            'endpoints':
+                [ "doc" for doc in autodoc ]
+        }
         return jsonify(data)
