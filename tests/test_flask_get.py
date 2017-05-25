@@ -34,7 +34,7 @@ class TestAutodocWithFlask(unittest.TestCase):
         response = self.client.get('/docs')
         self.assertEqual(response.status_code, 200)
 
-        data = json.loads(response.data)
+        data = json.loads(response.data.decode('utf-8'))
         self.assertIn('endpoints', data)
         self.assertEqual(len(data['endpoints']), 1)
 
