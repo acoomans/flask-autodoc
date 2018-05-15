@@ -1,3 +1,3 @@
 __author__ = 'arnaud'
 
-from flask.ext.autodoc.autodoc import Autodoc
+from flask.ext.selfdoc.autodoc import Autodoc
