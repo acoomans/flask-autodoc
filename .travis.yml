@@ -7,10 +7,10 @@ python:
 env:
   - FLASK=0.12
   - FLASK=1.0
-  - FLASK=latest
+  - FLASK=1.0.2
 matrix:
   allow_failures:
-    - env: FLASK=latest
+    - env: FLASK=1.0.2
 install: 
   - pip install Flask==${FLASK}
 script: 
