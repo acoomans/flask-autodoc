@@ -1,8 +1,8 @@
 """
-Flask-Autodoc
+Flask-Selfdoc
 -------------
 
-Flask autodoc automatically creates an online documentation for your flask app.
+Flask selfdoc automatically creates an online documentation for your flask app.
 """
 from setuptools import setup
 
@@ -13,19 +13,18 @@ def readme():
 
 
 setup(
-    name='Flask-Autodoc',
-    version='0.1.2',
-    url='http://github.com/acoomans/flask-autodoc',
+    name='Flask-Selfdoc',
+    version='0.2',
+    url='http://github.com/jwg4/flask-selfdoc',
     license='MIT',
     author='Arnaud Coomans',
-    author_email='arnaud.coomans@gmail.com',
     description='Documentation generator for flask',
     long_description=readme(),
     # py_modules=['flask_autodoc'],
     # if you would be using a package instead use packages instead
     # of py_modules:
-    packages=['flask_autodoc'],
-    package_data={'flask_autodoc': ['templates/autodoc_default.html']},
+    packages=['flask_selfdoc'],
+    package_data={'flask_selfdoc': ['templates/autodoc_default.html']},
     zip_safe=False,
     include_package_data=True,
     platforms='any',
