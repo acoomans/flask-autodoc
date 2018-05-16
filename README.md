@@ -29,7 +29,7 @@ or clone this directory and run setup:
 Start using Flask-Selfdoc by importing it and initializing it:
 
     from flask import Flask
-    from flask.ext.selfdoc import Autodoc
+    from flask_selfdoc import Autodoc
 
     app = Flask(__name__)
     auto = Autodoc(app)
