@@ -1,7 +1,7 @@
 import unittest
 
 from flask import Flask
-from flask_autodoc import Autodoc
+from flask_selfdoc import Autodoc
 
 
 class TestErrorHandling(unittest.TestCase):
