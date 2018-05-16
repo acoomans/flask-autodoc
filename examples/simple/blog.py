@@ -1,7 +1,7 @@
 from json import dumps
 
 from flask import Flask, redirect, request
-from flask.ext.selfdoc import Autodoc
+from flask_selfdoc import Autodoc
 
 
 app = Flask(__name__)
