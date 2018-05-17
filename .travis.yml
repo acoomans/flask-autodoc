@@ -13,7 +13,7 @@ install:
   - pip install flake8
 script: 
   - python -m unittest discover
-  - flake8 --exclude=examples
+  - flake8 --exclude=examples --max-line-length=100
 notifications:
   email: false
 deploy:
