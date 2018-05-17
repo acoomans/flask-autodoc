@@ -4,7 +4,7 @@ Flask-Selfdoc
 Flask-Selfdoc is a Flask extension that automatically creates documentation for your endpoints based on the routes, function arguments and docstrings. It was forked from Flask-Autodoc, written by Arnaud Coomans, and is completely compatible as a replacement for that extension.
 
 [![Build](https://api.travis-ci.org/jwg4/flask-autodoc.png)](https://travis-ci.org/jwg4/flask-autodoc)
-[![Pypi version](http://img.shields.io/pypi/v/flask-autodoc.svg)](https://pypi.python.org/pypi/Flask-Selfdoc)
+[![Pypi version](http://img.shields.io/pypi/v/flask-selfdoc.svg)](https://pypi.python.org/pypi/Flask-Selfdoc)
 [![Pypi license](http://img.shields.io/pypi/l/flask-selfdoc.svg)](https://pypi.python.org/pypi/Flask-Selfdoc)
 ![Python 2](http://img.shields.io/badge/python-2-blue.svg)
 ![Python 3](http://img.shields.io/badge/python-3-blue.svg)
