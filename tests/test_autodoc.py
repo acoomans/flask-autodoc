@@ -260,7 +260,7 @@ class TestAutodoc(unittest.TestCase):
             self.assertIn('Returns arguments', doc)
 
     def testLocation(self):
-        line_no = inspect.stack()[0][2] + 2  # the doc() line
+        line_no = inspect.stack()[0][2] + 3  # the doc() line
 
         @self.app.route('/location')
         @self.autodoc.doc()
