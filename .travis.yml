@@ -10,8 +10,10 @@ env:
   - FLASK=1.0.2
 install: 
   - pip install Flask==${FLASK}
+  - pip install flake8
 script: 
   - python -m unittest discover
+  - flake8
 notifications:
   email: false
 deploy:
