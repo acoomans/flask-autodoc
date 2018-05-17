@@ -28,7 +28,8 @@ class Autodoc(object):
         self.func_groups = defaultdict(set)
         self.func_props = defaultdict()
         self.immutable_props = ['rule', 'endpoint']
-        self.default_props = ['methods', 'docstring', 
+        self.default_props = [
+            'methods', 'docstring',
             'args', 'defaults', 'location'] + self.immutable_props
         self.func_locations = defaultdict(dict)
         if app is not None:
@@ -42,7 +43,7 @@ class Autodoc(object):
         self.add_custom_template_filters(app)
 
     def teardown(self, exception):
-        ctx = stack.top
+        ctx = stack.top  # noqa: F841
 
     def add_custom_template_filters(self, app):
         """Add custom filters to jinja2 templating engine"""
