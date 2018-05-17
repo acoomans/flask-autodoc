@@ -12,6 +12,8 @@ install:
   - pip install Flask==${FLASK}
 script: 
   - python -m unittest discover
+notifications:
+  email: false
 deploy:
   provider: pypi
   user: "jwg"
