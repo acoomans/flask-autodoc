@@ -12,6 +12,7 @@ install:
   - pip install Flask==${FLASK}
 script: 
   - python -m unittest discover
+  - flake8
 notifications:
   email: false
 deploy:
