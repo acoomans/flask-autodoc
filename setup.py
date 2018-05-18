@@ -18,6 +18,8 @@ setup(
     url='http://github.com/jwg4/flask-selfdoc',
     license='MIT',
     author='Arnaud Coomans',
+    maintainer='Jack Grahl',
+    maintainer_email='jack.grahl@gmail.com',
     description='Documentation generator for flask',
     long_description=readme(),
     # py_modules=['flask_autodoc'],
