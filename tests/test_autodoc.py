@@ -12,7 +12,6 @@ class TestAutodoc(unittest.TestCase):
 
     def setUp(self):
         self.app = Flask(__name__)
-        self.app.debug = True
         self.autodoc = Autodoc(self.app)
 
     @staticmethod
@@ -306,6 +305,5 @@ class TestAutodocFactoryPattern(TestAutodoc):
 
     def setUp(self):
         self.app = Flask(__name__)
-        self.app.debug = True
         self.autodoc = Autodoc()
         self.autodoc.init_app(self.app)
