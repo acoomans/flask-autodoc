@@ -6,9 +6,12 @@ from flask_selfdoc import Autodoc
 
 
 class TestAutodocWithFlask(unittest.TestCase):
-    def setUp(self):
+    def setup_app(self):
         self.app = Flask(__name__)
         self.autodoc = Autodoc(self.app)
+
+    def setUp(self):
+        self.setup_app()
 
         @self.app.route('/')
         @self.autodoc.doc()
@@ -46,3 +49,10 @@ class TestAutodocWithFlask(unittest.TestCase):
             "rule": "/"
         }
         self.assertEqual(endpoint, expected)
+
+
+class TestAutodocWithFlaskFactory(TestAutodocWithFlask):
+    def setup_app(self):
+        self.app = Flask(__name__)
+        self.autodoc = Autodoc()
+        self.autodoc.init_app(self.app)
