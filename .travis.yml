@@ -11,9 +11,11 @@ matrix:
     - python: '3.6'
     - python: 'nightly'
 env:
+  - DEP="Flask==0.11"
   - DEP="Flask==0.12"
   - DEP="Flask==1.0"
   - DEP="Flask==1.0.2"
+  - DEP="Flask"
 install: 
   - pip install ${DEP}
   - pip install flake8
