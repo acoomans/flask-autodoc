@@ -4,6 +4,12 @@ python:
   - "3.3"
   - "3.4"
   - "3.5"
+  - "3.6"
+  - "nightly"
+matrix:
+  allow_failures:
+    - python: '3.6'
+    - python: 'nightly'
 env:
   - FLASK=0.12
   - FLASK=1.0
