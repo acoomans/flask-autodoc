@@ -40,3 +40,5 @@ virtualenv
 venv
 
 .idea
+
+.vscode
