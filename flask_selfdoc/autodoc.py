@@ -7,6 +7,7 @@ import inspect
 
 from flask import current_app, render_template, render_template_string, jsonify
 from jinja2 import evalcontextfilter
+from jinja2.exceptions import TemplateAssertionError
 
 
 try:
@@ -177,8 +178,6 @@ class Autodoc(object):
         By specifying the group or groups arguments, only routes belonging to
         those groups will be returned.
         """
-        if not self.app:
-            raise RuntimeError("Autodoc was not initialized with the Flask app.")
         context['autodoc'] = context['autodoc'] if 'autodoc' in context \
             else self.generate(groups=groups)
         context['defaults'] = context['defaults'] if 'defaults' in context \
@@ -194,7 +193,11 @@ class Autodoc(object):
             with open(filename) as file:
                 content = file.read()
                 with current_app.app_context():
-                    return render_template_string(content, **context)
+                    try:
+                        return render_template_string(content, **context)
+                    except TemplateAssertionError:
+                        raise RuntimeError("Autodoc was not initialized with the Flask app.")
+
 
     def json(self, groups='all'):
         """Return a json object with documentation for all the routes specified
