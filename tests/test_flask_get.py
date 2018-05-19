@@ -2,7 +2,7 @@ import json
 import unittest
 
 from flask import Flask
-from flask.ext.autodoc import Autodoc
+from flask_selfdoc import Autodoc
 
 
 class TestAutodocWithFlask(unittest.TestCase):
