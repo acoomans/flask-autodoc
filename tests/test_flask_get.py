@@ -56,3 +56,26 @@ class TestAutodocWithFlaskFactory(TestAutodocWithFlask):
         self.app = Flask(__name__)
         self.autodoc = Autodoc()
         self.autodoc.init_app(self.app)
+
+
+class TestAutodocTwoApps(unittest.TestCase):
+    def setUp(self):
+        self.app_1 = Flask(__name__)
+        self.app_2 = Flask(__name__)
+        self.autodoc = Autodoc()
+        self.autodoc.init_app(self.app_1)
+        self.autodoc.init_app(self.app_2)
+
+    def test_endpoint_on_one_app(self):
+        @self.app_1.route('/')
+        @self.autodoc.doc()
+        def index():
+            """Returns a hello world message"""
+            return 'Hello World!'
+
+        with self.app_2.app_context():
+            response = self.autodoc.json()
+        
+        data = json.loads(response.data)
+        self.assertIn('endpoints', data)
+        self.assertEqual(data['endpoints'], [])
