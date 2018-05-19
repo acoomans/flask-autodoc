@@ -21,6 +21,7 @@ deploy:
   user: "jwg"
   password:
     secure: JvvqjJoC1Cd3JHPUNBTYJz1UG0irxN4mCSrSLnfFWZX/b8TIkUye3TB4nVITG30PsZtrkdEwTKmrtS/1s2Q3cPPAWN4mayOJFW8M020MvUuBCKe4+j1CceiSdwGqenOVml6kh9fWcCFmeBuJcFBrW4HCYA1quOQ9sEaKAKCOkfpRSAtou5r0QpnoCuzmm837bzfw4kJZybnp0MrLpheQ7xZBqTVegiYkszNJpAm6mCH4Wk1IDUrsqocI2Vwd2kz2gsS+0bA/oC0pVIqs5egjDXet06gAGLmPJnsSjnl5YMQryy33cuMybO8+DsKqTbjFa9WjbPPxq3zfroe26h8YBYFsl7+9LwM88G6C28O5RueHnO9yULpDqR0mLr4ihshj591sdz4eYEc+eih5ofKLTGHHwOw8w/4FcKIJCb6CVTxrNsVW9uqeoNwZyYldrklhtsNxgioMSzGmdb2kprAGrJzARYwUA1mL+51xW7KiebpSSNsN/bYQmgWoURkLaN25+fqbQnMP+QxmIsIOH2374dwoXjTKLhZBW7JZ+B2570SxlBzSx8GkFahz3lMLuUd8Qfpj19FoDkDyDTXCccWnhi8r7NtfQZigWAN4U9yJ/iEegbOomASYtl7O0WZq2wJFeii3KO9fH6p4q3OOz87/yWglWP2+hUL2mlTuw3a74t8=
+  server: https://upload.pypi.org/legacy/
   on:
     tags: true
     python: 3.5
