@@ -11,11 +11,11 @@ matrix:
     - python: '3.6'
     - python: 'nightly'
 env:
-  - FLASK=0.12
-  - FLASK=1.0
-  - FLASK=1.0.2
+  - DEP="Flask==0.12"
+  - DEP="Flask==1.0"
+  - DEP="Flask==1.0.2"
 install: 
-  - pip install Flask==${FLASK}
+  - pip install ${DEP}
   - pip install flake8
 script: 
   - python -m unittest discover
