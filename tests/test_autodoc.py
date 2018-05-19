@@ -5,7 +5,7 @@ import sys
 import os
 
 from flask import Flask
-from flask.ext.autodoc import Autodoc
+from flask_selfdoc import Autodoc
 
 
 class TestAutodoc(unittest.TestCase):
@@ -157,13 +157,14 @@ class TestAutodoc(unittest.TestCase):
         @self.app.route('/needsargs', methods=['GET'])
         @self.autodoc.doc('needs_getargs', getargs={
             'a': 'A Value',
-            'b': 'B Value'  
+            'b': 'B Value'
             })
         def getit():
             return 'I need specific GET parameters.'
 
         @self.app.route('/noargs')
-        @self.autodoc.doc(groups=['needs_json', 'noargs'],
+        @self.autodoc.doc(
+            groups=['needs_json', 'noargs'],
             expected_type='application/json')
         def needjson():
             return 'I do not need any parameters, but am picky about types.'
@@ -259,7 +260,8 @@ class TestAutodoc(unittest.TestCase):
             self.assertIn('Returns arguments', doc)
 
     def testLocation(self):
-        line_no = inspect.stack()[0][2] + 2 # the doc() line
+        line_no = inspect.stack()[0][2] + 3  # the doc() line
+
         @self.app.route('/location')
         @self.autodoc.doc()
         def location():
@@ -298,4 +300,3 @@ class TestAutodoc(unittest.TestCase):
             self.assertTrue(1 == len(self.autodoc.generate('group1')))
             self.assertTrue(1 == len(self.autodoc.generate('group2')))
             self.assertFalse(1 == len(self.autodoc.generate('group3')))
-

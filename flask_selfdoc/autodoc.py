@@ -5,7 +5,7 @@ from collections import defaultdict
 import sys
 import inspect
 
-from flask import current_app, render_template, render_template_string
+from flask import current_app, render_template, render_template_string, jsonify
 from jinja2 import evalcontextfilter
 
 
@@ -28,7 +28,8 @@ class Autodoc(object):
         self.func_groups = defaultdict(set)
         self.func_props = defaultdict()
         self.immutable_props = ['rule', 'endpoint']
-        self.default_props = ['methods', 'docstring', 
+        self.default_props = [
+            'methods', 'docstring',
             'args', 'defaults', 'location'] + self.immutable_props
         self.func_locations = defaultdict(dict)
         if app is not None:
@@ -42,7 +43,7 @@ class Autodoc(object):
         self.add_custom_template_filters(app)
 
     def teardown(self, exception):
-        ctx = stack.top
+        ctx = stack.top  # noqa: F841
 
     def add_custom_template_filters(self, app):
         """Add custom filters to jinja2 templating engine"""
@@ -176,6 +177,8 @@ class Autodoc(object):
         By specifying the group or groups arguments, only routes belonging to
         those groups will be returned.
         """
+        if not self.app:
+            raise RuntimeError("Autodoc was not initialized with the Flask app.")
         context['autodoc'] = context['autodoc'] if 'autodoc' in context \
             else self.generate(groups=groups)
         context['defaults'] = context['defaults'] if 'defaults' in context \
@@ -192,3 +195,28 @@ class Autodoc(object):
                 content = file.read()
                 with current_app.app_context():
                     return render_template_string(content, **context)
+
+    def json(self, groups='all'):
+        """Return a json object with documentation for all the routes specified
+        by the doc() method.
+
+        By specifiying the groups argument, only routes belonging to those groups
+        will be returned.
+        """
+        autodoc = self.generate(groups=groups)
+
+        def endpoint_info(doc):
+            args = doc['args']
+            if args == ['None']:
+                args = []
+            return {
+                "args": [(arg, doc['defaults'][arg]) for arg in args],
+                "docstring": doc['docstring'],
+                "methods": sorted(list(doc['methods'])),
+                "rule": doc['rule']
+            }
+        data = {
+            'endpoints':
+                [endpoint_info(doc) for doc in autodoc]
+        }
+        return jsonify(data)

@@ -1,5 +1,5 @@
 from flask import Blueprint
-from flask.ext.autodoc import Autodoc
+from flask_selfdoc import Autodoc
 
 
 doc = Blueprint('doc', __name__, url_prefix='/doc')

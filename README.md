@@ -1,24 +1,24 @@
-Flask-Autodoc
+Flask-Selfdoc
 =============
 
-Flask-Autodoc is a Flask extension that automatically creates documentation for your endpoints based on the routes, function arguments and docstrings.
+Flask-Selfdoc is a Flask extension that automatically creates documentation for your endpoints based on the routes, function arguments and docstrings. It was forked from Flask-Autodoc, written by Arnaud Coomans, and is completely compatible as a replacement for that extension.
 
-[![Build](https://api.travis-ci.org/acoomans/flask-autodoc.png)](https://travis-ci.org/acoomans/flask-autodoc)
-[![Pypi version](http://img.shields.io/pypi/v/flask-autodoc.svg)](https://pypi.python.org/pypi/Flask-Autodoc)
-[![Pypi license](http://img.shields.io/pypi/l/flask-autodoc.svg)](https://pypi.python.org/pypi/Flask-Autodoc)
+[![Build](https://api.travis-ci.org/jwg4/flask-selfdoc.png)](https://travis-ci.org/jwg4/flask-selfdoc)
+[![Pypi version](http://img.shields.io/pypi/v/flask-selfdoc.svg)](https://pypi.python.org/pypi/Flask-Selfdoc)
+[![Pypi license](http://img.shields.io/pypi/l/flask-selfdoc.svg)](https://pypi.python.org/pypi/Flask-Selfdoc)
 ![Python 2](http://img.shields.io/badge/python-2-blue.svg)
 ![Python 3](http://img.shields.io/badge/python-3-blue.svg)
 
 
 ## Requirements
 
-Flask-Autodoc is compatible with Python versions 2 and 3; and it depends only on Flask.
+Flask-Selfdoc is compatible with Python versions 2 and 3; and it depends only on Flask.
 
 ## Install
 
-To install Flask-Autodoc, run pip:
+To install Flask-Selfdoc, run pip:
 
-	pip install flask-autodoc
+	pip install flask-selfdoc
 	
 or clone this directory and run setup:
 
@@ -26,15 +26,15 @@ or clone this directory and run setup:
 
 ## Usage
 
-Start using Flask-Autodoc by importing it and initializing it:
+Start using Flask-Selfdoc by importing it and initializing it:
 
     from flask import Flask
-    from flask.ext.autodoc import Autodoc
+    from flask_selfdoc import Autodoc
 
     app = Flask(__name__)
     auto = Autodoc(app)
 
-by default, Flask-Autodoc will only document the routes explicitly decorated with _doc_:
+by default, Flask-Selfdoc will only document the routes explicitly decorated with _doc_:
 
     @app.route('/user/<int:id>')
     @auto.doc()
