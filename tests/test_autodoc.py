@@ -300,3 +300,12 @@ class TestAutodoc(unittest.TestCase):
             self.assertTrue(1 == len(self.autodoc.generate('group1')))
             self.assertTrue(1 == len(self.autodoc.generate('group2')))
             self.assertFalse(1 == len(self.autodoc.generate('group3')))
+
+
+class TestAutodocFactoryPattern(TestAutodoc):
+
+    def setUp(self):
+        self.app = Flask(__name__)
+        self.app.debug = True
+        self.autodoc = Autodoc()
+        self.autodoc.init_app(self.app)
