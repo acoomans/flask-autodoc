@@ -75,7 +75,7 @@ class TestAutodocTwoApps(unittest.TestCase):
 
         with self.app_2.app_context():
             response = self.autodoc.json()
-        
+
         data = json.loads(response.data)
         self.assertIn('endpoints', data)
         self.assertEqual(data['endpoints'], [])
