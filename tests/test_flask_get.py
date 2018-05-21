@@ -77,6 +77,6 @@ class TestAutodocTwoApps(unittest.TestCase):
             with current_app.test_request_context():
                 response = self.autodoc.json()
 
-        data = json.loads(response.data.encode())
+        data = json.loads(response.data.decode('utf-8'))
         self.assertIn('endpoints', data)
         self.assertEqual(data['endpoints'], [])
