@@ -1,7 +1,7 @@
 import json
 import unittest
 
-from flask import Flask
+from flask import Flask, current_app
 from flask_selfdoc import Autodoc
 
 
@@ -74,7 +74,8 @@ class TestAutodocTwoApps(unittest.TestCase):
             return 'Hello World!'
 
         with self.app_2.app_context():
-            response = self.autodoc.json()
+            with current_app.test_request_context():
+                response = self.autodoc.json()
 
         data = json.loads(response.data)
         self.assertIn('endpoints', data)
