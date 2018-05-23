@@ -196,7 +196,8 @@ class Autodoc(object):
                     try:
                         return render_template_string(content, **context)
                     except TemplateAssertionError:
-                        raise RuntimeError("Autodoc was not initialized with the Flask app.")
+                        raise RuntimeError(
+                            "Autodoc was not initialized with the Flask app.")
 
     def json(self, groups='all'):
         """Return a json object with documentation for all the routes specified
@@ -222,5 +223,6 @@ class Autodoc(object):
                 [endpoint_info(doc) for doc in autodoc]
         }
         return jsonify(data)
+
 
 Selfdoc = Autodoc
