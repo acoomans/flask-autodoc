@@ -222,3 +222,5 @@ class Autodoc(object):
                 [endpoint_info(doc) for doc in autodoc]
         }
         return jsonify(data)
+
+Selfdoc = Autodoc

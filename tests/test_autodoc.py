@@ -301,6 +301,14 @@ class TestAutodoc(unittest.TestCase):
             self.assertFalse(1 == len(self.autodoc.generate('group3')))
 
 
+class TestSelfdoc(TestAutodoc):
+    """ We want this class name to work
+        exactly like the legacy one. """
+    def setUp(self):
+        self.app = Flask(__name__)
+        self.autodoc = Selfdoc(self.app)
+
+
 class TestAutodocFactoryPattern(TestAutodoc):
 
     def setUp(self):
