@@ -47,6 +47,18 @@ to generate the documentation, use the _html()_ method:
     def documentation():
         return auto.html()
 
+## Compatibility
+
+If your codebase uses Flask-Autodoc, you can swap it for Flask-Selfdoc by simply changing the name of the module in your import:
+
+    from flask_selfdoc import Autodoc
+    
+instead of 
+
+    from flask_autodoc import Autodoc
+    
+No other changes are necessary. Flask-Selfdoc 1.0 has exactly the same functionality as Flask-Autodoc 0.1.2, the most recent release at the time of the fork. The projects will remain like-for-like compatible for the foreseeable future.
+
 ## Custom documentation
 
 To access the documentation without rendering html:
