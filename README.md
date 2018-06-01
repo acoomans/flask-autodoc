@@ -59,6 +59,16 @@ instead of
     
 No other changes are necessary. Flask-Selfdoc 1.0 has exactly the same functionality as Flask-Autodoc 0.1.2, the most recent release at the time of the fork. The projects will remain like-for-like compatible for the foreseeable future.
 
+If you import Flask-Autodoc using the old syntax,
+
+    from flask.ext.autodoc import Autodoc
+ 
+ you should replace it with the new syntax. 
+ 
+     from flask_autodoc import Autodoc
+
+The old syntax isn't supported by Flask any more and Flask-Selfdoc doesn't use it.
+
 ## Custom documentation
 
 To access the documentation without rendering html:
