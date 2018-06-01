@@ -80,7 +80,7 @@ To access the documentation without rendering html:
 the documentation will be returned as a list of rules, where each rule is a dictionary containing:
 
 - methods: the set of allowed methods (ie ['GET', 'POST'])
-- rule: relative url (ie '/user/<int:id>')
+- rule: relative url (ie '/user/&lt;int:id&gt;')
 - endpoint: function name (ie 'show_user')
 - doc: docstring of the function
 - args: function arguments
