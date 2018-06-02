@@ -11,6 +11,8 @@ matrix:
     - python: 'nightly'
     - env: DEP="Flask==0.9"
     - env: DEP="Flask==0.10"
+    - env: DEP="Flask==1.0.3"
+    - env: DEP="Flask==1.1"
 
 env:
   - DEP="Flask==0.9"
@@ -19,6 +21,8 @@ env:
   - DEP="Flask==0.12"
   - DEP="Flask==1.0"
   - DEP="Flask==1.0.2"
+  - DEP="Flask==1.0.3"
+  - DEP="Flask==1.1"
   - DEP="Flask"
 install: 
   - pip install ${DEP}
