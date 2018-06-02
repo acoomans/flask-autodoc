@@ -9,13 +9,11 @@ python:
 matrix:
   allow_failures:
     - python: 'nightly'
-    - env: DEP="Flask==0.9"
     - env: DEP="Flask==0.10"
     - env: DEP="Flask==1.0.3"
     - env: DEP="Flask==1.1"
 
 env:
-  - DEP="Flask==0.9"
   - DEP="Flask==0.10"
   - DEP="Flask==0.11"
   - DEP="Flask==0.12"
