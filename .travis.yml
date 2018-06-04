@@ -12,7 +12,7 @@ matrix:
     - env: DEP="Flask==0.10"
     - env: DEP="Flask==1.0.3"
     - env: DEP="Flask==1.1"
-    - env: DEP="Flask==dev"
+    - env: DEP="https://github.com/pallets/flask/archive/master.tar.gz"
 
 env:
   - DEP="Flask==0.10"
@@ -22,7 +22,7 @@ env:
   - DEP="Flask==1.0.2"
   - DEP="Flask==1.0.3"
   - DEP="Flask==1.1"
-  - DEP="Flask==dev"
+  - DEP="https://github.com/pallets/flask/archive/master.tar.gz"
   - DEP="Flask"
 install: 
   - pip install ${DEP}
