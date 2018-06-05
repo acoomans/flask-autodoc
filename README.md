@@ -59,15 +59,30 @@ instead of
     
 No other changes are necessary. Flask-Selfdoc 1.0 has exactly the same functionality as Flask-Autodoc 0.1.2, the most recent release at the time of the fork. The projects will remain like-for-like compatible for the foreseeable future.
 
-If you import Flask-Autodoc using the old syntax,
+You can't import Flask-Selfdoc using the old naming scheme for Flask extensions, `flask.ext.foo`. This is deprecated by Flask and now fails to work on Flask 1.0.2. See the next section for details.
+
+## ImportError with Flask 1.0.2
+
+If you try to run Flask-Autodoc with Flask 1.0.2, you will get an ImportError which looks like this:
+
+    >>> from flask_autodoc import Autodoc
+    Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+    File "/home/jwg4/autodoc_error/venv/local/lib/python2.7/site-packages/flask_autodoc/__init__.py", line 3, in <module>
+        from flask.ext.autodoc.autodoc import Autodoc
+    ImportError: No module named ext.autodoc.autodoc
+
+This is because Flask no longer supports modules which are named `flask.ext.foo`. Even if you import Autodoc as above (from `flask_autodoc` instead of `flask.ext.autodoc`) the Flask-Autodoc code internally uses the old format and so the import will fail. In versions of Flask prior to 1.0.2, Flask-Autodoc caused a warning but did not fail. Flask-Selfdoc's first and main change from Flask-Autodoc was to fix this import so that it works with Flask 1.0.2, and so that the warning is not present with older versions.
+
+If you imported Flask-Autodoc using the old syntax,
 
     from flask.ext.autodoc import Autodoc
  
  you should replace it with the new syntax. 
  
      from flask_selfdoc import Autodoc
-
-The old syntax isn't supported by Flask any more and Flask-Selfdoc doesn't use it.
+ 
+ Changing from Flask-Selfdoc to Flask-Autodoc and changing your imports as above if needed, will mean that your code will work with Flask 1.0.2 and (hopefully) all future versions.
 
 ## Custom documentation
 
