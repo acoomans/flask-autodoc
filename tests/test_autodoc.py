@@ -315,3 +315,46 @@ class TestAutodocFactoryPattern(TestAutodoc):
         self.app = Flask(__name__)
         self.autodoc = Autodoc()
         self.autodoc.init_app(self.app)
+
+
+class TestMultipleApps(unittest.TestCase):
+
+    def setUp(self):
+        self.app1 = Flask(__name__)
+        self.app2 = Flask(__name__)
+        self.autodoc = Autodoc()
+        self.autodoc.init_app(self.app1)
+        self.autodoc.init_app(self.app2)
+
+    def testGet(self):
+        @self.app1.route('/')
+        @self.autodoc.doc()
+        def index():
+            """Returns a hello world message"""
+            return 'Hello World!'
+
+        @self.app2.route('/goodbye')
+        @self.autodoc.doc()
+        def goodbye():
+            """Returns a goodbye message"""
+            return 'TTFN!'
+
+        with self.app1.app_context():
+            doc = self.autodoc.generate()
+        self.assertTrue(len(doc) == 1)
+        d = doc[0]
+        self.assertIn('GET', d['methods'])
+        self.assertNotIn('POST', d['methods'])
+        self.assertEqual(d['rule'], '/')
+        self.assertEqual(d['endpoint'], 'index')
+        self.assertEqual(d['docstring'], 'Returns a hello world message')
+
+        with self.app2.app_context():
+            doc = self.autodoc.generate()
+        self.assertTrue(len(doc) == 1)
+        d = doc[0]
+        self.assertIn('GET', d['methods'])
+        self.assertNotIn('POST', d['methods'])
+        self.assertEqual(d['rule'], '/goodbye')
+        self.assertEqual(d['endpoint'], 'goodbye')
+        self.assertEqual(d['docstring'], 'Returns a goodbye message')
