@@ -5,7 +5,6 @@ from flask_selfdoc import Autodoc
 
 
 app = Flask(__name__)
-app.debug = True
 auto = Autodoc(app)
 
 users = []

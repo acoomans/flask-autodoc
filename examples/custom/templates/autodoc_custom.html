@@ -63,7 +63,6 @@
         {% for doc in autodoc %}
         <div class="mapping">
             <a id="rule-{{doc.rule|urlencode}}" class="rule"><h2>{{doc.rule|escape}}</h2></a>
-            <p class="location">{{doc.location.filename}}:{{doc.location.line}}</p>
             <ul class="methods">
                 {% for method in doc.methods -%}
                 <li class="method">{{method}}</li>

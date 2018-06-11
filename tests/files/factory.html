@@ -1,0 +1,181 @@
+<html>
+    <head>
+        <title>
+            Blog Documentation
+            </title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                font-family: Verdana, "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+            }
+
+            body {
+                margin: 10px;
+            }
+
+            div.mapping {
+                margin: 20px 20px;
+            }
+
+            ul.methods:before { content: "Methods: "; }
+            ul.methods li {
+                display: inline;
+                list-style: none;
+            }
+            ul.methods li:after { content: ","; }
+            ul.methods li:last-child:after { content: ""; }
+
+            ul.arguments:before { content: "Arguments: "; }
+            ul.arguments li {
+                display: inline;
+                list-style: none;
+            }
+            ul.arguments .argument { font-style:italic }
+            ul.arguments .default:not(:empty):before { content: "("; }
+            ul.arguments .default:not(:empty):after { content: ")"; }
+            ul.arguments li:after { content: ","; }
+            ul.arguments li:last-child:after { content: ""; }
+
+            .docstring:before { content: "Description: "; }
+        </style>
+    </head>
+    <body>
+        <h1>
+            Blog Documentation
+            </h1>
+
+        
+        <div class="mapping">
+            <a id="rule-/blog/" class="rule"><h2>/blog/</h2></a>
+            <ul class="methods">
+                
+                        <a href="/blog/" class="getmethod">
+                            <li class="method">GET</li>
+                        </a>
+                    
+                
+                        <li class="method">HEAD</li>
+                    
+                
+                        <li class="method">OPTIONS</li>
+                    
+                
+            </ul>
+            <ul class="arguments">
+                
+                <li>
+                    <span class="argument">None</span>
+                    <span class="default"></span>
+                </li>
+                
+            </ul>
+            <p class="docstring">Return all posts.</p>
+        </div>
+        
+        <div class="mapping">
+            <a id="rule-/blog/post/%3Cint%3Aid%3E" class="rule"><h2>/blog/post/&lt;int:id&gt;</h2></a>
+            <ul class="methods">
+                
+                        <li class="method">GET</li>
+                    
+                
+                        <li class="method">HEAD</li>
+                    
+                
+                        <li class="method">OPTIONS</li>
+                    
+                
+            </ul>
+            <ul class="arguments">
+                
+                <li>
+                    <span class="argument">id</span>
+                    <span class="default"></span>
+                </li>
+                
+            </ul>
+            <p class="docstring">Return the post for the given id.</p>
+        </div>
+        
+        <div class="mapping">
+            <a id="rule-/blog/posts" class="rule"><h2>/blog/posts</h2></a>
+            <ul class="methods">
+                
+                        <a href="/blog/posts" class="getmethod">
+                            <li class="method">GET</li>
+                        </a>
+                    
+                
+                        <li class="method">HEAD</li>
+                    
+                
+                        <li class="method">OPTIONS</li>
+                    
+                
+            </ul>
+            <ul class="arguments">
+                
+                <li>
+                    <span class="argument">None</span>
+                    <span class="default"></span>
+                </li>
+                
+            </ul>
+            <p class="docstring">Return all posts.</p>
+        </div>
+        
+        <div class="mapping">
+            <a id="rule-/blog/user/%3Cint%3Aid%3E" class="rule"><h2>/blog/user/&lt;int:id&gt;</h2></a>
+            <ul class="methods">
+                
+                        <li class="method">GET</li>
+                    
+                
+                        <li class="method">HEAD</li>
+                    
+                
+                        <li class="method">OPTIONS</li>
+                    
+                
+            </ul>
+            <ul class="arguments">
+                
+                <li>
+                    <span class="argument">id</span>
+                    <span class="default"></span>
+                </li>
+                
+            </ul>
+            <p class="docstring">Return the user for the given id.</p>
+        </div>
+        
+        <div class="mapping">
+            <a id="rule-/blog/users" class="rule"><h2>/blog/users</h2></a>
+            <ul class="methods">
+                
+                        <a href="/blog/users" class="getmethod">
+                            <li class="method">GET</li>
+                        </a>
+                    
+                
+                        <li class="method">HEAD</li>
+                    
+                
+                        <li class="method">OPTIONS</li>
+                    
+                
+            </ul>
+            <ul class="arguments">
+                
+                <li>
+                    <span class="argument">None</span>
+                    <span class="default"></span>
+                </li>
+                
+            </ul>
+            <p class="docstring">Return all users.</p>
+        </div>
+        
+    </body>
+</html>

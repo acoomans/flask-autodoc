@@ -6,7 +6,7 @@ import sys
 import inspect
 
 from flask import current_app, render_template, render_template_string, jsonify
-from jinja2 import evalcontextfilter
+from jinja2 import evalcontextfilter, Markup
 from jinja2.exceptions import TemplateAssertionError
 
 
@@ -59,7 +59,7 @@ class Autodoc(object):
         @app.template_filter()
         @evalcontextfilter
         def nl2br(eval_ctx, value):
-            result = '\n\n'.join('%s' % p.replace('\n', '<br>\n')
+            result = '\n\n'.join('%s' % p.replace('\n', Markup('<br>\n'))
                                  for p in _paragraph_re.split(value))
             return result
 
@@ -150,7 +150,7 @@ class Autodoc(object):
 
             if func_groups.intersection(groups_to_generate):
                 props = dict(
-                    methods=rule.methods,
+                    methods=sorted(list(rule.methods)),
                     rule="%s" % rule,
                     endpoint=rule.endpoint,
                     docstring=func.__doc__,
@@ -215,7 +215,7 @@ class Autodoc(object):
             return {
                 "args": [(arg, doc['defaults'][arg]) for arg in args],
                 "docstring": doc['docstring'],
-                "methods": sorted(list(doc['methods'])),
+                "methods": doc['methods'],
                 "rule": doc['rule']
             }
         data = {

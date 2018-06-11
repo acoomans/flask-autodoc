@@ -26,6 +26,7 @@ install:
 script: 
   - python -m unittest discover
   - flake8 --exclude=examples --max-line-length=100
+  - python -m tests.check_example
 notifications:
   email: false
 

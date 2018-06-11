@@ -75,7 +75,7 @@
                 </li>
                 {% endfor %}
             </ul>
-            <p class="docstring">{{doc.docstring|urlize|nl2br}}</p>
+            <p class="docstring">{{doc.docstring|urlize|nl2br|safe}}</p>
         </div>
         {% endfor %}
     </body>
