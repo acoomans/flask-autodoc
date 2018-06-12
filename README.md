@@ -23,6 +23,10 @@ To install Flask-Selfdoc, run pip:
 or clone this directory and run setup:
 
     python setup.py install
+    
+or install via GitHub directly:
+
+    pip install git+https://github.com/jwg4/flask-selfdoc.git@master
 
 ## Usage
 
