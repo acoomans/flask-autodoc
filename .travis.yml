@@ -27,6 +27,18 @@ script:
   - python -m unittest discover
   - flake8 --exclude=examples --max-line-length=100
   - python -m tests.check_example
+before_deploy:
+  - python setup.py sdist
+deploy:
+  provider: releases
+  file_glob: true
+  file: dist/Flask-Selfdoc-*.tar.gz
+  api_key:
+    secure: ov51o8qHrABw+u3pl9zuQMnbcuqeIxlfzYF7LieGcCTT7GuG8bsQw5i3oEvJQD4yP1PsS8CB9Trlyb8nx436vtisIllVO7paeoKqQw6TVtvzx/ZElZNCzllhYr9HxcipuWgGWPR4pTTXPDaqTiofDjDZepYjpev3dDbuaFi31EXOlUk5FgZ9v2xwAFqYefi+zAM1tfai/GOhRfO9aTbqa8i0Hmd3dTJ7h6sOnqgAOfIaZl5H0lS71BiIZIL3b1+BzFqxowoJEeREkDetVbde05zbk0ZWtS6nGHHovyofcBonyItRQtqnuKdg5tzgK4U895Wk9OaR4ZydKcC/7ScDG5qpdL4XY1lpWFE83A9wV/KVDRMp7Sio3m6uoAepBiYj0aH+wOj5X5upVewWdl6yTtEzXdQJT0j26ky3yQnQYscYXW1BVh5e0T/IOhoBW/HdWgVg0RqzqoA8hKOVtJDm2HLb0uZCmJRYEofQLoXV8QyydDCbTvAe9wSbraicuBvvO4XIJ6OpMG+Bgj8v4CyN0NfpPLiJ5x3kVNMPfiXf4oty39iAXgPfgZbeldADuU8f44Awj1d+7bzuqhwh7QPggUBT7eZw6/MlYy/UKy5uIkTW10iT/FsGoiizpg9xn/PAVB4bZ+aZswLhO2hIbbbFsCDqkkVkEEBiiLPpjJD99ZY=
+  on:
+    tags: true
+    python: 3.6
+    env: DEP="Flask"
 notifications:
   email: false
 
