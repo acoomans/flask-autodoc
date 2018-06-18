@@ -300,6 +300,32 @@ class TestAutodoc(unittest.TestCase):
             self.assertTrue(1 == len(self.autodoc.generate('group2')))
             self.assertFalse(1 == len(self.autodoc.generate('group3')))
 
+    def testGet(self):
+        @self.app.route('/abc')
+        @self.autodoc.doc()
+        def abc_message():
+            """Returns a message"""
+            return 'ABC!'
+
+        @self.app.route('/ab/d')
+        @self.autodoc.doc()
+        def abd_message():
+            """Returns a second message"""
+            return 'AB D!'
+        
+        @self.app.route('/ab')
+        @self.autodoc.doc()
+        def ab_message():
+            """Returns a different message"""
+            return 'AB!'
+
+        with self.app.app_context():
+            doc = self.autodoc.generate(lexical_order=True)
+        self.assertTrue(len(doc) == 3)
+        self.assertEqual(doc[0]['rule'], '/ab')
+        self.assertEqual(doc[0]['rule'], '/ab/d')
+        self.assertEqual(doc[0]['rule'], '/abc')
+
 
 class TestSelfdoc(TestAutodoc):
     """ We want this class name to work
