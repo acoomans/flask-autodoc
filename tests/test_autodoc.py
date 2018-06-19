@@ -320,7 +320,7 @@ class TestAutodoc(unittest.TestCase):
             return 'AB!'
 
         with self.app.app_context():
-            doc = self.autodoc.generate(lexical_order=True)
+            doc = self.autodoc.generate(sort="lexical")
         self.assertTrue(len(doc) == 3)
         self.assertEqual(doc[0]['rule'], '/ab')
         self.assertEqual(doc[0]['rule'], '/ab/d')
