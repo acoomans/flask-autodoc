@@ -112,7 +112,7 @@ class Autodoc(object):
             return f
         return decorator
 
-    def generate(self, groups='all', sort=None, lexical_order=False):
+    def generate(self, groups='all', sort=None):
         """Return a list of dict describing the routes specified by the
         doc() method
 
