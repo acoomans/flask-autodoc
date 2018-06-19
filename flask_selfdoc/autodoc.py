@@ -162,6 +162,8 @@ class Autodoc(object):
                     if p not in self.immutable_props:
                         props[p] = func_props[p]
                 links.append(props)
+        if sort == "lexical":
+            sort = sort_lexically
         if sort:
             return sort(links)
         else:
@@ -223,6 +225,14 @@ class Autodoc(object):
                 [endpoint_info(doc) for doc in autodoc]
         }
         return jsonify(data)
+
+
+def sort_lexically(links):
+    def parts(endpoint):
+        rule = endpoint.rule
+        return rule.split("/")
+    
+    return sorted(links, key=parts)
 
 
 Selfdoc = Autodoc
