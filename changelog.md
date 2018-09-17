@@ -1,5 +1,8 @@
 # Flask-Selfdoc changelog
 
+## 1.2.0 - ??
+ - docs in JSON
+
 ## 1.1.0 - 2018-06-14
 This release fixes a couple of small annoyances from Flask-Autodoc, and improves testing.
 
