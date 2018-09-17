@@ -323,8 +323,8 @@ class TestAutodoc(unittest.TestCase):
             doc = self.autodoc.generate(sort="lexical")
         self.assertTrue(len(doc) == 3)
         self.assertEqual(doc[0]['rule'], '/ab')
-        self.assertEqual(doc[0]['rule'], '/ab/d')
-        self.assertEqual(doc[0]['rule'], '/abc')
+        self.assertEqual(doc[1]['rule'], '/ab/d')
+        self.assertEqual(doc[2]['rule'], '/abc')
 
 
 class TestSelfdoc(TestAutodoc):
