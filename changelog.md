@@ -2,6 +2,7 @@
 
 ## 1.2.0 - ??
  - docs in JSON
+ - allow sorting the endpoints in lexical ordering.
 
 ## 1.1.0 - 2018-06-14
 This release fixes a couple of small annoyances from Flask-Autodoc, and improves testing.
