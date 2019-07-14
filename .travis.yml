@@ -18,6 +18,7 @@ env:
   - DEP="Flask==0.12"
   - DEP="Flask==1.0"
   - DEP="Flask==1.0.2"
+  - DEP="Flask==1.1"
   - DEP="https://github.com/pallets/flask/archive/master.tar.gz"
   - DEP="Flask"
 install: 
