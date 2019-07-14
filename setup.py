@@ -8,7 +8,7 @@ from setuptools import setup
 
 
 def readme():
-    with open('README.md') as f:
+    with open('README.txt') as f:
         return f.read()
 
 
