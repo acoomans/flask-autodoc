@@ -249,12 +249,12 @@ class TestAutodoc(unittest.TestCase):
             if sys.version < '3':
                 self.assertRegexpMatches(
                     doc,
-                    '\/p1\/.*string:param1.*\/p2\/.*int:param2.*'
+                    '/p1/.*string:param1.*/p2/.*int:param2.*'
                 )
             else:
                 self.assertRegex(
                     doc,
-                    '\/p1\/.*string:param1.*\/p2\/.*int:param2.*'
+                    '/p1/.*string:param1.*/p2/.*int:param2.*'
                 )
             self.assertIn('Returns arguments', doc)
 
