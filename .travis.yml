@@ -28,7 +28,7 @@ install:
   - pip install ${DEP}
   - pip install flake8
 script: 
-  - python -m unittest discover
+  - python setup.py test
   - flake8 --exclude=examples --max-line-length=100
   - python -m tests.check_example
 before_deploy:
