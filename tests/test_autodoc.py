@@ -300,7 +300,7 @@ class TestAutodoc(unittest.TestCase):
             self.assertTrue(1 == len(self.autodoc.generate('group2')))
             self.assertFalse(1 == len(self.autodoc.generate('group3')))
 
-    def testGet(self):
+    def testGetWithLexicalSort(self):
         @self.app.route('/abc')
         @self.autodoc.doc()
         def abc_message():
@@ -312,7 +312,7 @@ class TestAutodoc(unittest.TestCase):
         def abd_message():
             """Returns a second message"""
             return 'AB D!'
-        
+
         @self.app.route('/ab')
         @self.autodoc.doc()
         def ab_message():

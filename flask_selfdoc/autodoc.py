@@ -231,7 +231,7 @@ def sort_lexically(links):
     def parts(endpoint):
         rule = endpoint['rule']
         return rule.split("/")
-    
+
     return sorted(links, key=parts)
 
 
