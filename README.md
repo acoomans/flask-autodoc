@@ -92,9 +92,7 @@ If you imported Flask-Autodoc using the old syntax,
 
 To access the documentation without rendering html:
 
-    @app.route('/documentation')
-    def documentation():
-        return auto.generate()
+    auto.generate()
 
 the documentation will be returned as a list of rules, where each rule is a dictionary containing:
 
@@ -104,6 +102,14 @@ the documentation will be returned as a list of rules, where each rule is a dict
 - doc: docstring of the function
 - args: function arguments
 - defaults: defaults values for the arguments
+
+This means you can do:
+
+    @app.route('/documentation.json')
+    def documentation():
+        return jsonify(auto.generate())
+
+or you could pass the output of `auto.generate()` to a Jinja template.
 
 ## Custom template
 
@@ -131,7 +137,7 @@ _title_ and _author_ will be available in the template:
 
 ## Documentation sets
 
-Endpoints can be grouped together in different documentation sets. It is possible for instance to show some endpoints to third party developers and have full documentation for primary developers.
+Endpoints can be grouped together in different documentation sets. It is possible, for instance, to show some endpoints to third party developers and have full documentation for primary developers.
 
 To assign an endpoint to a group, pass the name of the group as argument of the _doc_ decorator:
 
