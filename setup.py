@@ -2,7 +2,7 @@
 Flask-Selfdoc
 -------------
 
-Flask selfdoc automatically creates an online documentation for your flask app.
+Flask selfdoc automatically creates online documentation for your flask app.
 """
 from setuptools import setup
 
