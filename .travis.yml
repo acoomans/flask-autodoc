@@ -31,15 +31,22 @@ script:
 before_deploy:
   - python setup.py sdist
 deploy:
-  provider: releases
-  file_glob: true
-  file: dist/Flask-Selfdoc-*.tar.gz
-  api_key:
-    secure: ov51o8qHrABw+u3pl9zuQMnbcuqeIxlfzYF7LieGcCTT7GuG8bsQw5i3oEvJQD4yP1PsS8CB9Trlyb8nx436vtisIllVO7paeoKqQw6TVtvzx/ZElZNCzllhYr9HxcipuWgGWPR4pTTXPDaqTiofDjDZepYjpev3dDbuaFi31EXOlUk5FgZ9v2xwAFqYefi+zAM1tfai/GOhRfO9aTbqa8i0Hmd3dTJ7h6sOnqgAOfIaZl5H0lS71BiIZIL3b1+BzFqxowoJEeREkDetVbde05zbk0ZWtS6nGHHovyofcBonyItRQtqnuKdg5tzgK4U895Wk9OaR4ZydKcC/7ScDG5qpdL4XY1lpWFE83A9wV/KVDRMp7Sio3m6uoAepBiYj0aH+wOj5X5upVewWdl6yTtEzXdQJT0j26ky3yQnQYscYXW1BVh5e0T/IOhoBW/HdWgVg0RqzqoA8hKOVtJDm2HLb0uZCmJRYEofQLoXV8QyydDCbTvAe9wSbraicuBvvO4XIJ6OpMG+Bgj8v4CyN0NfpPLiJ5x3kVNMPfiXf4oty39iAXgPfgZbeldADuU8f44Awj1d+7bzuqhwh7QPggUBT7eZw6/MlYy/UKy5uIkTW10iT/FsGoiizpg9xn/PAVB4bZ+aZswLhO2hIbbbFsCDqkkVkEEBiiLPpjJD99ZY=
-  on:
-    tags: true
-    python: 3.6
-    env: DEP="Flask"
+  - provider: releases
+    file_glob: true
+    file: dist/Flask-Selfdoc-*.tar.gz
+    api_key:
+      secure: ov51o8qHrABw+u3pl9zuQMnbcuqeIxlfzYF7LieGcCTT7GuG8bsQw5i3oEvJQD4yP1PsS8CB9Trlyb8nx436vtisIllVO7paeoKqQw6TVtvzx/ZElZNCzllhYr9HxcipuWgGWPR4pTTXPDaqTiofDjDZepYjpev3dDbuaFi31EXOlUk5FgZ9v2xwAFqYefi+zAM1tfai/GOhRfO9aTbqa8i0Hmd3dTJ7h6sOnqgAOfIaZl5H0lS71BiIZIL3b1+BzFqxowoJEeREkDetVbde05zbk0ZWtS6nGHHovyofcBonyItRQtqnuKdg5tzgK4U895Wk9OaR4ZydKcC/7ScDG5qpdL4XY1lpWFE83A9wV/KVDRMp7Sio3m6uoAepBiYj0aH+wOj5X5upVewWdl6yTtEzXdQJT0j26ky3yQnQYscYXW1BVh5e0T/IOhoBW/HdWgVg0RqzqoA8hKOVtJDm2HLb0uZCmJRYEofQLoXV8QyydDCbTvAe9wSbraicuBvvO4XIJ6OpMG+Bgj8v4CyN0NfpPLiJ5x3kVNMPfiXf4oty39iAXgPfgZbeldADuU8f44Awj1d+7bzuqhwh7QPggUBT7eZw6/MlYy/UKy5uIkTW10iT/FsGoiizpg9xn/PAVB4bZ+aZswLhO2hIbbbFsCDqkkVkEEBiiLPpjJD99ZY=
+    on:
+      tags: true
+      python: 3.6
+      env: DEP="Flask"
+  - provider: pypi
+    user: jwg
+    on:
+      python: '3.6'
+      branch: 'master'
+    password:
+      secure: M05VqVhp1AWjnKpA5MVO1nM0jjFCEIk6pUmKaWl9yGuIrwTkhSkbPDqRsc2Fga3S1E2P5WMW1zDy33LgxfH2y3DrBbEZeiKtyvzPteZhRMRzcqApQWG5lIaYLyMBs/ygQy0f2l6zBZTRfZbx/rAoeegQx9Frxm3dcPLbADwhg1McZdhrcO5EXFYN+96jEtjz3ePNcV3fNuhjCt7vtMlpDSbG+Xd4eiwuyENbxQkoCl2pyNNghz6/iQN1yimjO1Ecb/yFbvjkZKLl7Co7mF3X9tnGkYxG+Dqb9ZFcqE/OZkEcwiWE/wn7KkOFHmJecjc+W8pr40xipP0KpLqpy9oNMgArywL6w1pLn2SsS8gvnd3JWHoXFVsQhAbPbffy7hDrAOHxZdFBnQGU8p/u8PRQQhScnDidteArySTvxfObU5BoRho9QMZpvZEps/bi2/BJpGiBOY6SRiFA21N5w6Xk7sI7xIEYE0/zUps79+t9aq+rOJ3XnUvkIDR7OVin78LqwLMJz+3AgpfTp2I6y1StgICVu3RH0dBazH64X6lcRekOhBokPUG5agvJhnq0kmXLooHu2VulnRWWxWrFAvO1vhww4L+fsj5VhaJtQaDWEdNUPht1ARU8foNANbPu5KoR2Xiv8N9kzd/8RTDZ5wuZQwRtazcQuVBFK1Ww6WUWJyA=
 notifications:
   email: false
 
