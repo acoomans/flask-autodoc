@@ -99,7 +99,7 @@ the documentation will be returned as a list of rules, where each rule is a dict
 - methods: the set of allowed methods (ie ['GET', 'POST'])
 - rule: relative url (ie '/user/&lt;int:id&gt;')
 - endpoint: function name (ie 'show_user')
-- doc: docstring of the function
+- docstring: docstring of the function
 - args: function arguments
 - defaults: defaults values for the arguments
 

@@ -120,7 +120,7 @@ class Autodoc(object):
          - methods: the set of allowed methods (ie ['GET', 'POST'])
          - rule: relative url (ie '/user/<int:id>')
          - endpoint: function name (ie 'show_user')
-         - doc: docstring of the function
+         - docstring: docstring of the function
          - args: function arguments
          - defaults: defaults values for the arguments
 
