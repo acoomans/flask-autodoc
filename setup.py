@@ -14,7 +14,7 @@ def readme():
 
 setup(
     name='Flask-Selfdoc',
-    version='1.2.0',
+    version='1.2.1',
     url='http://github.com/jwg4/flask-selfdoc',
     license='MIT',
     author='Arnaud Coomans',
