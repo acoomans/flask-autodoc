@@ -15,4 +15,4 @@ instead of
     
 No other changes are necessary. Flask-Selfdoc 1.0 has exactly the same functionality as Flask-Autodoc 0.1.2, the most recent release at the time of the fork. The projects will remain like-for-like compatible for the foreseeable future.
 
-The full documentation is at https://github.com/jwg4/flask-selfdoc/blob/master/README.md
+The main project webpage is on GitHub at https://github.com/jwg4/flask-selfdoc and the full documentation is at https://github.com/jwg4/flask-selfdoc/blob/master/README.md
