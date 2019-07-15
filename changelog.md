@@ -1,6 +1,6 @@
 # Flask-Selfdoc changelog
 
-## 1.2.0 - ??
+## 1.2.0 - 2018-07-14
  - docs in JSON
  - allow sorting the endpoints in lexical ordering.
 
