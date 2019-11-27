@@ -42,13 +42,13 @@ deploy:
     on:
       tags: true
       python: 3.6
-      env: DEP="Flask"
+      condition: $DEP = Flask
   - provider: pypi
     user: jwg
     on:
       branch: 'master'
       python: 3.6
-      env: DEP="Flask"
+      condition: $DEP = Flask
     password:
       secure: M05VqVhp1AWjnKpA5MVO1nM0jjFCEIk6pUmKaWl9yGuIrwTkhSkbPDqRsc2Fga3S1E2P5WMW1zDy33LgxfH2y3DrBbEZeiKtyvzPteZhRMRzcqApQWG5lIaYLyMBs/ygQy0f2l6zBZTRfZbx/rAoeegQx9Frxm3dcPLbADwhg1McZdhrcO5EXFYN+96jEtjz3ePNcV3fNuhjCt7vtMlpDSbG+Xd4eiwuyENbxQkoCl2pyNNghz6/iQN1yimjO1Ecb/yFbvjkZKLl7Co7mF3X9tnGkYxG+Dqb9ZFcqE/OZkEcwiWE/wn7KkOFHmJecjc+W8pr40xipP0KpLqpy9oNMgArywL6w1pLn2SsS8gvnd3JWHoXFVsQhAbPbffy7hDrAOHxZdFBnQGU8p/u8PRQQhScnDidteArySTvxfObU5BoRho9QMZpvZEps/bi2/BJpGiBOY6SRiFA21N5w6Xk7sI7xIEYE0/zUps79+t9aq+rOJ3XnUvkIDR7OVin78LqwLMJz+3AgpfTp2I6y1StgICVu3RH0dBazH64X6lcRekOhBokPUG5agvJhnq0kmXLooHu2VulnRWWxWrFAvO1vhww4L+fsj5VhaJtQaDWEdNUPht1ARU8foNANbPu5KoR2Xiv8N9kzd/8RTDZ5wuZQwRtazcQuVBFK1Ww6WUWJyA=
 notifications:
