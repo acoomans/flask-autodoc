@@ -120,9 +120,9 @@ class TestAutodocWithFlaskArguments(unittest.TestCase):
 
         endpoint = data['endpoints'][0]
         expected = {
-            "args": [],
+            "args": [['name', None]],
             "docstring": "Returns a hello world message",
             "methods": ["GET", "HEAD", "OPTIONS"],
-            "rule": "/"
+            "rule": "/hello/<name>"
         }
         self.assertEqual(endpoint, expected)
