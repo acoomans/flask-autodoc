@@ -155,7 +155,7 @@ class Autodoc(object):
                     endpoint=rule.endpoint,
                     docstring=func.__doc__,
                     args=arguments,
-                    defaults=rule.defaults,
+                    defaults=rule.defaults or dict(),
                     location=location,
                 )
                 for p in func_props:
@@ -215,7 +215,7 @@ class Autodoc(object):
             if args == ['None']:
                 args = []
             return {
-                "args": [(arg, doc['defaults'][arg]) for arg in args],
+                "args": [(arg, doc['defaults'].get(arg, None)) for arg in args],
                 "docstring": doc['docstring'],
                 "methods": doc['methods'],
                 "rule": doc['rule']
