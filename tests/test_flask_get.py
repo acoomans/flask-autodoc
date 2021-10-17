@@ -80,3 +80,49 @@ class TestAutodocTwoApps(unittest.TestCase):
         data = json.loads(response.data.decode('utf-8'))
         self.assertIn('endpoints', data)
         self.assertEqual(data['endpoints'], [])
+
+
+class TestAutodocWithFlaskArguments(unittest.TestCase):
+    def setup_app(self):
+        self.app = Flask(__name__)
+        self.autodoc = Autodoc(self.app)
+
+    def setUp(self):
+        self.setup_app()
+
+        @self.app.route('/hello/<name>')
+        @self.autodoc.doc()
+        def index(name):
+            """Returns a hello world message"""
+            return 'Hello %s!' % (name, )
+
+        self.client = self.app.test_client()
+
+    def test_html(self):
+        @self.app.route('/docs')
+        def html_docs():
+            return self.autodoc.html()
+
+        response = self.client.get('/docs')
+        self.assertEqual(response.status_code, 200)
+
+    def test_json(self):
+        @self.app.route('/docs')
+        def json_docs():
+            return self.autodoc.json()
+
+        response = self.client.get('/docs')
+        self.assertEqual(response.status_code, 200)
+
+        data = json.loads(response.data.decode('utf-8'))
+        self.assertIn('endpoints', data)
+        self.assertEqual(len(data['endpoints']), 1)
+
+        endpoint = data['endpoints'][0]
+        expected = {
+            "args": [],
+            "docstring": "Returns a hello world message",
+            "methods": ["GET", "HEAD", "OPTIONS"],
+            "rule": "/"
+        }
+        self.assertEqual(endpoint, expected)
