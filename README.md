@@ -176,3 +176,10 @@ and connect to [/doc/public](http://127.0.0.1:5000/doc/public) and [/doc/private
 ![screenshots](screenshots/screenshot00.png)
 
 ![screenshots](screenshots/screenshot01.png)
+
+## Acknowledgements
+Thanks to @acoomans for creating the original Flask-Selfdoc package!
+
+Thanks to the people who built Flask and who I learnt how to do Flask from, especially @mitsuhiko, @miguelgrinberg and @ncocacola!
+
+Thanks to the people who tried out this package and helped by posting questions and bug reports! 
