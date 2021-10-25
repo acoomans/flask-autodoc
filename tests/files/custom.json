@@ -1,0 +1,152 @@
+[
+  {
+    "args": [
+      "None"
+    ], 
+    "defaults": {}, 
+    "docstring": "Return all posts.", 
+    "endpoint": "get_posts", 
+    "location": {
+      "filename": "/home/jack/flask-selfdoc/examples/custom/blog.py", 
+      "line": 46
+    }, 
+    "methods": [
+      "GET", 
+      "HEAD", 
+      "OPTIONS"
+    ], 
+    "rule": "/"
+  }, 
+  {
+    "args": [
+      "None"
+    ], 
+    "defaults": {}, 
+    "docstring": "Admin interface.", 
+    "endpoint": "admin", 
+    "location": {
+      "filename": "/home/jack/flask-selfdoc/examples/custom/blog.py", 
+      "line": 95
+    }, 
+    "methods": [
+      "GET", 
+      "HEAD", 
+      "OPTIONS"
+    ], 
+    "rule": "/admin"
+  }, 
+  {
+    "args": [
+      "None"
+    ], 
+    "defaults": {}, 
+    "docstring": "Create a new post.", 
+    "endpoint": "post_post", 
+    "form_data": [
+      "title", 
+      "content", 
+      "authorid"
+    ], 
+    "location": {
+      "filename": "/home/jack/flask-selfdoc/examples/custom/blog.py", 
+      "line": 61
+    }, 
+    "methods": [
+      "OPTIONS", 
+      "POST"
+    ], 
+    "rule": "/post"
+  }, 
+  {
+    "args": [
+      "id"
+    ], 
+    "defaults": {}, 
+    "docstring": "Return the post for the given id.", 
+    "endpoint": "get_post", 
+    "location": {
+      "filename": "/home/jack/flask-selfdoc/examples/custom/blog.py", 
+      "line": 53
+    }, 
+    "methods": [
+      "GET", 
+      "HEAD", 
+      "OPTIONS"
+    ], 
+    "rule": "/post/<int:id>"
+  }, 
+  {
+    "args": [
+      "None"
+    ], 
+    "defaults": {}, 
+    "docstring": "Return all posts.", 
+    "endpoint": "get_posts", 
+    "location": {
+      "filename": "/home/jack/flask-selfdoc/examples/custom/blog.py", 
+      "line": 46
+    }, 
+    "methods": [
+      "GET", 
+      "HEAD", 
+      "OPTIONS"
+    ], 
+    "rule": "/posts"
+  }, 
+  {
+    "args": [
+      "id"
+    ], 
+    "defaults": {}, 
+    "docstring": "Return the user for the given id.", 
+    "endpoint": "get_user", 
+    "location": {
+      "filename": "/home/jack/flask-selfdoc/examples/custom/blog.py", 
+      "line": 79
+    }, 
+    "methods": [
+      "GET", 
+      "HEAD", 
+      "OPTIONS"
+    ], 
+    "rule": "/user/<int:id>"
+  }, 
+  {
+    "args": [
+      "None"
+    ], 
+    "defaults": {}, 
+    "docstring": "Return all users.", 
+    "endpoint": "get_users", 
+    "location": {
+      "filename": "/home/jack/flask-selfdoc/examples/custom/blog.py", 
+      "line": 72
+    }, 
+    "methods": [
+      "GET", 
+      "HEAD", 
+      "OPTIONS"
+    ], 
+    "rule": "/users"
+  }, 
+  {
+    "args": [
+      "None"
+    ], 
+    "defaults": {}, 
+    "docstring": "Creates a new user.", 
+    "endpoint": "post_user", 
+    "form_data": [
+      "username"
+    ], 
+    "location": {
+      "filename": "/home/jack/flask-selfdoc/examples/custom/blog.py", 
+      "line": 87
+    }, 
+    "methods": [
+      "OPTIONS", 
+      "POST"
+    ], 
+    "rule": "/users"
+  }
+]

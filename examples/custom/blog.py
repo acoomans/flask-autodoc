@@ -1,7 +1,7 @@
 from os import path
 from json import dumps
 
-from flask import Flask, redirect, request
+from flask import Flask, redirect, request, jsonify
 from flask_selfdoc import Autodoc
 
 
@@ -107,6 +107,11 @@ def public_doc():
 @app.route('/doc/private')
 def private_doc():
     return auto.html(groups=['private'], title='Private Documentation with Custom template', template="autodoc_custom.html")
+
+
+@app.route('/doc/json')
+def public_doc_json():
+    return jsonify(auto.generate())
 
 
 if __name__ == '__main__':

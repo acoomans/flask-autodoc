@@ -56,5 +56,11 @@ class TestCustomApp(TestApp, unittest.TestCase):
     path = "/doc/"
 
 
+class TestCustomAppJSONOutput(TestApp, unittest.TestCase):
+    app = custom_app
+    filename = "tests/files/custom.json"
+    path = "/doc/json"
+
+
 if __name__ == "__main__":
     unittest.main()
