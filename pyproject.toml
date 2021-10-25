@@ -11,6 +11,10 @@ Flask = "^1.0"
 
 [tool.poetry.dev-dependencies]
 
+[tool.poetry.scripts]
+test = 'run_tests:test'
+doctest = 'run_tests:run_doctest'
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
