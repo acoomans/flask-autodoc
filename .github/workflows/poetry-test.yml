@@ -1,0 +1,26 @@
+name: Run Python tests
+on:
+   - pull_request
+   - push
+
+jobs:
+  testing:
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.5, 3.6, 3.7, 3.8]
+        os: [ubuntu-18.04, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install poetry
+        run: pip install poetry
+      - name: Install requirements
+        run: poetry install
+      - name: Test package
+        run: poetry run test
+      - name: Test package
+        run: poetry run doctest
