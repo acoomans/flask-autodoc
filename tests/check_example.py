@@ -4,6 +4,9 @@ import unittest
 from examples.custom.blog import app as custom_app
 from examples.simple.blog import app as simple_app
 
+# To regenerate the baseline data files, change this to True.
+REGENERATE_FILES = False
+
 
 class TestApp(object):
     maxDiff = None
@@ -11,14 +14,26 @@ class TestApp(object):
     def setUp(self):
         self.client = self.app.test_client()
 
-    def test_output(self):
+    def get_request(self):
         r = self.client.get(self.path)
         self.assertEqual(r.status_code, 200)
         data = r.data.decode('utf-8')
+        return data
+
+    @unittest.skipIf(REGENERATE_FILES, "Regenerating the baseline files")
+    def test_output(self):
+        data = self.get_request()
         with open(self.filename) as f:
             expected = f.read()
 
         self.assertEqual(data, expected)
+
+    @unittest.skipIf(not REGENERATE_FILES, "This is only run to regenerate the baseline.")
+    def test_regenerate(self):
+        data = self.get_request()
+        with open(self.filename, "w") as f:
+            f.write(data)
+        self.assertTrue(False, "This test always fails, change REGENERATE_FILES back to False to proceed.")
 
 
 class TestSimpleApp(TestApp, unittest.TestCase):
