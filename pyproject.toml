@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "flask-selfdoc"
-version = "1.2.3"
+version = "1.2.4-alpha.0"
 description = "Documentation generator for flask"
 authors = ["Jack Grahl <jack.grahl@gmail.com>"]
 license = "MIT"
