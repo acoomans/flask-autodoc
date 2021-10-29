@@ -42,3 +42,4 @@ venv
 .idea
 
 .vscode
+poetry.lock
