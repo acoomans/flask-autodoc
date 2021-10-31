@@ -10,7 +10,7 @@ jobs:
       matrix:
         python-version: [3.6, 3.7, 3.8]
         os: [ubuntu-18.04, macos-latest, windows-latest]
-        flask-version: [1.0, 1.1, 1.1.4, latest]
+        flask-version: [1.0, 1.1, 2.0, latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
