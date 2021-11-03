@@ -11,10 +11,12 @@ Flask = "^1.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
+requests = "^2.26.0"
 
 [tool.poetry.scripts]
 test = 'run_tests:test'
 doctest = 'run_tests:run_doctest'
+check_pypi = 'run_tests:check_pypi'
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
