@@ -7,7 +7,6 @@ Flask-Selfdoc is a Flask extension that automatically creates documentation for 
 [![Pypi version](http://img.shields.io/pypi/v/flask-selfdoc.svg)](https://pypi.python.org/pypi/Flask-Selfdoc)
 [![PyPI](https://img.shields.io/pypi/dm/flask-selfdoc.svg)](https://pypi.python.org/pypi/Flask-Selfdoc)
 [![Pypi license](http://img.shields.io/pypi/l/flask-selfdoc.svg)](https://pypi.python.org/pypi/Flask-Selfdoc)
-![Python 2](http://img.shields.io/badge/python-2-blue.svg)
 ![Python 3](http://img.shields.io/badge/python-3-blue.svg)
 
 
