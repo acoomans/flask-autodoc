@@ -28,8 +28,21 @@ def get_version():
     return version
 
 
+def is_prerelease(version):
+    """
+        >>> is_prerelease("1.2.4.alpha.2")
+        True
+        >>> is_prerelease("1.3.0")
+        False
+
+    """
+    return "alpha" in version or "beta" in version
+
+
 def check_pypi():
     version = get_version()
+    if is_prerelease(version):
+        exit(-2)
     url = "https://pypi.org/project/flask-selfdoc/%s/" % (version, )
     r = requests.get(url)
     if r.status_code == 200:
