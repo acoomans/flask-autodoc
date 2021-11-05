@@ -26,3 +26,6 @@ jobs:
       - name: publish to pypi
         run: poetry publish -u __token__ -p ${{ secrets.PYPI_TOKEN }}
         continue-on-error: true
+      - name: final success
+        run: true
+        if: always()
