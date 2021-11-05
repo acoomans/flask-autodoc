@@ -51,7 +51,7 @@ def check_pypi():
         exit(0)
 
 
-def check_pypi_prelease():
+def check_pypi_prerelease():
     version = get_version()
     url = "https://pypi.org/project/flask-selfdoc/%s/" % (version, )
     r = requests.get(url)
