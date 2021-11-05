@@ -70,11 +70,8 @@ You can't import Flask-Selfdoc using the old naming scheme for Flask extensions,
 
 If you try to run Flask-Autodoc with Flask 1.0.2, you will get an ImportError which looks like this:
 
-    >>> from flask_autodoc import Autodoc
     Traceback (most recent call last):
-    File "<stdin>", line 1, in <module>
-    File "/home/jwg4/autodoc_error/venv/local/lib/python2.7/site-packages/flask_autodoc/__init__.py", line 3, in <module>
-        from flask.ext.autodoc.autodoc import Autodoc
+      ...
     ImportError: No module named ext.autodoc.autodoc
 
 This is because Flask no longer supports modules which are named `flask.ext.foo`. Even if you import Autodoc as above (from `flask_autodoc` instead of `flask.ext.autodoc`) the Flask-Autodoc code internally uses the old format and so the import will fail. In versions of Flask prior to 1.0.2, Flask-Autodoc caused a warning but did not fail. Flask-Selfdoc's first and main change from Flask-Autodoc was to fix this import so that it works with Flask 1.0.2, and so that the warning is not present with older versions.
