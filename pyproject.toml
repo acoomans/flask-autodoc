@@ -17,6 +17,7 @@ requests = "^2.26.0"
 test = 'run_tests:test'
 doctest = 'run_tests:run_doctest'
 check_pypi = 'run_tests:check_pypi'
+check_pypi_prerelease = 'run_tests:check_pypi_prerelease'
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
