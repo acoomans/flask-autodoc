@@ -1,4 +1,4 @@
-name: Deploy wheels to pypi
+name: Deploy prerelease version to pypi
 on:
    - pull_request
 

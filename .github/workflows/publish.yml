@@ -1,4 +1,4 @@
-name: Deploy wheels to pypi
+name: Deploy release version to pypi
 on:
   push:
     branches: 
