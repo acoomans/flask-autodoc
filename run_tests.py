@@ -42,10 +42,12 @@ def is_prerelease(version):
 def check_pypi():
     version = get_version()
     if is_prerelease(version):
+        logging.error("Prerelease version on master branch.")
         exit(-2)
     url = "https://pypi.org/project/flask-selfdoc/%s/" % (version, )
     r = requests.get(url)
     if r.status_code == 200:
+        logging.error("This version already deployed to pypi")
         exit(-1)
     else:
         exit(0)
@@ -56,9 +58,11 @@ def check_pypi_prerelease():
     url = "https://pypi.org/project/flask-selfdoc/%s/" % (version, )
     r = requests.get(url)
     if r.status_code == 200:
+        logging.error("This version already deployed to pypi")
         exit(-4)
     else:
         if not is_prerelease(version):
+            logging.error("Release version on development branch.")
             exit(-3)
         else:
             exit(0)
