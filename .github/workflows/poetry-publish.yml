@@ -24,5 +24,7 @@ jobs:
         run: poetry build
       - name: Test package
         run: poetry run pytest
+      - name: Check if already uploaded
+        run: poetry run check_pypi
       - name: publish to pypi
         run: poetry publish -u __token__ -p ${{ secrets.PYPI_TOKEN }}
