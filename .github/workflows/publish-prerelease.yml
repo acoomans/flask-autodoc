@@ -22,8 +22,9 @@ jobs:
       - name: Test package
         run: poetry run pytest
       - name: Check if already uploaded
+        id: check_pypi
         run: poetry run check_pypi_prerelease
         continue-on-error: true
       - name: publish to pypi
         run: poetry publish -u __token__ -p ${{ secrets.PYPI_TOKEN }}
-        if: success()
+        if: steps.check_pypi.outcome == 'success'
