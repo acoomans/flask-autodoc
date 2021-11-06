@@ -114,5 +114,10 @@ def public_doc_json():
     return jsonify(auto.generate())
 
 
+@app.route('/doc/builtin_json')
+def public_doc_builtin_json():
+    return auto.json()
+
+
 if __name__ == '__main__':
     app.run()

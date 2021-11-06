@@ -48,6 +48,12 @@ class TestSimpleAppJSONOutput(TestApp, unittest.TestCase):
     path = "/doc/json"
 
 
+class TestSimpleAppBuiltinJSONOutput(TestApp, unittest.TestCase):
+    app = simple_app
+    filename = "tests/files/builtin.json"
+    path = "/doc/builtin_json"
+
+
 class TestSimpleAppPrivateGroup(TestApp, unittest.TestCase):
     app = simple_app
     filename = "tests/files/simple_private.html"
