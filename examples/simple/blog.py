@@ -81,6 +81,16 @@ def get_user(id):
     return '%s' % users[id]
 
 
+@app.route('/hello/user/<int:id>', defaults={'id': -1})
+@auto.doc(groups=['users', 'public', 'private'])
+def hello_to_user(id):
+    """Return the user for the given id."""
+    if id > 0:
+        return 'Hello, %s' % users[id]
+    else:
+        return 'Hello, world!'
+
+
 @app.route('/users', methods=['POST'])
 @auto.doc(groups=['users', 'private'])
 def post_user(id):
