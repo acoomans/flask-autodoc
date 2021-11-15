@@ -1,7 +1,7 @@
 import doctest
 import logging
 import os
-import subprocess
+import unittest
 
 import requests
 
@@ -9,9 +9,10 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 def test():
-    subprocess.run(
-        ['python', '-u', '-m', 'unittest', 'discover']
-    )
+    test_loader = unittest.defaultTestLoader
+    test_runner = unittest.TextTestRunner()
+    test_suite = test_loader.discover('.')
+    test_runner.run(test_suite)
 
 
 def run_doctest():
