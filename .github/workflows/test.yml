@@ -22,7 +22,7 @@ jobs:
         run: poetry add flask==${{ matrix.flask-version }}
       - name: Install requirements
         run: poetry install
-      - name: Test package
+      - name: Run unit tests
         run: poetry run test
-      - name: Test package
+      - name: Run doctests
         run: poetry run doctest
