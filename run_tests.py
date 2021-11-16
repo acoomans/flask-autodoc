@@ -12,7 +12,10 @@ def test():
     test_loader = unittest.defaultTestLoader
     test_runner = unittest.TextTestRunner()
     test_suite = test_loader.discover('.')
-    test_runner.run(test_suite)
+    result = test_runner.run(test_suite)
+
+    if not result.wasSuccessful():
+        exit(1)
 
 
 def run_doctest():
