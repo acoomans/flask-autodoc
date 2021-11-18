@@ -7,7 +7,7 @@
     "docstring": "Return all posts.", 
     "endpoint": "get_posts", 
     "location": {
-      "filename": "/home/jack/flask-selfdoc/examples/custom/blog.py", 
+      "filename": "%PATH%/examples/custom/blog.py", 
       "line": 46
     }, 
     "methods": [
@@ -25,7 +25,7 @@
     "docstring": "Admin interface.", 
     "endpoint": "admin", 
     "location": {
-      "filename": "/home/jack/flask-selfdoc/examples/custom/blog.py", 
+      "filename": "%PATH%/examples/custom/blog.py", 
       "line": 95
     }, 
     "methods": [
@@ -48,7 +48,7 @@
       "authorid"
     ], 
     "location": {
-      "filename": "/home/jack/flask-selfdoc/examples/custom/blog.py", 
+      "filename": "%PATH%/examples/custom/blog.py", 
       "line": 61
     }, 
     "methods": [
@@ -65,7 +65,7 @@
     "docstring": "Return the post for the given id.", 
     "endpoint": "get_post", 
     "location": {
-      "filename": "/home/jack/flask-selfdoc/examples/custom/blog.py", 
+      "filename": "%PATH%/examples/custom/blog.py", 
       "line": 53
     }, 
     "methods": [
@@ -83,7 +83,7 @@
     "docstring": "Return all posts.", 
     "endpoint": "get_posts", 
     "location": {
-      "filename": "/home/jack/flask-selfdoc/examples/custom/blog.py", 
+      "filename": "%PATH%/examples/custom/blog.py", 
       "line": 46
     }, 
     "methods": [
@@ -101,7 +101,7 @@
     "docstring": "Return the user for the given id.", 
     "endpoint": "get_user", 
     "location": {
-      "filename": "/home/jack/flask-selfdoc/examples/custom/blog.py", 
+      "filename": "%PATH%/examples/custom/blog.py", 
       "line": 79
     }, 
     "methods": [
@@ -119,7 +119,7 @@
     "docstring": "Return all users.", 
     "endpoint": "get_users", 
     "location": {
-      "filename": "/home/jack/flask-selfdoc/examples/custom/blog.py", 
+      "filename": "%PATH%/examples/custom/blog.py", 
       "line": 72
     }, 
     "methods": [
@@ -140,7 +140,7 @@
       "username"
     ], 
     "location": {
-      "filename": "/home/jack/flask-selfdoc/examples/custom/blog.py", 
+      "filename": "%PATH%/examples/custom/blog.py", 
       "line": 87
     }, 
     "methods": [

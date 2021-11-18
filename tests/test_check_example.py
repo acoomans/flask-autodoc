@@ -1,3 +1,4 @@
+import os
 import sys
 import unittest
 
@@ -28,9 +29,14 @@ class TestApp(object):
 
         self.assertEqual(data, expected)
 
+    def sub_pwd(self, data):
+        file_path = os.getcwd()
+        return data.replace(file_path, "%PATH%")        
+
     @unittest.skipIf(not REGENERATE_FILES, "This is only run to regenerate the baseline.")
     def test_regenerate(self):
         data = self.get_request()
+        data = self.sub_pwd(data)
         with open(self.filename, "w") as f:
             f.write(data)
         self.assertTrue(False, "This test always fails, change REGENERATE_FILES back to False to proceed.")
