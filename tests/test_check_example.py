@@ -21,17 +21,18 @@ class TestApp(object):
         data = r.data.decode('utf-8')
         return data
 
+    def sub_pwd(self, data):
+        file_path = os.getcwd()
+        return data.replace(file_path, "%PATH%")        
+
     @unittest.skipIf(REGENERATE_FILES, "Regenerating the baseline files")
     def test_output(self):
         data = self.get_request()
         with open(self.filename) as f:
             expected = f.read()
 
+        data = self.sub_pwd(data)
         self.assertEqual(data, expected)
-
-    def sub_pwd(self, data):
-        file_path = os.getcwd()
-        return data.replace(file_path, "%PATH%")        
 
     @unittest.skipIf(not REGENERATE_FILES, "This is only run to regenerate the baseline.")
     def test_regenerate(self):
