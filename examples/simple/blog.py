@@ -91,6 +91,13 @@ def hello_to_user(id):
         return 'Hello, world!'
 
 
+@app.route('/greet/<greeting>/user/<int:id>', defaults={'greeting': "Hello"})
+@auto.doc(groups=['users', 'public', 'private'])
+def greet_user(greeting, id):
+    """Return the user for the given id."""
+    return '%s, %s' % (greeting, users[id])
+
+
 @app.route('/users', methods=['POST'])
 @auto.doc(groups=['users', 'private'])
 def post_user(id):
