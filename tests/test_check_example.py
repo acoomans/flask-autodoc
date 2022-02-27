@@ -5,6 +5,7 @@ import unittest
 from examples.custom.blog import app as custom_app
 from examples.simple.blog import app as simple_app
 
+from tests.config import IS_WINDOWS
 from tests.config import NEW_FN_OFFSETS
 
 # To regenerate the baseline data files, change this to True.
@@ -29,6 +30,7 @@ class TestApp(object):
 
     @unittest.skipIf(REGENERATE_FILES, "Regenerating the baseline files")
     @unittest.skipIf(not NEW_FN_OFFSETS, "This test will not work with the old way of detecting fn line numbers")
+    @unittest.skipIf(IS_WINDOWS, "This test will not work with Windows style filepaths")
     def test_output(self):
         data = self.get_request()
         with open(self.filename) as f:
