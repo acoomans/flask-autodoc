@@ -8,7 +8,7 @@
     "endpoint": "get_posts", 
     "location": {
       "filename": "%PATH%/examples/custom/blog.py", 
-      "line": 46
+      "line": 47
     }, 
     "methods": [
       "GET", 
@@ -26,7 +26,7 @@
     "endpoint": "admin", 
     "location": {
       "filename": "%PATH%/examples/custom/blog.py", 
-      "line": 95
+      "line": 96
     }, 
     "methods": [
       "GET", 
@@ -49,7 +49,7 @@
     ], 
     "location": {
       "filename": "%PATH%/examples/custom/blog.py", 
-      "line": 61
+      "line": 62
     }, 
     "methods": [
       "OPTIONS", 
@@ -66,7 +66,7 @@
     "endpoint": "get_post", 
     "location": {
       "filename": "%PATH%/examples/custom/blog.py", 
-      "line": 53
+      "line": 54
     }, 
     "methods": [
       "GET", 
@@ -84,7 +84,7 @@
     "endpoint": "get_posts", 
     "location": {
       "filename": "%PATH%/examples/custom/blog.py", 
-      "line": 46
+      "line": 47
     }, 
     "methods": [
       "GET", 
@@ -102,7 +102,7 @@
     "endpoint": "get_user", 
     "location": {
       "filename": "%PATH%/examples/custom/blog.py", 
-      "line": 79
+      "line": 80
     }, 
     "methods": [
       "GET", 
@@ -120,7 +120,7 @@
     "endpoint": "get_users", 
     "location": {
       "filename": "%PATH%/examples/custom/blog.py", 
-      "line": 72
+      "line": 73
     }, 
     "methods": [
       "GET", 
@@ -141,7 +141,7 @@
     ], 
     "location": {
       "filename": "%PATH%/examples/custom/blog.py", 
-      "line": 87
+      "line": 88
     }, 
     "methods": [
       "OPTIONS", 
