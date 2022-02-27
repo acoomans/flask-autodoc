@@ -265,7 +265,7 @@ class TestAutodoc(unittest.TestCase):
             self.assertIn('Returns arguments', doc)
 
     def testLocation(self):
-        offset = 5 if NEW_FN_OFFSETS else 4
+        offset = 5 if NEW_FN_OFFSETS else 3
         line_no = inspect.stack()[0][2] + 4  # the doc() line
 
         @self.app.route('/location')
@@ -281,7 +281,7 @@ class TestAutodoc(unittest.TestCase):
             self.assertIn(self.thisFile(), d['location']['filename'])
 
     def testLocationWithExtraDecorators(self):
-        offset = 14 if NEW_FN_OFFSETS else 9
+        offset = 14 if NEW_FN_OFFSETS else 8
         line_no = inspect.stack()[0][2] + 13  # the doc() line
 
         def pointless_decorator():
