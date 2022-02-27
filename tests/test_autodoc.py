@@ -273,6 +273,30 @@ class TestAutodoc(unittest.TestCase):
             self.assertEqual(d['location']['line'], line_no)
             self.assertIn(self.thisFile(), d['location']['filename'])
 
+    def testLocationWithExtraDecorators(self):
+        line_no = inspect.stack()[0][2] + 3  # the doc() line
+
+        def pointless_decorator():
+            def fn(f):
+                return f
+
+            return fn
+
+        @self.app.route('/location')
+        @self.autodoc.doc()
+        @pointless_decorator()
+        @pointless_decorator()
+        @pointless_decorator()
+        def location():
+            return 'location'
+
+        with self.app.app_context():
+            doc = self.autodoc.generate()
+            d = doc[0]
+            self.assertIsInstance(d['location']['line'], int)
+            self.assertEqual(d['location']['line'], line_no)
+            self.assertIn(self.thisFile(), d['location']['filename'])
+
     def testNoLocation(self):
         @self.app.route('/location')
         @self.autodoc.doc(set_location=False)
