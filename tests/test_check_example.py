@@ -5,6 +5,8 @@ import unittest
 from examples.custom.blog import app as custom_app
 from examples.simple.blog import app as simple_app
 
+from tests.config import NEW_FN_OFFSETS
+
 # To regenerate the baseline data files, change this to True.
 REGENERATE_FILES = False
 
@@ -26,6 +28,7 @@ class TestApp(object):
         return data.replace(file_path, "%PATH%")        
 
     @unittest.skipIf(REGENERATE_FILES, "Regenerating the baseline files")
+    @unittest.skipIf(not NEW_FN_OFFSETS, "This test will not work with the old way of detecting fn line numbers")
     def test_output(self):
         data = self.get_request()
         with open(self.filename) as f:
