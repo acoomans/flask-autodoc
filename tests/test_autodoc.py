@@ -7,6 +7,12 @@ import os
 from flask import Flask
 from flask_selfdoc import Autodoc, Selfdoc
 
+# The way that the line number of a function is detected changed
+# The old version chooses the location of the first decorator,
+# the new version chooses the location of the 'def' keyword.
+# We detect the version and support both.
+NEW_FN_OFFSETS = sys.version_info >= (3, 7)
+
 
 class TestAutodoc(unittest.TestCase):
 
@@ -259,7 +265,8 @@ class TestAutodoc(unittest.TestCase):
             self.assertIn('Returns arguments', doc)
 
     def testLocation(self):
-        line_no = inspect.stack()[0][2] + 3  # the doc() line
+        offset = 5 if NEW_FN_OFFSETS else 4
+        line_no = inspect.stack()[0][2] + 4  # the doc() line
 
         @self.app.route('/location')
         @self.autodoc.doc()
@@ -274,7 +281,8 @@ class TestAutodoc(unittest.TestCase):
             self.assertIn(self.thisFile(), d['location']['filename'])
 
     def testLocationWithExtraDecorators(self):
-        line_no = inspect.stack()[0][2] + 3  # the doc() line
+        offset = 14 if NEW_FN_OFFSETS else 9
+        line_no = inspect.stack()[0][2] + 13  # the doc() line
 
         def pointless_decorator():
             def fn(f):
