@@ -11,7 +11,7 @@ from flask_selfdoc import Autodoc, Selfdoc
 # The old version chooses the location of the first decorator,
 # the new version chooses the location of the 'def' keyword.
 # We detect the version and support both.
-NEW_FN_OFFSETS = sys.version_info >= (3, 7)
+NEW_FN_OFFSETS = sys.version_info >= (3, 8)
 
 
 class TestAutodoc(unittest.TestCase):
