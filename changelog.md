@@ -1,5 +1,9 @@
 # Flask-Selfdoc changelog
 
+## 1.3.0 - 2022-02-28
+  - Fix issue calling jsonify(autodoc.generate())
+  - sort the endpoint arguments
+
 ## 1.2.0 - 2018-07-14
  - docs in JSON
  - allow sorting the endpoints in lexical ordering.
