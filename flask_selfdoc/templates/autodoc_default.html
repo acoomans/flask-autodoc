@@ -68,7 +68,7 @@
                 {% endfor %}
             </ul>
             <ul class="arguments">
-                {% for arg in doc.args %}
+                {% for arg in doc.args|sort %}
                 <li>
                     <span class="argument">{{arg}}</span>
                     <span class="default">{{doc.defaults[arg]}}</span>

@@ -211,7 +211,7 @@ class Autodoc(object):
         autodoc = self.generate(groups=groups)
 
         def endpoint_info(doc):
-            args = doc['args']
+            args = sorted(doc['args'])
             if args == ['None']:
                 args = []
             return {
