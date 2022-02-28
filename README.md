@@ -12,10 +12,13 @@ Flask-Selfdoc is a Flask extension that automatically creates documentation for 
 
 ## Requirements
 
-Flask-Selfdoc is compatible with Python versions >=3.6 and Flask versions >=1.0. 
+Flask-Selfdoc is compatible with Python versions >=3.6 and Flask versions >=1.0.
+(Currently it appears that Flask 1.0 itself does not work with Python 3.10, so this combination is not supported.)
+
 The package is tested with a selection of those versions. If you find it doesn't work correctly with versions in those ranges please report a bug, thanks.
 
 Previous versions of Flask-Selfdoc worked with Python 2.7, Python 3.5 and Flask 0.11 and 0.12. If you need a version which works with these old versions of Python and Flask, try Flask-Selfdoc 1.2.3 (but you are better off upgrading away from end-of-life Python!!!)
+(Flask versions before 2.0.0 worked with Python 2.7 and Python 3.5)
 
 ## Install
 
