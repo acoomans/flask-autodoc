@@ -142,7 +142,7 @@ class Autodoc(object):
                 continue
 
             func = current_app.view_functions[rule.endpoint]
-            arguments = list(rule.arguments) if rule.arguments else ['None']
+            arguments = sorted(list(rule.arguments)) if rule.arguments else ['None']
             func_groups = self.func_groups[func]
             func_props = self.func_props[func] if func in self.func_props \
                 else {}
