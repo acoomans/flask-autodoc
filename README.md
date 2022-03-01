@@ -126,18 +126,15 @@ But the point is that you can do anything you like with the output of `auto.gene
 
 ## Custom template
 
-To use a custom template for your documentation, give a _template_ argument to the _html_ method. This will use a template from the flask _templates_ directory. 
+To use a custom template for your documentation, give a _template_ argument to the _html_ method. This will use a template from the flask _templates_ directory.
 
 Additional arguments (other than _group_, _groups_, and _template_) will be passed down to the template:
 
 	auto.html(
-		
 		template='custom_documentation.html'
-		
 		title='My Documentation',
 		author='John Doe',
 	)
-	
 
 _title_ and _author_ will be available in the template:
 
