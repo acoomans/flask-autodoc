@@ -106,13 +106,23 @@ the documentation will be returned as a list of rules, where each rule is a dict
 - args: function arguments
 - defaults: defaults values for the arguments
 
-This means you can do:
+This means you can pass the output of `auto.generate()` to your own Jinja template.
 
-    @app.route('/documentation.json')
+It's also possible to do:
+
+    @app.route('/documentation/json')
     def documentation():
         return jsonify(auto.generate())
 
-or you could pass the output of `auto.generate()` to a Jinja template.
+However, there's actually a much better way to produce JSON data about your Flask endpoints.
+
+    @app.route('/documentation/json')
+    def documentation():
+        return auto.json()
+
+The structure that this returns is designed to serialize well to json, whereas the output of `auto.generate()` is designed to work well with HTML templates.
+
+But the point is that you can do anything you like with the output of `auto.generate()`!
 
 ## Custom template
 
