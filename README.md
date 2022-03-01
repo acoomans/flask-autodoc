@@ -145,6 +145,26 @@ _title_ and _author_ will be available in the template:
 	{% endif %}
 	...
 
+## Custom fields
+You can add extra keyword arguments to the `doc()` decorator and these will be available in the template. For example, if you have an endpoint
+
+    @app.route('/Hello/<int:id>')
+    @auto.doc('public', status="deprecated")
+    def say_hello(id):
+        return "Hello"
+
+then in your Jinja template you can access the field `status`
+
+    {% for doc in autodoc %}
+        <div class="mapping">
+            <a id="rule-{{doc.rule|urlencode}}" class="rule"><h2>{{doc.rule|escape}}</h2></a>
+            <p class="docstring">{{doc.docstring|urlize|nl2br|safe}}</p>
+            <p class="status">{{doc.status|safe}}</p>
+        </div>
+    {% endfor %}
+
+Note that Selfdoc doesn't care about or process this value in any special way, it just makes it available in the output.
+
 ## Documentation sets
 
 Endpoints can be grouped together in different documentation sets. It is possible, for instance, to show some endpoints to third party developers and have full documentation for primary developers.
