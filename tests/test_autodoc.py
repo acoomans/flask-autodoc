@@ -5,7 +5,7 @@ import sys
 import os
 
 from flask import Flask
-from flask.ext.autodoc import Autodoc
+from flask_autodoc import Autodoc
 
 
 class TestAutodoc(unittest.TestCase):
