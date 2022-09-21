@@ -5,7 +5,7 @@ import sys
 import os
 
 from flask import Flask
-from flask.ext.autodoc import Autodoc
+from flask_autodoc import Autodoc
 
 
 class TestAutodoc(unittest.TestCase):
@@ -259,7 +259,7 @@ class TestAutodoc(unittest.TestCase):
             self.assertIn('Returns arguments', doc)
 
     def testLocation(self):
-        line_no = inspect.stack()[0][2] + 2 # the doc() line
+        line_no = inspect.stack()[0][2] + 3 # the doc() line
         @self.app.route('/location')
         @self.autodoc.doc()
         def location():

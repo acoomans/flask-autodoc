@@ -6,7 +6,7 @@ import sys
 import inspect
 
 from flask import current_app, render_template, render_template_string
-from jinja2 import evalcontextfilter
+from jinja2 import pass_eval_context
 
 
 try:
@@ -55,7 +55,7 @@ class Autodoc(object):
         _paragraph_re = re.compile(r'(?:\r\n|\r|\n){3,}')
 
         @app.template_filter()
-        @evalcontextfilter
+        @pass_eval_context
         def nl2br(eval_ctx, value):
             result = '\n\n'.join('%s' % p.replace('\n', '<br>\n')
                                  for p in _paragraph_re.split(value))
