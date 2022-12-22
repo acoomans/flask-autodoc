@@ -79,7 +79,7 @@ class Autodoc(object):
 
         Custom parameters may also be passed in beyond groups, if they are
         named something not already in the dict descibed in the docstring for
-        the generare() function, they will be added to the route's properties,
+        the generate() function, they will be added to the route's properties,
         which can be accessed from the template.
 
         If a parameter is passed in with a name that is already in the dict, but
