@@ -18,10 +18,10 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install poetry
         run: pip install poetry
-      - name: Force the chosen flask version
-        run: poetry add flask==${{ matrix.flask-version }}
       - name: Install requirements
         run: poetry install
+      - name: Force the chosen flask version
+        run: pip install flask==${{ matrix.flask-version }}
       - name: Run unit tests
         run: poetry run test
       - name: Run doctests
