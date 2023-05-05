@@ -40,6 +40,74 @@ else:
     get_function_code = attrgetter('__code__')
 
 
+def get_decorator_frame_info(frame) -> dict:
+    """
+    The way that the line number of a decorator is detected changed across
+    python versions:
+    - python <= 3.8:
+      stack()[1].lineno points to the line above the decorated function
+      => points to the closest decorator, not necessarily the one that did the
+         call to stack()
+    - python 3.9 and 3.10:
+      stack()[1].lineno points to the line of the decorated function
+    - python 3.11:
+      stack()[1].lineno points to the exact line of the decorator that did the
+      call to stack()
+
+    Example:
+
+    1   |def call_stack_and_get_lineno():
+    2   |
+    3   |    def decorator(func):
+    4   |        calling_frame = stack()[1]
+    5   |        print(calling_frame.lineno)
+    6   |        return func
+    7   |
+    8   |    return decorator
+    9   |
+    10  |
+    11  |@decorator1
+    12  |@call_stack_and_get_lineno
+    13  |@decorator2
+    14  |def func():
+    15  |    pass
+
+    - python <= 3.8: will print line 13
+    - python 3.9 and 3.10: will print line 14 (desired behaviour)
+    - python 3.11: will print line 12
+
+    We adjust the found line number with some offset (by reading the python
+    source file) if required.
+    """
+    line_number = frame.lineno
+    try:
+        with open(frame.filename, 'r') as python_file:
+            python_lines = python_file.readlines()
+        # current line + next ones
+        context_lines = python_lines[line_number - 1:]
+    except (OSError, FileNotFoundError):
+        print("You're probably using flask_selfdoc with compiled python code "
+              "- prefer uncompiled source files to extract correct filenames "
+              "and line numbers.")
+        # not 100% correct solution, won't work for multiline decorator
+        # or if there are decorators between @autodoc.doc() and the endpoint
+        # function
+        context_lines = frame.code_context
+
+    # if the detected line number doesn't point to a function definition,
+    # we iterate until we find one.
+    for line in context_lines:
+        if not line.strip().startswith('def '):
+            line_number += 1
+        else:
+            break
+
+    return {
+        'filename': frame.filename,
+        'line': line_number,
+    }
+
+
 class Autodoc(object):
 
     def __init__(self, app=None):
@@ -125,10 +193,7 @@ class Autodoc(object):
             # Set location
             if set_location:
                 caller_frame = inspect.stack()[1]
-                self.func_locations[f] = {
-                        'filename': caller_frame[1],
-                        'line':     caller_frame[2],
-                        }
+                self.func_locations[f] = get_decorator_frame_info(caller_frame)
 
             return f
         return decorator
