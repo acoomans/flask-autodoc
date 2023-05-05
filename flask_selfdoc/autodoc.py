@@ -1,9 +1,11 @@
+import json
 from operator import attrgetter, itemgetter
 import os
 import re
 from collections import defaultdict
 import sys
 import inspect
+from typing import Optional, Tuple
 
 from flask import current_app, render_template, render_template_string, jsonify
 from jinja2.exceptions import TemplateAssertionError
@@ -38,6 +40,19 @@ if sys.version < '3':
     get_function_code = attrgetter('func_code')
 else:
     get_function_code = attrgetter('__code__')
+
+
+def custom_jsonify(*args,
+                   indent: Optional[int] = None,
+                   separators: Optional[Tuple] = (',', ':'),
+                   **kwargs):
+    response = jsonify(*args, **kwargs)
+    json_data = json.loads(response.data.decode('utf-8'))
+    json_string = json.dumps(json_data,
+                             indent=indent,
+                             separators=separators)
+    response.data = json_string.encode('utf-8')
+    return response
 
 
 def get_decorator_frame_info(frame) -> dict:
@@ -239,7 +254,7 @@ class Autodoc(object):
                     methods=sorted(list(rule.methods)),
                     rule="%s" % rule,
                     endpoint=rule.endpoint,
-                    docstring=func.__doc__,
+                    docstring=func.__doc__.strip(' ') if func.__doc__ else None,
                     args=arguments,
                     defaults=rule.defaults or dict(),
                     location=location,
@@ -287,7 +302,10 @@ class Autodoc(object):
                         raise RuntimeError(
                             "Autodoc was not initialized with the Flask app.")
 
-    def json(self, groups='all'):
+    def json(self,
+             groups='all',
+             indent: Optional[int] = None,
+             separators: Optional[Tuple] = (',', ':')):
         """Return a json object with documentation for all the routes specified
         by the doc() method.
 
@@ -310,7 +328,7 @@ class Autodoc(object):
             'endpoints':
                 [endpoint_info(doc) for doc in autodoc]
         }
-        return jsonify(data)
+        return custom_jsonify(data, indent=indent, separators=separators)
 
 
 def sort_lexically(links):

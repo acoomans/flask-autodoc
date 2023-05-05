@@ -1,6 +1,5 @@
 import doctest
 import logging
-import os
 import subprocess
 import unittest
 

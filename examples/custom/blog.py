@@ -1,7 +1,7 @@
-from os import path
 from json import dumps
 
-from flask import Flask, redirect, request, jsonify
+from flask import Flask, redirect, request
+from flask_selfdoc.autodoc import custom_jsonify
 from flask_selfdoc import Autodoc
 
 
@@ -58,7 +58,7 @@ def get_post(id):
 
 @app.route('/post', methods=["POST"])
 @auto.doc(groups=['posts', 'private'],
-    form_data=['title', 'content', 'authorid'])
+          form_data=['title', 'content', 'authorid'])
 def post_post():
     """Create a new post."""
     authorid = request.form.get('authorid', None)
@@ -84,7 +84,7 @@ def get_user(id):
 
 @app.route('/users', methods=['POST'])
 @auto.doc(groups=['users', 'private'],
-    form_data=['username'])
+          form_data=['username'])
 def post_user(id):
     """Creates a new user."""
     User(request.form['username'])
@@ -111,7 +111,7 @@ def private_doc():
 
 @app.route('/doc/json')
 def public_doc_json():
-    return jsonify(auto.generate())
+    return custom_jsonify(auto.generate(), indent=4, separators=(',', ': '))
 
 
 if __name__ == '__main__':

@@ -1,152 +1,152 @@
 [
-  {
-    "args": [
-      "None"
-    ], 
-    "defaults": {}, 
-    "docstring": "Return all posts.", 
-    "endpoint": "get_posts", 
-    "location": {
-      "filename": "%PATH%/examples/custom/blog.py", 
-      "line": 47
-    }, 
-    "methods": [
-      "GET", 
-      "HEAD", 
-      "OPTIONS"
-    ], 
-    "rule": "/"
-  }, 
-  {
-    "args": [
-      "None"
-    ], 
-    "defaults": {}, 
-    "docstring": "Admin interface.", 
-    "endpoint": "admin", 
-    "location": {
-      "filename": "%PATH%/examples/custom/blog.py", 
-      "line": 96
-    }, 
-    "methods": [
-      "GET", 
-      "HEAD", 
-      "OPTIONS"
-    ], 
-    "rule": "/admin"
-  }, 
-  {
-    "args": [
-      "None"
-    ], 
-    "defaults": {}, 
-    "docstring": "Create a new post.", 
-    "endpoint": "post_post", 
-    "form_data": [
-      "title", 
-      "content", 
-      "authorid"
-    ], 
-    "location": {
-      "filename": "%PATH%/examples/custom/blog.py", 
-      "line": 62
-    }, 
-    "methods": [
-      "OPTIONS", 
-      "POST"
-    ], 
-    "rule": "/post"
-  }, 
-  {
-    "args": [
-      "id"
-    ], 
-    "defaults": {}, 
-    "docstring": "Return the post for the given id.", 
-    "endpoint": "get_post", 
-    "location": {
-      "filename": "%PATH%/examples/custom/blog.py", 
-      "line": 54
-    }, 
-    "methods": [
-      "GET", 
-      "HEAD", 
-      "OPTIONS"
-    ], 
-    "rule": "/post/<int:id>"
-  }, 
-  {
-    "args": [
-      "None"
-    ], 
-    "defaults": {}, 
-    "docstring": "Return all posts.", 
-    "endpoint": "get_posts", 
-    "location": {
-      "filename": "%PATH%/examples/custom/blog.py", 
-      "line": 47
-    }, 
-    "methods": [
-      "GET", 
-      "HEAD", 
-      "OPTIONS"
-    ], 
-    "rule": "/posts"
-  }, 
-  {
-    "args": [
-      "id"
-    ], 
-    "defaults": {}, 
-    "docstring": "Return the user for the given id.", 
-    "endpoint": "get_user", 
-    "location": {
-      "filename": "%PATH%/examples/custom/blog.py", 
-      "line": 80
-    }, 
-    "methods": [
-      "GET", 
-      "HEAD", 
-      "OPTIONS"
-    ], 
-    "rule": "/user/<int:id>"
-  }, 
-  {
-    "args": [
-      "None"
-    ], 
-    "defaults": {}, 
-    "docstring": "Return all users.", 
-    "endpoint": "get_users", 
-    "location": {
-      "filename": "%PATH%/examples/custom/blog.py", 
-      "line": 73
-    }, 
-    "methods": [
-      "GET", 
-      "HEAD", 
-      "OPTIONS"
-    ], 
-    "rule": "/users"
-  }, 
-  {
-    "args": [
-      "None"
-    ], 
-    "defaults": {}, 
-    "docstring": "Creates a new user.", 
-    "endpoint": "post_user", 
-    "form_data": [
-      "username"
-    ], 
-    "location": {
-      "filename": "%PATH%/examples/custom/blog.py", 
-      "line": 88
-    }, 
-    "methods": [
-      "OPTIONS", 
-      "POST"
-    ], 
-    "rule": "/users"
-  }
+    {
+        "args": [
+            "None"
+        ],
+        "defaults": {},
+        "docstring": "Return all posts.",
+        "endpoint": "get_posts",
+        "location": {
+            "filename": "%PATH%/examples/custom/blog.py",
+            "line": 47
+        },
+        "methods": [
+            "GET",
+            "HEAD",
+            "OPTIONS"
+        ],
+        "rule": "/"
+    },
+    {
+        "args": [
+            "None"
+        ],
+        "defaults": {},
+        "docstring": "Admin interface.",
+        "endpoint": "admin",
+        "location": {
+            "filename": "%PATH%/examples/custom/blog.py",
+            "line": 96
+        },
+        "methods": [
+            "GET",
+            "HEAD",
+            "OPTIONS"
+        ],
+        "rule": "/admin"
+    },
+    {
+        "args": [
+            "None"
+        ],
+        "defaults": {},
+        "docstring": "Create a new post.",
+        "endpoint": "post_post",
+        "form_data": [
+            "title",
+            "content",
+            "authorid"
+        ],
+        "location": {
+            "filename": "%PATH%/examples/custom/blog.py",
+            "line": 62
+        },
+        "methods": [
+            "OPTIONS",
+            "POST"
+        ],
+        "rule": "/post"
+    },
+    {
+        "args": [
+            "id"
+        ],
+        "defaults": {},
+        "docstring": "Return the post for the given id.",
+        "endpoint": "get_post",
+        "location": {
+            "filename": "%PATH%/examples/custom/blog.py",
+            "line": 54
+        },
+        "methods": [
+            "GET",
+            "HEAD",
+            "OPTIONS"
+        ],
+        "rule": "/post/<int:id>"
+    },
+    {
+        "args": [
+            "None"
+        ],
+        "defaults": {},
+        "docstring": "Return all posts.",
+        "endpoint": "get_posts",
+        "location": {
+            "filename": "%PATH%/examples/custom/blog.py",
+            "line": 47
+        },
+        "methods": [
+            "GET",
+            "HEAD",
+            "OPTIONS"
+        ],
+        "rule": "/posts"
+    },
+    {
+        "args": [
+            "id"
+        ],
+        "defaults": {},
+        "docstring": "Return the user for the given id.",
+        "endpoint": "get_user",
+        "location": {
+            "filename": "%PATH%/examples/custom/blog.py",
+            "line": 80
+        },
+        "methods": [
+            "GET",
+            "HEAD",
+            "OPTIONS"
+        ],
+        "rule": "/user/<int:id>"
+    },
+    {
+        "args": [
+            "None"
+        ],
+        "defaults": {},
+        "docstring": "Return all users.",
+        "endpoint": "get_users",
+        "location": {
+            "filename": "%PATH%/examples/custom/blog.py",
+            "line": 73
+        },
+        "methods": [
+            "GET",
+            "HEAD",
+            "OPTIONS"
+        ],
+        "rule": "/users"
+    },
+    {
+        "args": [
+            "None"
+        ],
+        "defaults": {},
+        "docstring": "Creates a new user.",
+        "endpoint": "post_user",
+        "form_data": [
+            "username"
+        ],
+        "location": {
+            "filename": "%PATH%/examples/custom/blog.py",
+            "line": 88
+        },
+        "methods": [
+            "OPTIONS",
+            "POST"
+        ],
+        "rule": "/users"
+    }
 ]

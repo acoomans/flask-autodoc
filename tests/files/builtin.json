@@ -1,1 +1,126 @@
-{"endpoints":[{"args":[],"docstring":"Return all posts.","methods":["GET","HEAD","OPTIONS"],"rule":"/"},{"args":[],"docstring":"Admin interface.","methods":["GET","HEAD","OPTIONS"],"rule":"/admin"},{"args":[["greeting","Hello"],["id",null]],"docstring":"Return the user for the given id.","methods":["GET","HEAD","OPTIONS"],"rule":"/greet/<greeting>/user/<int:id>"},{"args":[["id",-1]],"docstring":"Return the user for the given id.","methods":["GET","HEAD","OPTIONS"],"rule":"/hello/user/<int:id>"},{"args":[],"docstring":"Create a new post.\n    Form Data: title, content, authorid.\n    ","methods":["OPTIONS","POST"],"rule":"/post"},{"args":[["id",null]],"docstring":"Return the post for the given id.","methods":["GET","HEAD","OPTIONS"],"rule":"/post/<int:id>"},{"args":[],"docstring":"Return all posts.","methods":["GET","HEAD","OPTIONS"],"rule":"/posts"},{"args":[["id",null]],"docstring":"Return the user for the given id.","methods":["GET","HEAD","OPTIONS"],"rule":"/user/<int:id>"},{"args":[],"docstring":"Return all users.","methods":["GET","HEAD","OPTIONS"],"rule":"/users"},{"args":[],"docstring":"Creates a new user.\n    Form Data: username.\n    ","methods":["OPTIONS","POST"],"rule":"/users"}]}
+{
+  "endpoints": [
+    {
+      "args": [],
+      "docstring": "Return all posts.",
+      "methods": [
+        "GET",
+        "HEAD",
+        "OPTIONS"
+      ],
+      "rule": "/"
+    },
+    {
+      "args": [],
+      "docstring": "Admin interface.",
+      "methods": [
+        "GET",
+        "HEAD",
+        "OPTIONS"
+      ],
+      "rule": "/admin"
+    },
+    {
+      "args": [
+        [
+          "greeting",
+          "Hello"
+        ],
+        [
+          "id",
+          null
+        ]
+      ],
+      "docstring": "Return the user for the given id.",
+      "methods": [
+        "GET",
+        "HEAD",
+        "OPTIONS"
+      ],
+      "rule": "/greet/<greeting>/user/<int:id>"
+    },
+    {
+      "args": [
+        [
+          "id",
+          -1
+        ]
+      ],
+      "docstring": "Return the user for the given id.",
+      "methods": [
+        "GET",
+        "HEAD",
+        "OPTIONS"
+      ],
+      "rule": "/hello/user/<int:id>"
+    },
+    {
+      "args": [],
+      "docstring": "Create a new post.\n    Form Data: title, content, authorid.\n",
+      "methods": [
+        "OPTIONS",
+        "POST"
+      ],
+      "rule": "/post"
+    },
+    {
+      "args": [
+        [
+          "id",
+          null
+        ]
+      ],
+      "docstring": "Return the post for the given id.",
+      "methods": [
+        "GET",
+        "HEAD",
+        "OPTIONS"
+      ],
+      "rule": "/post/<int:id>"
+    },
+    {
+      "args": [],
+      "docstring": "Return all posts.",
+      "methods": [
+        "GET",
+        "HEAD",
+        "OPTIONS"
+      ],
+      "rule": "/posts"
+    },
+    {
+      "args": [
+        [
+          "id",
+          null
+        ]
+      ],
+      "docstring": "Return the user for the given id.",
+      "methods": [
+        "GET",
+        "HEAD",
+        "OPTIONS"
+      ],
+      "rule": "/user/<int:id>"
+    },
+    {
+      "args": [],
+      "docstring": "Return all users.",
+      "methods": [
+        "GET",
+        "HEAD",
+        "OPTIONS"
+      ],
+      "rule": "/users"
+    },
+    {
+      "args": [],
+      "docstring": "Creates a new user.\n    Form Data: username.\n",
+      "methods": [
+        "OPTIONS",
+        "POST"
+      ],
+      "rule": "/users"
+    }
+  ]
+}

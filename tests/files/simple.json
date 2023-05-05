@@ -1,1 +1,185 @@
-[{"args":["None"],"defaults":{},"docstring":"Return all posts.","endpoint":"get_posts","location":{"filename":"%PATH%/examples/simple/blog.py","line":45},"methods":["GET","HEAD","OPTIONS"],"rule":"/"},{"args":["None"],"defaults":{},"docstring":"Admin interface.","endpoint":"admin","location":{"filename":"%PATH%/examples/simple/blog.py","line":113},"methods":["GET","HEAD","OPTIONS"],"rule":"/admin"},{"args":["greeting","id"],"defaults":{"greeting":"Hello"},"docstring":"Return the user for the given id.","endpoint":"greet_user","location":{"filename":"%PATH%/examples/simple/blog.py","line":96},"methods":["GET","HEAD","OPTIONS"],"rule":"/greet/<greeting>/user/<int:id>"},{"args":["id"],"defaults":{"id":-1},"docstring":"Return the user for the given id.","endpoint":"hello_to_user","location":{"filename":"%PATH%/examples/simple/blog.py","line":86},"methods":["GET","HEAD","OPTIONS"],"rule":"/hello/user/<int:id>"},{"args":["None"],"defaults":{},"docstring":"Create a new post.\n    Form Data: title, content, authorid.\n    ","endpoint":"post_post","location":{"filename":"%PATH%/examples/simple/blog.py","line":59},"methods":["OPTIONS","POST"],"rule":"/post"},{"args":["id"],"defaults":{},"docstring":"Return the post for the given id.","endpoint":"get_post","location":{"filename":"%PATH%/examples/simple/blog.py","line":52},"methods":["GET","HEAD","OPTIONS"],"rule":"/post/<int:id>"},{"args":["None"],"defaults":{},"docstring":"Return all posts.","endpoint":"get_posts","location":{"filename":"%PATH%/examples/simple/blog.py","line":45},"methods":["GET","HEAD","OPTIONS"],"rule":"/posts"},{"args":["id"],"defaults":{},"docstring":"Return the user for the given id.","endpoint":"get_user","location":{"filename":"%PATH%/examples/simple/blog.py","line":79},"methods":["GET","HEAD","OPTIONS"],"rule":"/user/<int:id>"},{"args":["None"],"defaults":{},"docstring":"Return all users.","endpoint":"get_users","location":{"filename":"%PATH%/examples/simple/blog.py","line":72},"methods":["GET","HEAD","OPTIONS"],"rule":"/users"},{"args":["None"],"defaults":{},"docstring":"Creates a new user.\n    Form Data: username.\n    ","endpoint":"post_user","location":{"filename":"%PATH%/examples/simple/blog.py","line":103},"methods":["OPTIONS","POST"],"rule":"/users"}]
+[
+    {
+        "args": [
+            "None"
+        ],
+        "defaults": {},
+        "docstring": "Return all posts.",
+        "endpoint": "get_posts",
+        "location": {
+            "filename": "%PATH%/examples/simple/blog.py",
+            "line": 46
+        },
+        "methods": [
+            "GET",
+            "HEAD",
+            "OPTIONS"
+        ],
+        "rule": "/"
+    },
+    {
+        "args": [
+            "None"
+        ],
+        "defaults": {},
+        "docstring": "Admin interface.",
+        "endpoint": "admin",
+        "location": {
+            "filename": "%PATH%/examples/simple/blog.py",
+            "line": 114
+        },
+        "methods": [
+            "GET",
+            "HEAD",
+            "OPTIONS"
+        ],
+        "rule": "/admin"
+    },
+    {
+        "args": [
+            "greeting",
+            "id"
+        ],
+        "defaults": {
+            "greeting": "Hello"
+        },
+        "docstring": "Return the user for the given id.",
+        "endpoint": "greet_user",
+        "location": {
+            "filename": "%PATH%/examples/simple/blog.py",
+            "line": 97
+        },
+        "methods": [
+            "GET",
+            "HEAD",
+            "OPTIONS"
+        ],
+        "rule": "/greet/<greeting>/user/<int:id>"
+    },
+    {
+        "args": [
+            "id"
+        ],
+        "defaults": {
+            "id": -1
+        },
+        "docstring": "Return the user for the given id.",
+        "endpoint": "hello_to_user",
+        "location": {
+            "filename": "%PATH%/examples/simple/blog.py",
+            "line": 87
+        },
+        "methods": [
+            "GET",
+            "HEAD",
+            "OPTIONS"
+        ],
+        "rule": "/hello/user/<int:id>"
+    },
+    {
+        "args": [
+            "None"
+        ],
+        "defaults": {},
+        "docstring": "Create a new post.\n    Form Data: title, content, authorid.\n",
+        "endpoint": "post_post",
+        "location": {
+            "filename": "%PATH%/examples/simple/blog.py",
+            "line": 60
+        },
+        "methods": [
+            "OPTIONS",
+            "POST"
+        ],
+        "rule": "/post"
+    },
+    {
+        "args": [
+            "id"
+        ],
+        "defaults": {},
+        "docstring": "Return the post for the given id.",
+        "endpoint": "get_post",
+        "location": {
+            "filename": "%PATH%/examples/simple/blog.py",
+            "line": 53
+        },
+        "methods": [
+            "GET",
+            "HEAD",
+            "OPTIONS"
+        ],
+        "rule": "/post/<int:id>"
+    },
+    {
+        "args": [
+            "None"
+        ],
+        "defaults": {},
+        "docstring": "Return all posts.",
+        "endpoint": "get_posts",
+        "location": {
+            "filename": "%PATH%/examples/simple/blog.py",
+            "line": 46
+        },
+        "methods": [
+            "GET",
+            "HEAD",
+            "OPTIONS"
+        ],
+        "rule": "/posts"
+    },
+    {
+        "args": [
+            "id"
+        ],
+        "defaults": {},
+        "docstring": "Return the user for the given id.",
+        "endpoint": "get_user",
+        "location": {
+            "filename": "%PATH%/examples/simple/blog.py",
+            "line": 80
+        },
+        "methods": [
+            "GET",
+            "HEAD",
+            "OPTIONS"
+        ],
+        "rule": "/user/<int:id>"
+    },
+    {
+        "args": [
+            "None"
+        ],
+        "defaults": {},
+        "docstring": "Return all users.",
+        "endpoint": "get_users",
+        "location": {
+            "filename": "%PATH%/examples/simple/blog.py",
+            "line": 73
+        },
+        "methods": [
+            "GET",
+            "HEAD",
+            "OPTIONS"
+        ],
+        "rule": "/users"
+    },
+    {
+        "args": [
+            "None"
+        ],
+        "defaults": {},
+        "docstring": "Creates a new user.\n    Form Data: username.\n",
+        "endpoint": "post_user",
+        "location": {
+            "filename": "%PATH%/examples/simple/blog.py",
+            "line": 104
+        },
+        "methods": [
+            "OPTIONS",
+            "POST"
+        ],
+        "rule": "/users"
+    }
+]

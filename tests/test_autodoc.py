@@ -7,8 +7,6 @@ import os
 from flask import Flask
 from flask_selfdoc import Autodoc, Selfdoc
 
-from tests.config import NEW_FN_OFFSETS
-
 
 class TestAutodoc(unittest.TestCase):
 
@@ -261,8 +259,8 @@ class TestAutodoc(unittest.TestCase):
             self.assertIn('Returns arguments', doc)
 
     def testLocation(self):
-        offset = 4 if NEW_FN_OFFSETS else 3
-        line_no = inspect.stack()[0][2] + offset  # the doc() line
+        offset_to_def = 4
+        line_no = inspect.stack()[0].lineno + offset_to_def
 
         @self.app.route('/location')
         @self.autodoc.doc()
@@ -277,8 +275,8 @@ class TestAutodoc(unittest.TestCase):
             self.assertIn(self.thisFile(), d['location']['filename'])
 
     def testLocationWithExtraDecorators(self):
-        offset = 13 if NEW_FN_OFFSETS else 12
-        line_no = inspect.stack()[0][2] + offset  # the doc() line
+        offset_to_def = 13
+        line_no = inspect.stack()[0].lineno + offset_to_def
 
         def pointless_decorator():
             def fn(f):

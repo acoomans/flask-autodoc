@@ -1,6 +1,7 @@
 from json import dumps
 
-from flask import Flask, redirect, request, jsonify
+from flask import Flask, redirect, request
+from flask_selfdoc.autodoc import custom_jsonify
 from flask_selfdoc import Autodoc
 
 
@@ -128,12 +129,12 @@ def private_doc():
 
 @app.route('/doc/json')
 def public_doc_json():
-    return jsonify(auto.generate())
+    return custom_jsonify(auto.generate(), indent=4, separators=(',', ': '))
 
 
 @app.route('/doc/builtin_json')
 def public_doc_builtin_json():
-    return auto.json()
+    return auto.json(indent=2, separators=(',', ': '))
 
 
 if __name__ == '__main__':
