@@ -7,22 +7,40 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.7, 3.8, 3.9]
-        os: [ubuntu-18.04]
+        python-version: ['3.8', '3.9', '3.10']
         flask-version: [latest]
+        os: [ubuntu-20.04]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
+
       - name: Install poetry
-        run: pip install poetry
-      - name: Force the chosen flask version
-        run: poetry add flask==${{ matrix.flask-version }}
+        run: pip3 install poetry
+
+      - name: Force Python version (linux/macOS)
+        if: matrix.os != 'windows-latest'
+        # sed command for macOS: https://stackoverflow.com/a/44864004
+        run: sed -i.bak 's/python = "^3.6"/python = "~${{ matrix.python-version }}"/' pyproject.toml
+
+      - name: Force Python version (windows)
+        if: matrix.os == 'windows-latest'
+        run: (Get-Content pyproject.toml).replace('python = "^3.6"', 'python = "~${{ matrix.python-version }}"') | Set-Content pyproject.toml
+
+      - name: Force Flask version
+        run: poetry add Flask==${{ matrix.flask-version }}
+
       - name: Install requirements
         run: poetry install
+
+      - name: List installed package versions for manual inspection
+        run: poetry --version && poetry show
+
       - name: Test package
         run: poetry run test
+
       - name: Test package
         run: poetry run doctest

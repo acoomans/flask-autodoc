@@ -3,26 +3,174 @@ on:
    - pull_request
 
 jobs:
+
   testing:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.6, 3.7, 3.8, 3.9]
-        os: [ubuntu-18.04, macos-latest, windows-latest]
-        flask-version: ["1.0", 1.1, "2.0", latest]
+        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10', '3.x']
+        flask-version: ['1.0', '1.1', '2.0', '2.1', 'latest']
+        os: [ubuntu-20.04, macos-latest, windows-latest]
+        exclude:
+          # starting from Flask 2.1.0, python 3.6 is no longer supported:
+          - flask-version: '2.1'
+            python-version: '3.6'
+
+          - flask-version: 'latest'
+            python-version: '3.6'
+
+          # old versions of Flask no longer working with python >= 3.10:
+          - flask-version: '1.0'
+            python-version: '3.10'
+
+          - flask-version: '1.0'
+            python-version: '3.x'
+
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install poetry
-        run: pip install poetry
-      - name: Force the chosen flask version
-        run: poetry add flask==${{ matrix.flask-version }}
-      - name: Install requirements
-        run: poetry install
+
+      - name: Install dev dependencies (python 3.6)
+        if: matrix.python-version == '3.6'
+        run: |
+          pip3 install poetry
+          poetry export --dev --without-hashes --format requirements.txt --output requirements-dev.txt
+          pip3 install -r requirements-dev.txt
+
+      - name: Install Flask ${{ matrix.flask-version }}
+        if: matrix.flask-version != 'latest'
+        run: pip3 install Flask==${{ matrix.flask-version }}
+
+      - name: Install latest Flask
+        if: matrix.flask-version == 'latest'
+        run: pip3 install Flask
+
+      - name: Install dev dependencies (python >= 3.7)
+        if: matrix.python-version != '3.6'
+        run: |
+          pip3 install poetry
+          poetry export --only dev --format requirements.txt --output requirements-dev.txt
+          pip3 install -r requirements-dev.txt
+
+      - name: Overwrite Flask dependencies for legacy install
+        if: matrix.flask-version < '2.0' && matrix.flask-version != 'latest'
+        run: |
+          pip3 install "Jinja2<3.0"
+          pip3 install "MarkupSafe<=2.0.1"
+          pip3 install "itsdangerous<=2.0.1"
+
+      - name: Overwrite Flask dependencies for legacy install (2)
+        if: matrix.flask-version < '2.1' && matrix.flask-version != 'latest'
+        run: pip3 install "werkzeug<=2.0.3"
+
+      - name: List installed package versions for manual inspection
+        run: python3 --version && pip3 list
+
       - name: Run unit tests
-        run: poetry run test
+        run: python3 -c "from run_tests import test; test()"
+
       - name: Run doctests
-        run: poetry run doctest
+        run: python3 -c "from run_tests import run_doctest; run_doctest()"
+
+  check_pip_install:
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10', '3.x']
+        flask-version: ['1.0', '1.1', '2.0', '2.1', 'latest']
+        os: [ubuntu-20.04, macos-latest, windows-latest]
+        exclude:
+          # starting from Flask 2.1.0, python 3.6 is no longer supported:
+          - flask-version: '2.1'
+            python-version: '3.6'
+
+          - flask-version: 'latest'
+            python-version: '3.6'
+
+          # old versions of Flask no longer working with python >= 3.10:
+          - flask-version: '1.0'
+            python-version: '3.10'
+
+          - flask-version: '1.0'
+            python-version: '3.x'
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dev dependencies (python 3.6)
+        # actually installs all dependencies (no --only flag in this version)
+        # so we run this without installing the target Flask version
+        if: matrix.python-version == '3.6'
+        run: |
+          pip3 install poetry
+          poetry export --dev --without-hashes --format requirements.txt --output requirements-dev.txt
+          pip3 install -r requirements-dev.txt
+
+      - name: Install Flask ${{ matrix.flask-version }}
+        if: matrix.flask-version != 'latest'
+        run: pip3 install Flask==${{ matrix.flask-version }}
+
+      - name: Install latest Flask
+        if: matrix.flask-version == 'latest'
+        run: pip3 install Flask
+
+      - name: Install current flask-selfdoc from GitHub (linux/macOS)
+        if: matrix.os != 'windows-latest'
+        run: |
+          git_url="${{ github.event.pull_request.head.repo.git_url }}@${{ github.event.pull_request.head.ref }}"
+          git_url="git+https${git_url:3}"
+          pip3 install ${git_url}
+
+      - name: Install current flask-selfdoc from GitHub (windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          $git_url = "${{ github.event.pull_request.head.repo.git_url }}@${{ github.event.pull_request.head.ref }}"
+          $git_url = $git_url.subString(3)
+          $git_url = "git+https$git_url"
+          pip3 install $git_url
+
+      - name: Install dev dependencies (python >= 3.7)
+        if: matrix.python-version != '3.6'
+        run: |
+          pip3 install poetry
+          poetry export --only dev --format requirements.txt --output requirements-dev.txt
+          pip3 install -r requirements-dev.txt
+
+      - name: Overwrite Flask dependencies for legacy install
+        if: matrix.flask-version < '2.0' && matrix.flask-version != 'latest'
+        run: |
+          pip3 install "Jinja2<3.0"
+          pip3 install "MarkupSafe<=2.0.1"
+          pip3 install "itsdangerous<=2.0.1"
+
+      - name: Overwrite Flask dependencies for legacy install (2)
+        if: matrix.flask-version < '2.1' && matrix.flask-version != 'latest'
+        run: pip3 install "werkzeug<=2.0.3"
+
+      - name: List installed package versions for manual inspection
+        run: python3 --version && pip3 list
+
+      - name: Check that Flask version did not change
+        # not implemented for windows yet
+        if: matrix.flask-version != 'latest' && matrix.os != 'windows-latest'
+        run: |
+          flask_version=$(pip3 show Flask | grep Version:)
+          echo "found Flask ${flask_version}"
+          if [[ $(pip3 show Flask | grep Version) == *"Version: ${{ matrix.flask-version }}"* ]]
+          then
+            echo "No reinstall of Flask was done 👍"
+          else
+            exit 1
+          fi
+
+      - name: Try importing flask_selfdoc
+        run: python3 -c "import flask_selfdoc"

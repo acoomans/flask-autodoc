@@ -9,22 +9,29 @@ jobs:
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, 'nodeploy')"
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v4
         with:
           python-version: 3.7
+
       - name: Install poetry
         run: pip install poetry
+
       - name: Install requirements
         run: poetry install
+
       - name: Build package
         run: poetry build
+
       - name: Test package
         run: poetry run pytest
+
       - name: Check if already uploaded
         id: check_pypi
         run: poetry run check_pypi_prerelease
         continue-on-error: true
+
       - name: publish to pypi
         run: poetry publish -u __token__ -p ${{ secrets.PYPI_TOKEN }}
         if: steps.check_pypi.outcome == 'success'
