@@ -25,9 +25,13 @@ except ImportError:
     Markup = markupsafe.Markup
 
 try:
-    from flask import _app_ctx_stack as stack
+    from flask.globals import _cv_app
 except ImportError:
-    from flask import _request_ctx_stack as stack
+    _cv_app = None
+    try:
+        from flask import _app_ctx_stack as stack
+    except ImportError:
+        from flask import _request_ctx_stack as stack
 
 
 if sys.version < '3':
@@ -58,7 +62,10 @@ class Autodoc(object):
         self.add_custom_template_filters(app)
 
     def teardown(self, exception):
-        ctx = stack.top  # noqa: F841
+        if _cv_app is not None:
+            ctx = _cv_app.get(None)  # noqa: F841
+        else:
+            ctx = stack.top  # noqa: F841
 
     def add_custom_template_filters(self, app):
         """Add custom filters to jinja2 templating engine"""

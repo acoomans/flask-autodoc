@@ -7,7 +7,11 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.6"
-Flask = "^1.0"
+Flask = [
+    {python = "~3.6", version = ">=1.0, <2.1"},
+    {python = ">=3.7, <3.10", version = ">=1.0"},
+    {python = "~3.10", version = ">=1.1"}
+]
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
